@@ -5,19 +5,19 @@ class MittBus {
 	/**
 	 * 存储事件
 	 */
-	private events: Record<string, Function>;
+	private events: Record<string, Function[]>;
 	constructor() {
 		this.events = {};
 	}
 	/**
 	 * 开始监听事件
-	 * 注：暂不支持id重复的事件
 	 * @param eventId 事件id
 	 * @param func 回调函数
 	 */
 	public on(eventId: string, func: Function) {
-		if (this.events[eventId] || !func) return;
-		this.events[eventId] = func;
+		if (!func) return;
+		if (!this.events[eventId]) this.events[eventId] = [];
+		this.events[eventId].push(func);
 	}
 	/**
 	 * 触发事件
@@ -26,7 +26,9 @@ class MittBus {
 	 */
 	public emit<T = any>(eventId: string, params: T) {
 		if (!this.events[eventId]) return;
-		this.events[eventId](params);
+		this.events[eventId].forEach(func => {
+			func(params);
+		});
 	}
 	/**
 	 * 取消事件监听

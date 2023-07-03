@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { mapFactory } from "vue3-use-cesium/core/index";
 import { getState, setMapId } from "vue3-use-cesium/core/store";
 import help from "./components/help.vue";
@@ -46,6 +46,13 @@ const createBaseMap = async () => {
 	isCreated = true;
 };
 mittBus.on("createBasemap", createBaseMap);
+
+// 组件销毁
+onBeforeUnmount(() => {
+	isCreated = false;
+	mittBus.dispose();
+	mapFactory.remove(mapId, true);
+});
 </script>
 
 <style lang="scss" scoped>

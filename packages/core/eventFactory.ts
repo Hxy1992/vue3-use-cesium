@@ -209,14 +209,14 @@ export class EventFactory {
 	/**
 	 * 清空事件列表
 	 * @param {String} eventType 事件类型，为空时清空所有类型的事件
+	 * @param force 强制清空所有
 	 */
-	clear(eventType?: MapTypes.eventTypes) {
+	clear(eventType?: MapTypes.eventTypes, force = false) {
 		if (eventType && !EventType[eventType]) return false;
 		const empty = (t: any) => {
 			const eventList = this.events[t];
 			for (let i = eventList.length - 1; i >= 0; i--) {
-				if (!eventList[i].disabledClear) {
-					// 排除禁止清空的事件
+				if (force || !eventList[i].disabledClear) {
 					eventList.splice(i, 1);
 				}
 			}
@@ -236,6 +236,7 @@ export class EventFactory {
 	 */
 	dispose() {
 		if (!this.viewer || this.viewer.isDestroyed()) return;
+		this.clear(undefined, true);
 		// 移除地图移动开始事件
 		this.viewer.camera.moveStart.removeEventListener(this.onMoveStartMap);
 		this.onMoveStartMap = null;

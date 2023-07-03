@@ -44,7 +44,7 @@ class MapFactory {
 		return uuid;
 	}
 	/**
-	 * 添加静态地图（永不删除）
+	 * 添加静态地图（clear方法不删除）
 	 * @param dom 参考add方法
 	 * @param options 参考add方法
 	 */
@@ -56,9 +56,11 @@ class MapFactory {
 	/**
 	 * 删除地图
 	 * @param uuid 地图id
+	 * @param force 强制删除(用于删除静态地图)
 	 */
-	remove(uuid: string) {
-		if (this.staticMap[uuid]) return;
+	remove(uuid: string, force = false) {
+		const disabled = force ? false : this.staticMap[uuid];
+		if (disabled) return;
 		this.disposeViewer(uuid);
 		delete this.viewerMap[uuid];
 		delete this.eventMap[uuid];
