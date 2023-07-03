@@ -24,7 +24,7 @@
 		"lint:eslint": "eslint --fix --ext .js,.ts,.vue ./packages",
 		"lint:prettier": "prettier --write --loglevel warn \"packages/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
 		"lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-		"lint:lint-staged": "",
+		"lint:lint-staged": "lint-staged",
 		"prepare": "husky install",
 		"commit": "git pull && git add -A && git-cz && git push"
 	},

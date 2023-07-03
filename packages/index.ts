@@ -1,4 +1,3 @@
-// 主
 import { mapFactory } from "./core/index";
 import { getState } from "./core/store";
 import { loaderScript } from "./utils/loaderScript";
