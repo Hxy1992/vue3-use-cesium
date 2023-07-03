@@ -1,0 +1,10 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"declaration": true,
+		"isolatedModules": false,
+		"emitDeclarationOnly": true,
+		"outFile": "./dist/index.d.ts"
+	},
+	"include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.tsx", "packages/**/*.vue"]
+}

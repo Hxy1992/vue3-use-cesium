@@ -1,0 +1,34 @@
+.details-page-content {
+	.el-row {
+		margin-bottom: 24px;
+	}
+	.el-form-item {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 0;
+	}
+	.el-select {
+		width: 100%;
+	}
+	.btn {
+		width: 143px;
+	}
+	.title {
+		font-size: 20px;
+	}
+	.sub-title {
+		position: relative;
+		padding-left: 15px;
+		font-size: 16px;
+		&::before {
+			position: absolute;
+			top: 7px;
+			left: 0;
+			width: 8px;
+			height: 8px;
+			content: "";
+			background-color: #4064e2;
+			border-radius: 50%;
+		}
+	}
+}

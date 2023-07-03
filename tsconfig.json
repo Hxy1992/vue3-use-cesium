@@ -1,0 +1,51 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"useDefineForClassFields": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		// element 类型提示
+		// "types": ["element-plus/global"],
+
+		/* Strict Type-Checking Options */
+		"strict": true /* Enable all strict type-checking options. */,
+		// "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+		// "strictNullChecks": true,              /* Enable strict null checks. */
+		// "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+		// "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+		// "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+		// "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+		// "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+
+		"jsx": "preserve",
+		// "allowJs": true, // 当vue组件内存在js时，需启用allowJs
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		// 跳过第三方库检查，解决打包失败
+		"skipLibCheck": true,
+		"lib": ["esnext", "dom"],
+		// 解析非相对模块名的基准目录
+		"baseUrl": "./",
+		// 模块名到基于 baseUrl 的路径映射的列表。
+		"paths": {
+			"@": ["website"],
+			"@/*": ["website/*"],
+			"vue3-use-cesium": ["packages"],
+			"vue3-use-cesium/*": ["packages/*"]
+		}
+	},
+	"include": [
+		"packages/**/*.ts",
+		"packages/**/*.d.ts",
+		"packages/**/*.tsx",
+		"packages/**/*.vue",
+		"website/**/*.ts",
+		"website/**/*.d.ts",
+		"website/**/*.tsx",
+		"website/**/*.vue",
+		"vite.config.ts"
+	],
+	"exclude": ["node_modules", "dist", "**/*.js"]
+}

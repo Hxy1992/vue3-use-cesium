@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["website/**/.js"]
+		}
+	},
+	"exclude": ["node_modules", "dist"]
+}
