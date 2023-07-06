@@ -10,20 +10,11 @@ export function morphMap(viewer: any, type: "2d" | "3d") {
 	const scene = viewer.scene;
 	if (type === "3d") {
 		scene.morphTo3D(0);
-		// scene.backgroundColor = Cesium.Color.BLACK;
-		// scene.globe.baseColor = Cesium.Color.BLACK;
 		scene.screenSpaceCameraController.enableRotate = true;
-		scene.globe.depthTestAgainstTerrain = false;
 	} else {
 		viewer.scene.morphTo2D(0);
-		// scene.backgroundColor = Cesium.Color.WHITE;
-		// scene.globe.baseColor = Cesium.Color.WHITE;
 		scene.screenSpaceCameraController.enableRotate = false;
-		scene.globe.depthTestAgainstTerrain = true;
 	}
-	// 设置相机最大最小距离
-	// scene.screenSpaceCameraController.minimumZoomDistance = 499;
-	scene.screenSpaceCameraController.maximumZoomDistance = 16328217;
 }
 
 /**

@@ -44,7 +44,7 @@ router.beforeEach(async (to, from, next) => {
 
 	// 页面是包含地图
 	if (to.meta.hasMap) {
-		await initMap(cesiumVersions[0], cesiumVersions[1]);
+		await initMap(cesiumVersions);
 	}
 
 	// 6.正常访问页面

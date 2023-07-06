@@ -36,22 +36,6 @@ export async function setImagery(viewer: any, layer: MapTypes.imageryTypes, lang
 			viewer.scene.imageryLayers.get(1).magnificationFilter = Cesium.TextureMagnificationFilter.NEAREST;
 			break;
 		}
-		// 百度地图-- 电子在线
-		// case "bd-vec": {
-		// 	// viewer.scene.globe.maximumScreenSpaceError = 1.3;
-		// 	viewer.imageryLayers.addImageryProvider(
-		// 		new modules.BaiduImageryProvider({
-		// 			crs: "WGS84"
-		// 		})
-		// 	);
-		// 	break;
-		// }
-		// arcgis离线瓦片
-		case "arcgis-offline": {
-			// viewer.scene.globe.maximumScreenSpaceError = 1.3;
-			viewer.imageryLayers.addImageryProvider(createArcGISOfflineTiles(url));
-			break;
-		}
 		// tms离线瓦片
 		case "tms-offline": {
 			const tms = new Cesium.UrlTemplateImageryProvider({
@@ -70,33 +54,33 @@ export async function setImagery(viewer: any, layer: MapTypes.imageryTypes, lang
 			);
 			break;
 		}
-		// // arcgis在线-colour(存在偏移)
-		// case "geoq-colour": {
-		// 	viewer.imageryLayers.addImageryProvider(
-		// 		new Cesium.UrlTemplateImageryProvider({
-		// 			url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}"
-		// 		})
-		// 	);
-		// 	break;
-		// }
-		// // arcgis在线-gray(存在偏移)
-		// case "geoq-gray": {
-		// 	viewer.imageryLayers.addImageryProvider(
-		// 		new Cesium.UrlTemplateImageryProvider({
-		// 			url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}"
-		// 		})
-		// 	);
-		// 	break;
-		// }
-		// // arcgis在线-Midnightblue(存在偏移)
-		// case "geoq-midnightblue": {
-		// 	viewer.imageryLayers.addImageryProvider(
-		// 		new Cesium.UrlTemplateImageryProvider({
-		// 			url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}"
-		// 		})
-		// 	);
-		// 	break;
-		// }
+		// arcgis在线-colour(存在偏移)
+		case "geoq-colour": {
+			viewer.imageryLayers.addImageryProvider(
+				new Cesium.UrlTemplateImageryProvider({
+					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}"
+				})
+			);
+			break;
+		}
+		// arcgis在线-gray(存在偏移)
+		case "geoq-gray": {
+			viewer.imageryLayers.addImageryProvider(
+				new Cesium.UrlTemplateImageryProvider({
+					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}"
+				})
+			);
+			break;
+		}
+		// arcgis在线-Midnightblue(存在偏移)
+		case "geoq-midnightblue": {
+			viewer.imageryLayers.addImageryProvider(
+				new Cesium.UrlTemplateImageryProvider({
+					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}"
+				})
+			);
+			break;
+		}
 		// carto-darkall
 		case "carto-darkall": {
 			viewer.imageryLayers.addImageryProvider(
@@ -115,20 +99,6 @@ export async function setImagery(viewer: any, layer: MapTypes.imageryTypes, lang
 			);
 			break;
 		}
-		// 腾讯地图-- 电子在线(存在偏移)
-		// case "tencent-vec": {
-		// 	viewer.imageryLayers.addImageryProvider(new modules.TencentImageryProvider({}));
-		// 	break;
-		// }
-		// 腾讯地图-- 卫星在线(存在偏移)
-		// case "tencent-img": {
-		// 	viewer.imageryLayers.addImageryProvider(
-		// 		new modules.TencentImageryProvider({
-		// 			style: "img"
-		// 		})
-		// 	);
-		// 	break;
-		// }
 		// 无底图
 		case "empty": {
 			viewer.imageryLayers.removeAll();

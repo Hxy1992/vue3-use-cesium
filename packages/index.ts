@@ -2,6 +2,7 @@ import { mapFactory } from "./core/index";
 import { getState } from "./core/store";
 import { loaderScript } from "./utils/loaderScript";
 import { mittBus } from "./utils/mittBus";
+import { MapTypes } from "vue3-use-cesium/types";
 
 export { default as BaseMap } from "./baseMap/index.vue";
 export { setToTarget, setViewType, setVisible, setTools } from "./core/store";
@@ -17,19 +18,29 @@ export function getViewer() {
 	return mapFactory.get(baseMapStore.mapId);
 }
 /**
- * 地图初始化
- * @description 传入cesium的cdn地址，加载js后，创建地图实例
- * @param cesiumJsUrl cesium库js文件地址
- * @param cesiumCssUrl cesium库css文件地址
+ * 获取事件管理EventFactory
+ * @returns EventFactory
  */
-export function initMap(cesiumJsUrl: string, cesiumCssUrl: string) {
-	return new Promise(async (resolve, reject) => {
+export function getEventFactory() {
+	if (!baseMapStore.mapId) return null;
+	return mapFactory.getEvent(baseMapStore.mapId);
+}
+/**
+ * 地图初始化
+ * @description 按需加载cesium库js和css文件，创建并返回地图实例
+ * @param cesiumUrls cesium库js, css文件地址
+ * @param options 配置参数
+ * @returns Promise
+ */
+export function initMap(cesiumUrls: string[], options?: MapTypes.mapOptionInterface) {
+	return new Promise<boolean>(async (resolve, reject) => {
 		try {
-			await loaderScript([cesiumJsUrl, cesiumCssUrl]);
-			mittBus.emit("createBasemap", null);
+			await loaderScript(cesiumUrls);
+			mittBus.emit("createBasemap", options);
 			resolve(true);
 		} catch (err) {
-			reject(err);
+			console.error(err);
+			reject(false);
 		}
 	});
 }
@@ -46,6 +57,7 @@ export function clearMapEvents(): void {
 }
 /**
  * 清空地图元素
+ * @description primitives需另外自行清空
  * @returns void
  */
 export function clearMapElements(): void {
@@ -54,5 +66,4 @@ export function clearMapElements(): void {
 	const viewer = mapFactory.get(mapUid);
 	viewer.entities?.removeAll();
 	viewer.dataSources?.removeAll();
-	// viewer.scene.primitives?.removeAll();
 }

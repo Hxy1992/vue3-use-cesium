@@ -37,7 +37,7 @@ class MapFactory {
 	 * @param options 参数
 	 * @returns 地图id
 	 */
-	async add(dom: HTMLElement | null, options: MapTypes.mapOptionInterface) {
+	async add(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
 		const uuid = generateUUID();
 		this.viewerMap[uuid] = await createMap(dom, options);
 		this.eventMap[uuid] = createFactory(this.viewerMap[uuid]);
@@ -48,7 +48,7 @@ class MapFactory {
 	 * @param dom 参考add方法
 	 * @param options 参考add方法
 	 */
-	async addStatic(dom: HTMLElement | null, options: MapTypes.mapOptionInterface) {
+	async addStatic(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
 		const uuid = await this.add(dom, options);
 		this.staticMap[uuid] = true;
 		return uuid;
@@ -101,8 +101,8 @@ export const mapFactory = new MapFactory();
  * @param threeD 是否3d
  * @returns 地图实例
  */
-async function createMap(dom: HTMLElement | null, options: MapTypes.mapOptionInterface) {
-	const { threeD = false, imagery, extra = {} } = options || {};
+async function createMap(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
+	const { viewType = "3d", imagery, extra = {} } = options || {};
 	if (!dom) return;
 	const viewer = new Cesium.Viewer(dom, {
 		terrainProvider: Cesium.EllipsoidTerrainProvider(),
@@ -118,11 +118,11 @@ async function createMap(dom: HTMLElement | null, options: MapTypes.mapOptionInt
 		homeButton: false,
 		selectionIndicator: false,
 		showRenderLoopErrors: false, // 发生渲染循环错误时，显示HTML面板
-		...extra,
 		imageryProvider: new Cesium.UrlTemplateImageryProvider({
 			url: "https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png",
 			subdomains: ["a", "b", "c"]
-		})
+		}),
+		...extra
 	});
 	viewer.container.querySelector(".cesium-viewer-bottom").style.display = "none"; // 隐藏log
 	viewer.container.querySelector(".cesium-viewer-toolbar").style.display = "none"; // 隐藏工具栏
@@ -142,9 +142,9 @@ async function createMap(dom: HTMLElement | null, options: MapTypes.mapOptionInt
 	viewer.scene.globe.showWaterEffect = false;
 	viewer.scene.globe.showGroundAtmosphere = false;
 	// 视图3D/2D
-	morphMap(viewer, threeD ? "3d" : "2d");
+	morphMap(viewer, viewType);
 	// 默认地图
-	setImagery(viewer, imagery || "tdt-img", "zh");
+	if (imagery) setImagery(viewer, imagery, "zh");
 	errorHandle(viewer);
 	return viewer;
 }

@@ -29,6 +29,7 @@ import viewSet from "./components/viewSet.vue";
 import mapScale from "./components/mapScale.vue";
 import coodinations from "./components/coodinations.vue";
 import { mittBus } from "vue3-use-cesium/utils/mittBus";
+import { MapTypes } from "vue3-use-cesium/types";
 
 let mapId: string;
 const mapRef = ref();
@@ -37,9 +38,9 @@ const coodsRef = ref();
 const baseMapStore = getState();
 
 let isCreated = false; // 标识只能创建一次
-const createBaseMap = async () => {
+const createBaseMap = async (options?: MapTypes.mapOptionInterface) => {
 	if (isCreated) return; // 只能创建一个
-	mapId = await mapFactory.addStatic(mapRef.value, { threeD: true });
+	mapId = await mapFactory.addStatic(mapRef.value, options);
 	setMapId(mapId);
 	coodsRef.value.initCoods(mapId);
 	scaleRef.value.initScale(mapId);
