@@ -1,5 +1,5 @@
-import { generateUUID } from "vue3-use-cesium/utils/index";
-import { MapTypes } from "vue3-use-cesium/types";
+import { generateUUID } from "../utils/index";
+import type { MapTypes } from "../types";
 
 export const EventType = Object.freeze({
 	/**

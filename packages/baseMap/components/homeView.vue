@@ -7,9 +7,13 @@
 	</div>
 </template>
 
-<script setup lang="ts">
-import { mapFactory } from "vue3-use-cesium/core/index";
-import { getState } from "vue3-use-cesium/core/store";
+<script setup lang="ts" name="BaseMapHomeView">
+import { mapFactory } from "../../core/index";
+import { getState } from "../../core/store";
+
+defineOptions({
+	name: "BaseMapHomeView"
+});
 
 const baseMapStore = getState();
 

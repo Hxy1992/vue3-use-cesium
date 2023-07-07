@@ -5,11 +5,15 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="BaseMapViewSet">
 import { computed, ref } from "vue";
-import { mapFactory } from "vue3-use-cesium/core/index";
-import { getState, setViewType } from "vue3-use-cesium/core/store";
-import { morphMap, getCameraHeight } from "vue3-use-cesium/core/util";
+import { mapFactory } from "../../core/index";
+import { getState, setViewType } from "../../core/store";
+import { morphMap, getCameraHeight } from "../../core/util";
+
+defineOptions({
+	name: "BaseMapViewSet"
+});
 
 const baseMapStore = getState();
 const isAnimating = ref(false);

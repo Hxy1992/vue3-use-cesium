@@ -7,9 +7,13 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="BaseMapMapScale">
 import { ref } from "vue";
-import { mapFactory } from "vue3-use-cesium/core/index";
+import { mapFactory } from "../../core/index";
+
+defineOptions({
+	name: "BaseMapMapScale"
+});
 
 const distanceLabel = ref<string | undefined>();
 const barWidth = ref<number | undefined>();

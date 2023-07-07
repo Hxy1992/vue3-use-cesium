@@ -1,8 +1,8 @@
-import { generateUUID } from "vue3-use-cesium/utils/index";
+import { generateUUID } from "../utils/index";
 import { createFactory, EventFactory } from "./eventFactory";
 import { setImagery } from "./imagery";
 import { morphMap } from "./util";
-import { MapTypes } from "vue3-use-cesium/types";
+import type { MapTypes } from "../types";
 
 interface MapEventType {
 	[key: string]: EventFactory;

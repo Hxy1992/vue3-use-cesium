@@ -4,10 +4,14 @@
 	</div>
 </template>
 
-<script setup lang="ts">
-import { mapFactory } from "vue3-use-cesium/core/index";
-import { getState } from "vue3-use-cesium/core/store";
-import { recoverNorth } from "vue3-use-cesium/core/util";
+<script setup lang="ts" name="BaseMapRecoverNoth">
+import { mapFactory } from "../../core/index";
+import { getState } from "../../core/store";
+import { recoverNorth } from "../../core/util";
+
+defineOptions({
+	name: "BaseMapRecoverNoth"
+});
 
 const baseMapStore = getState();
 const north = () => {

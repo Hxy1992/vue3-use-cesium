@@ -1,7 +1,7 @@
 // 简易存储器
 
 import { reactive } from "vue";
-import { StoreType } from "vue3-use-cesium/types";
+import type { StoreType } from "../types";
 
 const state = reactive<StoreType.baseMapType>({
 	mapId: null,

@@ -99,8 +99,12 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="BaseMapHelp">
 import { ref } from "vue";
+
+defineOptions({
+	name: "BaseMapHelp"
+});
 
 // 鼠标操作
 const navigation = ref("left");

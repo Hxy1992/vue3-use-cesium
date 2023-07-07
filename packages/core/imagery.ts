@@ -1,5 +1,5 @@
 // 底图图层管理
-import { MapTypes } from "vue3-use-cesium/types";
+import type { MapTypes } from "../types";
 
 /**
  * 设置图层

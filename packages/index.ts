@@ -2,10 +2,27 @@ import { mapFactory } from "./core/index";
 import { getState } from "./core/store";
 import { loaderScript } from "./utils/loaderScript";
 import { mittBus } from "./utils/mittBus";
-import { MapTypes } from "vue3-use-cesium/types";
-
-export { default as BaseMap } from "./baseMap/index.vue";
+import type { MapTypes } from "./types";
+import type { App } from "vue";
 export { setToTarget, setViewType, setVisible, setTools } from "./core/store";
+
+import BaseMap from "./baseMap/index";
+const components = [BaseMap];
+export function install(app: App) {
+	components.forEach(item => {
+		if (item.install!) {
+			app.use(item);
+		} else if (item.name) {
+			app.component(item.name, item);
+		}
+	});
+}
+export { BaseMap };
+const main: Record<string, unknown> = {
+	install,
+	components
+};
+export default main;
 
 const baseMapStore = getState();
 

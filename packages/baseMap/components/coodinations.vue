@@ -2,9 +2,13 @@
 	<div v-show="coodinationVisible" class="coods-label">鼠标位置: {{ coodination.x }}, {{ coodination.y }}</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="BaseMapCoodinations">
 import { ref } from "vue";
-import { mapFactory } from "vue3-use-cesium/core/index";
+import { mapFactory } from "../../core/index";
+
+defineOptions({
+	name: "BaseMapCoodinations"
+});
 
 const coodinationVisible = ref(true);
 const coodination = ref({

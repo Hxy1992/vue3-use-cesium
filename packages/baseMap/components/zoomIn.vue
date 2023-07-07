@@ -4,10 +4,14 @@
 	</div>
 </template>
 
-<script setup lang="ts">
-import { mapFactory } from "vue3-use-cesium/core/index";
-import { getState } from "vue3-use-cesium/core/store";
-import { setZoomInOrOut } from "vue3-use-cesium/core/util";
+<script setup lang="ts" name="BaseMapZoomIn">
+import { mapFactory } from "../../core/index";
+import { getState } from "../../core/store";
+import { setZoomInOrOut } from "../../core/util";
+
+defineOptions({
+	name: "BaseMapZoomIn"
+});
 
 const baseMapStore = getState();
 
