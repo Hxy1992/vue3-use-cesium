@@ -1,0 +1,70 @@
+{
+	"name": "vue3-use-cesium",
+	"author": "Hxy1992",
+	"version": "0.0.2",
+	"description": "在 Vue3 中简洁、快速的使用 Cesium",
+	"main": "lib/index.js",
+	"module": "es/index.mjs",
+	"types": "es/index.d.ts",
+	"unpkg": "dist/index.min.js",
+	"jsdelivr": "dist/index.min.js",
+	"exports": {
+		".": {
+			"types": "./es/index.d.ts",
+			"import": "./es/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./style": "./dist/style.css"
+	},
+	"files": [
+		"dist",
+		"es",
+		"lib"
+	],
+	"keywords": [
+		"vue3",
+		"cesium",
+		"use"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
+	"scripts": {
+		"build": "gulp --require @esbuild-kit/cjs-loader -f scripts/build/index.ts"
+	},
+	"peerDependencies": {
+		"vue": "^3.x"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@esbuild-kit/cjs-loader": "^2.3.3",
+		"@rollup/plugin-commonjs": "^22.0.2",
+		"@rollup/plugin-node-resolve": "^13.3.0",
+		"@types/fs-extra": "^9.0.13",
+		"@types/gulp": "^4.0.9",
+		"@vitejs/plugin-vue": "^3.0.3",
+		"@vitejs/plugin-vue-jsx": "^2.0.0",
+		"@vue/shared": "^3.3.4",
+		"esbuild": "^0.15.5",
+		"execa": "^6.1.0",
+		"fs-extra": "^10.1.0",
+		"gulp": "^4.0.2",
+		"sass": "^1.49.7",
+		"happy-dom": "^6.0.4",
+		"rollup": "^2.78.1",
+		"rollup-plugin-esbuild": "^4.9.3",
+		"rollup-plugin-scss": "^4.0.0",
+		"tsx": "^3.8.2",
+		"typescript": "^4.7.4",
+		"unplugin-vue-define-options": "^0.10.0",
+		"vite": "^3.0.5",
+		"vue": "^3.2.37",
+		"vue-tsc": "^0.40.1"
+	},
+	"sideEffects": [
+		"dist/*",
+		"es/**/*.css",
+		"lib/**/*.scss",
+		"es/**/style/*",
+		"lib/**/style/*"
+	]
+}

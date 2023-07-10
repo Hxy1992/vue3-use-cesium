@@ -21,7 +21,9 @@ yarn add vue3-use-cesium # npm i vue3-use-cesium --save
 
 - **使用**
 
-1. 在 App.vue 中使用组件，示例如下：
+1. 引入组件和样式
+
+在 App.vue 中使用组件，示例如下：
 
 ```vue
 <template>
@@ -32,6 +34,12 @@ yarn add vue3-use-cesium # npm i vue3-use-cesium --save
 import { BaseMap } from "vue3-use-cesium";
 </script>
 ```
+
+在main.js引入样式：
+```typescript
+import "vue3-use-cesium/style";
+```
+
 
 2. 在路由拦截中加载初始化并加载 Cesium.js
 

@@ -1,25 +1,8 @@
 {
-	"name": "vue3-use-cesium",
+	"name": "root",
+	"private": true,
 	"author": "Hxy1992",
-	"version": "0.0.2",
 	"description": "在 Vue3 中简洁、快速的使用 Cesium",
-	"main": "./dist/index.cjs.js",
-	"module": "./dist/index.es.js",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"dev": "vite",
-		"serve": "vite",
-		"build": "gulp --require @esbuild-kit/cjs-loader -f build/index.ts",
-		"lint:eslint": "eslint --fix --ext .js,.ts,.vue ./packages",
-		"lint:prettier": "prettier --write --loglevel warn \"packages/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
-		"lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-		"lint:lint-staged": "lint-staged",
-		"prepare": "husky install",
-		"commit": "git pull && git add -A && git-cz && git push"
-	},
 	"keywords": [
 		"vue3",
 		"cesium",
@@ -27,59 +10,26 @@
 	],
 	"license": "MIT",
 	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
-	"sideEffects": false,
-	"peerDependencies": {
-		"vue": "^3.x"
+	"publishConfig": {
+		"directory": "packages/vue3-use-cesium"
+	},
+	"scripts": {
+		"preinstall": "npx only-allow pnpm",
+		"build": "pnpm --filter=vue3-use-cesium build",
+		"lint:lint-staged": "lint-staged",
+		"lint:eslint": "eslint --fix --cache \"**/*.{js,jsx,ts,tsx,vue}\"",
+		"lint:stylelint": "stylelint --fix --cache \"**/*.{css,scss,less,styl,vue}\"",
+		"lint:prettier": "prettier --write  \"**/*.{css,scss,less,styl,js,jsx,ts,tsx,vue}\""
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.1",
-		"@commitlint/config-conventional": "^17.0.0",
-		"@element-plus/icons-vue": "^2.0.10",
-		"@esbuild-kit/cjs-loader": "^2.3.3",
-		"@rollup/plugin-alias": "^5.0.0",
-		"@rollup/plugin-commonjs": "^22.0.2",
-		"@rollup/plugin-node-resolve": "^13.3.0",
-		"@types/fs-extra": "^9.0.13",
-		"@types/gulp": "^4.0.9",
-		"@types/node": "^17.0.31",
-		"@types/sortablejs": "^1.15.0",
-		"@typescript-eslint/eslint-plugin": "^5.22.0",
-		"@typescript-eslint/parser": "^5.22.0",
-		"@vitejs/plugin-vue": "^3.0.3",
-		"@vitejs/plugin-vue-jsx": "^2.0.0",
-		"@vue/shared": "^3.3.4",
-		"@vueuse/core": "^9.1.0",
-		"autoprefixer": "^10.4.7",
-		"commitizen": "^4.2.4",
-		"cz-git": "^1.3.2",
-		"element-plus": "^2.3.4",
-		"esbuild": "^0.15.5",
 		"eslint": "^8.14.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-vue": "^8.7.1",
-		"execa": "^6.1.0",
-		"fs-extra": "^10.1.0",
-		"gulp": "^4.0.2",
-		"husky": "^8.0.1",
-		"js-cookie": "^3.0.1",
-		"lint-staged": "^12.4.2",
-		"mitt": "^3.0.0",
-		"nanoid": "^3.3.4",
-		"nprogress": "^0.2.0",
-		"pinia": "^2.0.28",
-		"pinia-plugin-persistedstate": "^3.0.1",
-		"postcss": "^8.4.14",
-		"postcss-html": "^1.4.1",
-		"prettier": "^2.6.2",
-		"qs": "^6.11.0",
-		"rollup": "^2.78.1",
-		"rollup-plugin-esbuild": "^4.9.3",
-		"rollup-plugin-scss": "^4.0.0",
-		"rollup-plugin-visualizer": "^5.5.4",
-		"sass": "^1.49.7",
-		"sortablejs": "^1.15.0",
+		"lint-staged": "^13.0.3",
+		"postcss": "^8.4.16",
+		"prettier": "^2.7.1",
 		"stylelint": "^14.8.5",
 		"stylelint-config-html": "^1.0.0",
 		"stylelint-config-prettier": "^9.0.3",
@@ -89,24 +39,6 @@
 		"stylelint-config-standard": "^25.0.0",
 		"stylelint-config-standard-scss": "^3.0.0",
 		"typescript": "^4.7.4",
-		"unplugin-vue-define-options": "^0.10.0",
-		"vite": "^3.0.5",
-		"vite-plugin-compression": "^0.5.1",
-		"vite-plugin-eslint": "^1.6.0",
-		"vite-plugin-html": "^3.2.0",
-		"vite-plugin-svg-icons": "^2.0.1",
-		"vite-plugin-vue-setup-extend": "^0.4.0",
-		"vue": "^3.2.37",
-		"vue-i18n": "^9.1.9",
-		"vue-router": "^4.1.6",
-		"vue-tsc": "^0.40.0"
-	},
-	"config": {
-		"commitizen": {
-			"path": "node_modules/cz-git"
-		}
-	},
-	"engines": {
-		"node": "12.x || 14.x || 16.x || 18.x"
+		"unplugin-vue-define-options": "^0.10.0"
 	}
 }

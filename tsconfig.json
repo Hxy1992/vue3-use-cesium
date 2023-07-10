@@ -1,51 +1,43 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
-		"useDefineForClassFields": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		// element 类型提示
-		// "types": ["element-plus/global"],
-
-		/* Strict Type-Checking Options */
-		"strict": true /* Enable all strict type-checking options. */,
-		// "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-		// "strictNullChecks": true,              /* Enable strict null checks. */
-		// "strictFunctionTypes": true,           /* Enable strict checking of function types. */
-		// "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
-		// "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
-		// "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-		// "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
-
-		"jsx": "preserve",
-		// "allowJs": true, // 当vue组件内存在js时，需启用allowJs
-		"sourceMap": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
 		"resolveJsonModule": true,
+		"useDefineForClassFields": true,
+
+		// Required in Vue projects
+		"jsx": "preserve",
+
+		// `"noImplicitThis": true` is part of `strict`
+		// Added again here in case some users decide to disable `strict`.
+		// This enables stricter inference for data properties on `this`.
+		"noImplicitThis": true,
+		"strict": true,
+
+		// Required in Vite
 		"isolatedModules": true,
+		// For `<script setup>`
+		// See <https://devblogs.microsoft.com/typescript/announcing-typescript-4-5-beta/#preserve-value-imports>
+		"preserveValueImports": true,
+		// Enforce using `import type` instead of `import` for types
+		"importsNotUsedAsValues": "error",
+
+		// A few notes:
+		// - Vue 3 supports ES2016+
+		// - For Vite, the actual compilation target is determined by the
+		//   `build.target` option in the Vite config.
+		//   So don't change the `target` field here. It has to be
+		//   at least `ES2020` for dynamic `import()`s and `import.meta` to work correctly.
+		// - If you are not using Vite, feel free to override the `target` field.
+		"target": "ESNext",
+
+		// Recommended
 		"esModuleInterop": true,
-		// 跳过第三方库检查，解决打包失败
+		"forceConsistentCasingInFileNames": true,
+		// See <https://github.com/vuejs/vue-cli/pull/5688>
 		"skipLibCheck": true,
-		"lib": ["esnext", "dom"],
-		// 解析非相对模块名的基准目录
-		"baseUrl": "./",
-		// 模块名到基于 baseUrl 的路径映射的列表。
-		"paths": {
-			"@": ["website"],
-			"@/*": ["website/*"],
-			"vue3-use-cesium": ["packages"],
-			"vue3-use-cesium/*": ["packages/*"]
-		}
-	},
-	"include": [
-		"packages/**/*.ts",
-		"packages/**/*.d.ts",
-		"packages/**/*.tsx",
-		"packages/**/*.vue",
-		"website/**/*.ts",
-		"website/**/*.d.ts",
-		"website/**/*.tsx",
-		"website/**/*.vue",
-		"vite.config.ts"
-	],
-	"exclude": ["node_modules", "dist", "**/*.js"]
+
+		// Contains the specified types
+		"types": ["unplugin-vue-define-options"]
+	}
 }
