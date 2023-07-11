@@ -16,6 +16,9 @@
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"build": "pnpm --filter=vue3-use-cesium build",
+		"examples:dev": "pnpm --filter=examples dev",
+		"examples:build": "pnpm --filter=examples build",
+		"examples:preview": "pnpm --filter=examples preview",
 		"lint:lint-staged": "lint-staged",
 		"lint:eslint": "eslint --fix --cache \"**/*.{js,jsx,ts,tsx,vue}\"",
 		"lint:stylelint": "stylelint --fix --cache \"**/*.{css,scss,less,styl,vue}\"",
@@ -23,6 +26,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
+		"autoprefixer": "^10.4.7",
 		"eslint": "^8.14.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
