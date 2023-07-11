@@ -21,7 +21,9 @@ yarn add vue3-use-cesium # npm i vue3-use-cesium --save
 
 - **使用**
 
-1. 在 App.vue 中使用组件，示例如下：
+1. 引入组件和样式
+
+在 App.vue 中使用组件，示例如下：
 
 ```vue
 <template>
@@ -33,6 +35,12 @@ import { BaseMap } from "vue3-use-cesium";
 </script>
 ```
 
+在main.js引入样式：
+```typescript
+import "vue3-use-cesium/style";
+```
+
+
 2. 在路由拦截中加载初始化并加载 Cesium.js
 
 ```typescript
@@ -43,10 +51,10 @@ router.beforeEach(async (to, from, next) => {
 
 	// 如果页面包含地图则加载Cesium.js
 	if (to.meta.hasMap) {
-		await initMap(
+		await initMap([
 			`https://unpkg.com/cesium@1.105.0/Build/Cesium/Cesium.js`,
 			`https://unpkg.com/cesium@1.105.0/Build/Cesium/Widgets/widgets.css`
-		);
+		]);
 	}
 
 	// ...
@@ -116,3 +124,46 @@ useBaseMap("#my-map", viewer => {
 5. 关于 Cesium 的 ts 类型定义
 
 可自行引入
+
+6. 页面中请将地图容器放到 div 中使用
+
+使用 Vue3 传送组件 Teleport 来实现地图实例的复用，如下使用会出现问题
+
+```vue
+<template>
+	<div id="my-map" class="content-box"></div>
+</template>
+
+<script setup lang="ts">
+import { useBaseMap } from "@/hooks/useCesium";
+useBaseMap("#my-map", viewer => {});
+</script>
+```
+
+```vue
+<template>
+	<div id="my-map" class="content-box"></div>
+	<div>其他内容</div>
+</template>
+
+<script setup lang="ts">
+import { useBaseMap } from "@/hooks/useCesium";
+useBaseMap("#my-map", viewer => {});
+</script>
+```
+
+请这样使用：
+
+```vue
+<template>
+	<div class="bbox">
+		<div id="my-map" class="content-box"></div>
+		<div>其他内容</div>
+	</div>
+</template>
+
+<script setup lang="ts">
+import { useBaseMap } from "@/hooks/useCesium";
+useBaseMap("#my-map", viewer => {});
+</script>
+```

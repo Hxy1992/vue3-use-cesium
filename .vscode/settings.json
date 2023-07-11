@@ -7,7 +7,7 @@
 	"stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass", "html"],
 	"files.eol": "\n",
 	"[vue]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+		"editor.defaultFormatter": "Vue.volar"
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
