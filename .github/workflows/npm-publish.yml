@@ -18,7 +18,7 @@ jobs:
     steps:
       # 拉取 github 仓库代码
       - uses: actions/checkout@v3
-	# 安装 pnpm
+      # 安装 pnpm
       - uses: pnpm/action-setup@v2
         with:
          version: 8.6.6
