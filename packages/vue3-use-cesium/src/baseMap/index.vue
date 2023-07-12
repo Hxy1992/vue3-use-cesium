@@ -3,12 +3,14 @@
 		<div v-show="baseMapStore.visible" class="base-map" ref="mapRef" :map-id="baseMapStore.mapId" tabindex="0">
 			<mapScale v-if="baseMapStore.tools.scale" ref="scaleRef" />
 			<coodinations v-if="baseMapStore.tools.coodination" ref="coodsRef" />
-			<help v-if="baseMapStore.tools.help" />
-			<zoomIn v-if="baseMapStore.tools.zoom" />
-			<zoomOut v-if="baseMapStore.tools.zoom" />
-			<recoverNorth v-if="baseMapStore.tools.north" />
-			<homeView v-if="baseMapStore.tools.home" />
-			<viewSet v-if="baseMapStore.tools.view" />
+			<div class="box-controls">
+				<viewSet v-if="baseMapStore.tools.view" :icon2d="icons?.viewSet2D" :icon3d="icons?.viewSet3D" />
+				<homeView v-if="baseMapStore.tools.home" :icon="icons?.homeView" />
+				<recoverNorth v-if="baseMapStore.tools.north" :icon="icons?.recoverNorth" />
+				<zoomOut v-if="baseMapStore.tools.zoom" :icon="icons?.zoomOut" />
+				<zoomIn v-if="baseMapStore.tools.zoom" :icon="icons?.zoomIn" />
+				<help v-if="baseMapStore.tools.help" :icon="icons?.help" />
+			</div>
 		</div>
 	</Teleport>
 </template>
@@ -29,10 +31,49 @@ import viewSet from "./components/viewSet.vue";
 import mapScale from "./components/mapScale.vue";
 import coodinations from "./components/coodinations.vue";
 
-// const [_, bem] = ["BaseMap", "BaseMap"];
-
 defineOptions({
 	name: "BaseMap"
+});
+
+// type IconsType = {
+// 	/**
+// 	 * 帮助
+// 	 */
+// 	help: string;
+// 	/**
+// 	 * 放大
+// 	 */
+// 	zoomIn: string;
+// 	/**
+// 	 * 缩小
+// 	 */
+// 	zoomOut: string;
+// 	/**
+// 	 * 恢复正北
+// 	 */
+// 	recoverNorth: string;
+// 	/**
+// 	 * 默认视图
+// 	 */
+// 	homeView: string;
+// 	/**
+// 	 * 二三维切换
+// 	 */
+// 	viewSet3D: string;
+// 	/**
+// 	 * 二三维切换
+// 	 */
+// 	viewSet2D: string;
+// }
+
+defineProps({
+	/**
+		 * 自定义图标URL
+		 */
+	icons: {
+		type: Object,
+		default: undefined
+	}
 });
 
 let mapId: string;
@@ -65,5 +106,16 @@ onBeforeUnmount(() => {
 	position: relative;
 	width: 100%;
 	height: 100%;
+
+	.box-controls {
+		position: absolute;
+		right: 5px;
+		bottom: 50px;
+		z-index: 1001;
+		display: flex;
+		flex-direction: column;
+		width: 18px;
+		height: auto;
+	}
 }
 </style>

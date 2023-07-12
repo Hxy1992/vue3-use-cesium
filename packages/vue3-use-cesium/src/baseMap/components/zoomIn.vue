@@ -1,6 +1,7 @@
 <template>
 	<div class="map-button" @click="zoomIn" title="放大">
-		<div class="txt-button">+</div>
+		<icons v-if="icon" :url="icon" />
+		<div v-else class="txt-button">+</div>
 	</div>
 </template>
 
@@ -8,9 +9,16 @@
 import { mapFactory } from "../../core/index";
 import { getState } from "../../core/store";
 import { setZoomInOrOut } from "../../core/util";
+import icons from "./icons.vue";
 
 defineOptions({
 	name: "BaseMapZoomIn"
+});
+defineProps({
+	icon: {
+		type: String,
+		required: true
+	}
 });
 
 const baseMapStore = getState();
@@ -24,8 +32,8 @@ const zoomIn = () => {
 
 <style lang="scss" scoped>
 @import "./button.scss";
+
 .map-button {
-	bottom: 78px;
 	.txt-button {
 		font-size: 21px;
 		line-height: 15px;

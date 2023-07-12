@@ -1,37 +1,27 @@
 <template>
 	<!-- 操作帮助按钮 -->
 	<div class="map-button">
-		<div class="txt-button" title="操作说明" @click="visibleChange">?</div>
+		<icons v-if="icon" :url="icon" />
+		<div v-else class="txt-button" title="操作说明" @click="visibleChange">?</div>
 
 		<div v-if="popoverVisible" class="box-popover">
 			<div class="cesium-navigation-help cesium-navigation-help-visible">
-				<button
-					type="button"
-					:class="{
-						'cesium-navigation-button': true,
-						'cesium-navigation-button-left': true,
-						'cesium-navigation-button-selected': navigation === 'left',
-						'cesium-navigation-button-unselected': navigation !== 'left'
-					}"
-					@click="navigation = 'left'"
-				>
-					鼠标操作</button
-				><button
-					type="button"
-					:class="{
+				<button type="button" :class="{
+					'cesium-navigation-button': true,
+					'cesium-navigation-button-left': true,
+					'cesium-navigation-button-selected': navigation === 'left',
+					'cesium-navigation-button-unselected': navigation !== 'left'
+				}" @click="navigation = 'left'">
+					鼠标操作</button><button type="button" :class="{
 						'cesium-navigation-button': true,
 						'cesium-navigation-button-right': true,
 						'cesium-navigation-button-selected': navigation === 'right',
 						'cesium-navigation-button-unselected': navigation !== 'right'
-					}"
-					@click="navigation = 'right'"
-				>
+					}" @click="navigation = 'right'">
 					触摸手势
 				</button>
-				<div
-					v-if="navigation === 'left'"
-					class="cesium-click-navigation-help cesium-navigation-help-instructions cesium-touch-navigation-help-visible"
-				>
+				<div v-if="navigation === 'left'"
+					class="cesium-click-navigation-help cesium-navigation-help-instructions cesium-touch-navigation-help-visible">
 					<table>
 						<tbody>
 							<tr>
@@ -60,7 +50,8 @@
 						</tbody>
 					</table>
 				</div>
-				<div v-else class="cesium-touch-navigation-help cesium-navigation-help-instructions cesium-touch-navigation-help-visible">
+				<div v-else
+					class="cesium-touch-navigation-help cesium-navigation-help-instructions cesium-touch-navigation-help-visible">
 					<table>
 						<tbody>
 							<tr>
@@ -101,9 +92,16 @@
 
 <script setup lang="ts" name="BaseMapHelp">
 import { ref } from "vue";
+import icons from "./icons.vue";
 
 defineOptions({
 	name: "BaseMapHelp"
+});
+defineProps({
+	icon: {
+		type: String,
+		required: true
+	}
 });
 
 // 鼠标操作
@@ -117,8 +115,8 @@ function visibleChange() {
 
 <style lang="scss" scoped>
 @import "./button.scss";
+
 .map-button {
-	bottom: 55px;
 	.box-popover {
 		position: absolute;
 		right: 20px;
@@ -130,6 +128,7 @@ function visibleChange() {
 		border-radius: 10px;
 	}
 }
+
 .cesium-navigation-help {
 	position: relative;
 	top: 0;
@@ -139,10 +138,12 @@ function visibleChange() {
 	height: 280px;
 	margin: 0;
 	border-width: 0;
+
 	.cesium-navigation-help-instructions {
 		background-color: transparent;
 		border: 0;
 	}
+
 	.cesium-navigation-button-selected {
 		background-color: #4064e2;
 	}
