@@ -127,9 +127,6 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^2.0.0
         version: 2.0.0(vite@3.0.5)(vue@3.2.37)
-      '@vue/shared':
-        specifier: ^3.3.4
-        version: 3.3.4
       esbuild:
         specifier: ^0.15.5
         version: 0.15.5

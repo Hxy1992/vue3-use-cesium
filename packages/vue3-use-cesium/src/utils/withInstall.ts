@@ -1,4 +1,3 @@
-import { NOOP } from "@vue/shared";
 import type { Plugin } from "vue";
 
 type SFCWithInstall<T> = T & Plugin;
@@ -24,10 +23,4 @@ export const withInstallFunction = <T>(fn: T, name: string) => {
 	};
 
 	return fn as SFCWithInstall<T>;
-};
-
-export const withNoopInstall = <T>(component: T) => {
-	(component as SFCWithInstall<T>).install = NOOP;
-
-	return component as SFCWithInstall<T>;
 };

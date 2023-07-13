@@ -11,6 +11,8 @@ beta 版本，还在完善中!
 - 基于 vue3 传送组件，实现多页面复用单个 Cesium 实例，防止频繁切换地图导致的卡顿，非首次地图无感加载
 - 渐进式设计，使用非常简单，不需要额外学习接口；同时提供额外的开箱即用函数，需要的话可单独引入使用
 
+关于 Cesium 版本兼容性，已在 1.81 和 1.105 版本进行验证。
+
 ### 一、安装使用步骤 📔
 
 - **安装**
@@ -35,11 +37,11 @@ import { BaseMap } from "vue3-use-cesium";
 </script>
 ```
 
-在main.js引入样式：
+在 main.js 引入样式：
+
 ```typescript
 import "vue3-use-cesium/style";
 ```
-
 
 2. 在路由拦截中加载初始化并加载 Cesium.js
 
