@@ -131,7 +131,10 @@ async function createMap(dom: HTMLElement | null, options?: MapTypes.mapOptionIn
 	// // 背景白色
 	// scene.backgroundColor = new Cesium.Color(0, 0, 0, 0.0);
 	// // 地形深度检测,使用pick时需要开启，否则高程不准确
-	scene.globe.depthTestAgainstTerrain = true;
+	// Cesium1.105 深度检测问题
+	setTimeout(() => {
+		scene.globe.depthTestAgainstTerrain = true;
+	}, 0);
 	// viewer.sceneModePicker.viewModel.duration = 0.0;
 	// scene.globe.baseColor = new Cesium.Color(0, 0, 0, 0.0);
 
