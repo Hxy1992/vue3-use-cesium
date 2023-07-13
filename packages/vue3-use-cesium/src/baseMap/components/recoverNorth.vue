@@ -1,6 +1,7 @@
 <template>
 	<div class="map-button" @click="north" title="恢复正北方向">
-		<div class="north-icon"></div>
+		<icons v-if="icon" :url="icon" />
+		<div v-else class="north-icon"></div>
 	</div>
 </template>
 
@@ -8,9 +9,16 @@
 import { mapFactory } from "../../core/index";
 import { getState } from "../../core/store";
 import { recoverNorth } from "../../core/util";
+import icons from "./icons.vue";
 
 defineOptions({
 	name: "BaseMapRecoverNoth"
+});
+defineProps({
+	icon: {
+		type: String,
+		required: true
+	}
 });
 
 const baseMapStore = getState();
@@ -23,8 +31,8 @@ const north = () => {
 
 <style lang="scss" scoped>
 @import "./button.scss";
+
 .map-button {
-	bottom: 124px;
 	.north-icon {
 		width: 0;
 		height: 0;

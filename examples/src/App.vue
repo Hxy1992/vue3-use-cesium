@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { BaseMap } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
+import recoverNorth from "./assets/recoverNorth.svg"
 
 const route = useRoute();
 const menuList = ref<Record<string, any>[]>([
@@ -45,7 +46,7 @@ watch(
 	</header>
 	<main class="main">
 		<RouterView />
-		<base-map />
+		<base-map :icons="{ recoverNorth: recoverNorth }" />
 	</main>
 	<loading />
 </template>
@@ -57,20 +58,24 @@ watch(
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 80px;
+	height: 50px;
+	background: #191c29;
 }
 
 .menu-item {
 	margin: 0 8px;
+	color: white;
+	text-decoration-line: none;
 }
 
 .menu-item.selected {
-	background-color: aquamarine;
+	color: aquamarine;
 }
 
 .main {
 	position: absolute;
-	top: 80px;
+	top: 50px;
 	width: 100%;
-	height: calc(100% - 80px);
-}</style>
+	height: calc(100% - 50px);
+}
+</style>

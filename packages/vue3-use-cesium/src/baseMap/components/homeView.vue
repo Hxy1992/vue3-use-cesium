@@ -1,6 +1,7 @@
 <template>
 	<div class="map-button" @click="homeView" title="默认视图">
-		<div class="home-icon">
+		<icons v-if="icon" :url="icon" />
+		<div v-else class="home-icon">
 			<div class="top"></div>
 			<div class="bottom"></div>
 		</div>
@@ -10,9 +11,16 @@
 <script setup lang="ts" name="BaseMapHomeView">
 import { mapFactory } from "../../core/index";
 import { getState } from "../../core/store";
+import icons from "./icons.vue";
 
 defineOptions({
 	name: "BaseMapHomeView"
+});
+defineProps({
+	icon: {
+		type: String,
+		required: true
+	}
 });
 
 const baseMapStore = getState();
@@ -26,8 +34,8 @@ const homeView = () => {
 
 <style lang="scss" scoped>
 @import "./button.scss";
+
 .map-button {
-	bottom: 147px;
 	.home-icon {
 		display: flex;
 		flex-direction: column;
@@ -35,6 +43,7 @@ const homeView = () => {
 		justify-content: center;
 		width: 16px;
 		height: 16px;
+
 		.top {
 			width: 8px;
 			height: 8px;
@@ -45,6 +54,7 @@ const homeView = () => {
 			transform: rotate(45deg);
 			transform-origin: center;
 		}
+
 		.bottom {
 			width: 8px;
 			height: 8px;

@@ -1,7 +1,13 @@
 <template>
 	<div class="map-button" :disabled="isAnimating" @click="viewChange">
-		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">3D</div>
-		<div v-else class="txt-button" title="切换至3D视图">2D</div>
+		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">
+			<icons v-if="icon3d" :url="icon3d" />
+			<template v-else>3D</template>
+		</div>
+		<div v-else class="txt-button" title="切换至3D视图">
+			<icons v-if="icon2d" :url="icon2d" />
+			<template v-else>2D</template>
+		</div>
 	</div>
 </template>
 
@@ -10,9 +16,20 @@ import { computed, ref } from "vue";
 import { mapFactory } from "../../core/index";
 import { getState, setViewType } from "../../core/store";
 import { morphMap, getCameraHeight } from "../../core/util";
+import icons from "./icons.vue";
 
 defineOptions({
 	name: "BaseMapViewSet"
+});
+defineProps({
+	icon3d: {
+		type: String,
+		required: true
+	},
+	icon2d: {
+		type: String,
+		required: true
+	}
 });
 
 const baseMapStore = getState();
@@ -100,9 +117,10 @@ const rotateCamera = (viewer: any, centerResult: any, degrees: number, callback:
 
 <style lang="scss" scoped>
 @import "./button.scss";
+
 .map-button {
-	bottom: 170px;
 	font-size: 12px;
+
 	&[disabled="true"] {
 		cursor: not-allowed;
 	}
