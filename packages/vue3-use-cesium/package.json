@@ -10,6 +10,7 @@
 	"jsdelivr": "dist/index.min.js",
 	"exports": {
 		".": {
+			"dev": "./src/index.ts",
 			"types": "./es/index.d.ts",
 			"import": "./es/index.mjs",
 			"require": "./dist/index.js"

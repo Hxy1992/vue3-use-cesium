@@ -10,7 +10,10 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": fileURLToPath(new URL("./src", import.meta.url))
-		}
+		},
+		// 利用情景导出实现示例热更新
+		// https://cn.vitejs.dev/config/shared-options.html#resolve-conditions
+		conditions: ["dev"]
 	},
 	server: {
 		open: true,
