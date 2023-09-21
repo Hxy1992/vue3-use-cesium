@@ -8,7 +8,7 @@ import type { MapTypes } from "../types";
  * @param language 语言
  * @param url 链接
  */
-export async function setImagery(viewer: any, layer: MapTypes.imageryTypes, language: "zh" | "en", url?: string) {
+export async function setImagery(viewer: any, layer: MapTypes.ImageryTypes, language: "zh" | "en", url?: string) {
 	clearImagery(viewer);
 	// 增加缓存数量
 	// viewer.scene.globe.tileCacheSize = 600;

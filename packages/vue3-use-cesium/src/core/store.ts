@@ -3,7 +3,7 @@
 import { reactive } from "vue";
 import type { StoreType } from "../types";
 
-const state = reactive<StoreType.baseMapType>({
+const state = reactive<StoreType.BaseMapType>({
 	mapId: null,
 	visible: false,
 	toTarget: "body",
@@ -24,7 +24,7 @@ const state = reactive<StoreType.baseMapType>({
  * 获取状态
  * @returns state
  */
-export const getState = (): StoreType.baseMapType => state;
+export const getState = (): StoreType.BaseMapType => state;
 /**
  * 设置地图id
  * @param val 地图id
@@ -58,6 +58,6 @@ export function setViewType(type: "2d" | "3d") {
  * @param key 工具类型
  * @param val 是否可见
  */
-export function setTools(key: StoreType.toolKey, val: boolean) {
+export function setTools(key: StoreType.ToolKey, val: boolean) {
 	state.tools[key] = val;
 }
