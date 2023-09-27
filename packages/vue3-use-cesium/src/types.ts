@@ -5,11 +5,11 @@ export namespace StoreType {
 	/**
 	 * 地图工具显示控制Key
 	 */
-	export type toolKey = "scale" | "coodination" | "help" | "zoom" | "north" | "home" | "view";
+	export type ToolKey = "scale" | "coodination" | "help" | "zoom" | "north" | "home" | "view";
 	/**
 	 * 地图存储类型
 	 */
-	export interface baseMapType {
+	export interface BaseMapType {
 		/**
 		 * 地图id
 		 */
@@ -73,7 +73,7 @@ export namespace MapTypes {
 	/**
 	 * 地图事件类型
 	 */
-	export type eventTypes =
+	export type EventTypes =
 		| "MOVE_START"
 		| "MOVE_END"
 		| "LEFT_DOWN"
@@ -89,7 +89,7 @@ export namespace MapTypes {
 	/**
 	 * 底图类型
 	 */
-	export type imageryTypes =
+	export type ImageryTypes =
 		| "tdt-img"
 		| "tdt-vec"
 		| "tms-offline"
@@ -100,7 +100,7 @@ export namespace MapTypes {
 		| "carto-darkall"
 		| "carto-lightall"
 		| "empty";
-	export interface mapOptionInterface {
+	export interface MapOptionTypes {
 		/**
 		 * 默认视图类型
 		 */
@@ -108,7 +108,7 @@ export namespace MapTypes {
 		/**
 		 * 默认底图
 		 */
-		imagery?: imageryTypes;
+		imagery?: ImageryTypes;
 		/**
 		 * 默认底图为本地时需传入url
 		 */

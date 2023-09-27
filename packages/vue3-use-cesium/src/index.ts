@@ -50,7 +50,7 @@ export function getEventFactory() {
  * @param options 配置参数
  * @returns Promise
  */
-export function initMap(cesiumUrls: string[], options?: MapTypes.mapOptionInterface) {
+export function initMap(cesiumUrls: string[], options?: MapTypes.MapOptionTypes) {
 	return new Promise<boolean>(async (resolve, reject) => {
 		try {
 			await loaderScript(cesiumUrls);

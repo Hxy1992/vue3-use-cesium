@@ -37,7 +37,7 @@ class MapFactory {
 	 * @param options 参数
 	 * @returns 地图id
 	 */
-	async add(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
+	async add(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
 		const uuid = generateUUID();
 		this.viewerMap[uuid] = await createMap(dom, options);
 		this.eventMap[uuid] = createFactory(this.viewerMap[uuid]);
@@ -48,7 +48,7 @@ class MapFactory {
 	 * @param dom 参考add方法
 	 * @param options 参考add方法
 	 */
-	async addStatic(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
+	async addStatic(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
 		const uuid = await this.add(dom, options);
 		this.staticMap[uuid] = true;
 		return uuid;
@@ -101,7 +101,7 @@ export const mapFactory = new MapFactory();
  * @param threeD 是否3d
  * @returns 地图实例
  */
-async function createMap(dom: HTMLElement | null, options?: MapTypes.mapOptionInterface) {
+async function createMap(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
 	const { viewType = "3d", imagery, extra = {} } = options || {};
 	if (!dom) return;
 	const viewer = new Cesium.Viewer(dom, {
