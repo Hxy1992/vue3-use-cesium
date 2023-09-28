@@ -1,0 +1,6 @@
+@use "./config.scss" as *;
+
+// 全局css变量
+:root {
+	--#{$namespace}-overlay-zindex: 1001;
+}

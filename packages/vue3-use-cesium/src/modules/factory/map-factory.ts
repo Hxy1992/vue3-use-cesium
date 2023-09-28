@@ -1,8 +1,8 @@
-import { generateUUID } from "../utils/index";
-import { createFactory, EventFactory } from "./eventFactory";
-import { setImagery } from "./imagery";
-import { morphMap } from "./util";
-import type { MapTypes } from "../types";
+import { generateUUID } from "../../utils/index";
+import { createFactory, EventFactory } from "./event-factory";
+import { setImagery } from "../imagery";
+import { morphMap } from "../util";
+import type { MapTypes } from "../../types";
 
 interface MapEventType {
 	[key: string]: EventFactory;

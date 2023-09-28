@@ -42,7 +42,9 @@ router.beforeEach(async (to, from, next) => {
 		// 	`https://unpkg.com/cesium@1.105.0/Build/Cesium/Widgets/widgets.css`
 		// ]);
 		// 使用本地地址调试(网速慢时改用本地地址)
-		await initMap([`/CesiumV1.105/Cesium.js`, `/CesiumV1.105/Widgets/widgets.css`]);
+		await initMap([`/CesiumV1.105/Cesium.js`, `/CesiumV1.105/Widgets/widgets.css`], {
+			imagery: "geoq-midnightblue"
+		});
 		loading.value = false;
 	}
 

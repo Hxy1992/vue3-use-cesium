@@ -1,7 +1,7 @@
 <template>
 	<!-- 操作帮助按钮 -->
-	<div class="map-button">
-		<icons v-if="icon" :url="icon" />
+	<div class="zhd-map-operation-button help">
+		<slot v-if="$slots.help" />
 		<div v-else class="txt-button" title="操作说明" @click="visibleChange">?</div>
 
 		<div v-if="popoverVisible" class="box-popover">
@@ -90,18 +90,11 @@
 	</div>
 </template>
 
-<script setup lang="ts" name="BaseMapHelp">
+<script setup lang="ts" name="MapOprationHelp">
 import { ref } from "vue";
-import icons from "./icons.vue";
 
 defineOptions({
-	name: "BaseMapHelp"
-});
-defineProps({
-	icon: {
-		type: String,
-		required: true
-	}
+	name: "MapOprationHelp"
 });
 
 // 鼠标操作
@@ -112,40 +105,3 @@ function visibleChange() {
 	popoverVisible.value = !popoverVisible.value;
 }
 </script>
-
-<style lang="scss" scoped>
-@import "./button.scss";
-
-.map-button {
-	.box-popover {
-		position: absolute;
-		right: 20px;
-		bottom: 10px;
-		width: 280px;
-		padding: 0;
-		background-color: #1d1e1f;
-		border-width: 0;
-		border-radius: 10px;
-	}
-}
-
-.cesium-navigation-help {
-	position: relative;
-	top: 0;
-	right: 0;
-	left: 0;
-	width: auto;
-	height: 280px;
-	margin: 0;
-	border-width: 0;
-
-	.cesium-navigation-help-instructions {
-		background-color: transparent;
-		border: 0;
-	}
-
-	.cesium-navigation-button-selected {
-		background-color: #4064e2;
-	}
-}
-</style>

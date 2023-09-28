@@ -1,0 +1,15 @@
+@use "../mixins.scss" as *;
+@use "../config.scss" as *;
+
+@include b(map-status) {
+	position: absolute;
+	right: 5px;
+	bottom: 0;
+	z-index: var(--#{$namespace}-overlay-zindex);
+	padding: 2px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #000000;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	letter-spacing: 0;
+}

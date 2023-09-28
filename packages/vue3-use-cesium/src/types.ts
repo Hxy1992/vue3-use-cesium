@@ -27,39 +27,6 @@ export namespace StoreType {
 		 */
 		viewType: "2d" | "3d";
 		/**
-		 * 地图工具显示控制(默认全部显示)
-		 */
-		tools: {
-			/**
-			 * 比例尺
-			 */
-			scale: boolean;
-			/**
-			 * 鼠标位置坐标
-			 */
-			coodination: boolean;
-			/**
-			 * 帮助
-			 */
-			help: boolean;
-			/**
-			 * 放大缩小
-			 */
-			zoom: boolean;
-			/**
-			 * 恢复正北
-			 */
-			north: boolean;
-			/**
-			 * 默认视图
-			 */
-			home: boolean;
-			/**
-			 * 二三维切换
-			 */
-			view: boolean;
-		};
-		/**
 		 * 点击默认视图按钮飞行时间(默认0)
 		 * 参见：https://cesium.com/learn/cesiumjs/ref-doc/Camera.html#flyHome
 		 */

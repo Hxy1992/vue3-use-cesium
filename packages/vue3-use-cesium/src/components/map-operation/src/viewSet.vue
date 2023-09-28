@@ -1,35 +1,24 @@
 <template>
-	<div class="map-button" :disabled="isAnimating" @click="viewChange">
+	<div class="zhd-map-operation-button view-set" :disabled="isAnimating" @click="viewChange">
 		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">
-			<icons v-if="icon3d" :url="icon3d" />
+			<slot v-if="$slots.view3d" />
 			<template v-else>3D</template>
 		</div>
 		<div v-else class="txt-button" title="切换至3D视图">
-			<icons v-if="icon2d" :url="icon2d" />
+			<slot v-if="$slots.view2d" />
 			<template v-else>2D</template>
 		</div>
 	</div>
 </template>
 
-<script setup lang="ts" name="BaseMapViewSet">
+<script setup lang="ts" name="MapOprationViewSet">
 import { computed, ref } from "vue";
-import { mapFactory } from "../../core/index";
-import { getState, setViewType } from "../../core/store";
-import { morphMap, getCameraHeight } from "../../core/util";
-import icons from "./icons.vue";
+import { mapFactory } from "../../../modules/factory/map-factory";
+import { getState, setViewType } from "../../../utils/store";
+import { morphMap, getCameraHeight } from "../../../modules/util";
 
 defineOptions({
-	name: "BaseMapViewSet"
-});
-defineProps({
-	icon3d: {
-		type: String,
-		required: true
-	},
-	icon2d: {
-		type: String,
-		required: true
-	}
+	name: "MapOprationViewSet"
 });
 
 const baseMapStore = getState();
@@ -114,15 +103,3 @@ const rotateCamera = (viewer: any, centerResult: any, degrees: number, callback:
 	viewer.clock.onTick.addEventListener(Exection);
 };
 </script>
-
-<style lang="scss" scoped>
-@import "./button.scss";
-
-.map-button {
-	font-size: 12px;
-
-	&[disabled="true"] {
-		cursor: not-allowed;
-	}
-}
-</style>

@@ -1,6 +1,6 @@
-import { generateUUID } from "../utils/index";
-import type { MapTypes } from "../types";
-import { EventTypeEnum } from "../enums/mapEnum";
+import { generateUUID } from "../../utils/index";
+import type { MapTypes } from "../../types";
+import { EventTypeEnum } from "../../enums/map-enum";
 
 /**
  * 地图事件工厂

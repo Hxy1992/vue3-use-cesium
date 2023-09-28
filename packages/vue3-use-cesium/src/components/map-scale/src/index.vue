@@ -1,5 +1,5 @@
 <template>
-	<div v-show="distanceLabel" class="scale-container">
+	<div v-show="distanceLabel" class="zhd-map-scale">
 		<label class="legend-text">{{ distanceLabel }}</label>
 		<div class="ic-scale" :style="`width: ${barWidth}px; height: 12px;`">
 			<div class="ic-inner"></div>
@@ -9,7 +9,8 @@
 
 <script setup lang="ts" name="BaseMapMapScale">
 import { ref } from "vue";
-import { mapFactory } from "../../core/index";
+import { mapFactory } from "../../../modules/factory/map-factory";
+import { mittBus } from "../../../utils/mitt-bus";
 
 defineOptions({
 	name: "BaseMapMapScale"
@@ -81,39 +82,5 @@ const cesiumScale = (mapId: string) => {
 	}
 };
 
-defineExpose({ initScale });
+mittBus.on("baseMapCreated", initScale);
 </script>
-
-<style lang="scss" scoped>
-.scale-container {
-	position: absolute;
-	right: 5px;
-	bottom: 20px;
-	z-index: 1001;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	justify-content: center;
-	width: 120px;
-	height: 40px;
-	font-weight: 600;
-	color: #000000;
-	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-	pointer-events: none;
-	.ic-scale {
-		box-sizing: border-box;
-		background-color: transparent;
-		border-color: #000000;
-		border-style: solid;
-		border-width: 4px;
-		border-top: 0;
-		box-shadow: 0 1px 1px white;
-		.ic-inner {
-			width: 100%;
-			height: 100%;
-			border: 1px solid white;
-			border-top: 0;
-		}
-	}
-}
-</style>

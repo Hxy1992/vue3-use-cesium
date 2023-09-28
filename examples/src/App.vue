@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { BaseMap } from "vue3-use-cesium";
+import { BaseMap, MapOperation, MapScale, MapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
-import recoverNorth from "./assets/recoverNorth.svg"
+// import recoverNorth from "./assets/recoverNorth.svg"
 
 const route = useRoute();
 const menuList = ref<Record<string, any>[]>([
@@ -46,7 +46,11 @@ watch(
 	</header>
 	<main class="main">
 		<RouterView />
-		<base-map :icons="{ recoverNorth: recoverNorth }" />
+		<base-map>
+			<map-operation />
+			<map-scale />
+			<map-status />
+		</base-map>
 	</main>
 	<loading />
 </template>

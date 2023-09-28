@@ -1,10 +1,16 @@
 <template>
-	<div v-show="coodinationVisible" class="coods-label">鼠标位置: {{ coodination.x }}, {{ coodination.y }}</div>
+	<div class="zhd-map-status">
+		<template v-if="coodinationVisible">
+			鼠标位置: {{ coodination.x }}, {{ coodination.y }} |
+		</template>
+		相机: 偏航角 {{ cameraData.heading }}°, 俯仰角{{ cameraData.pitch }}°, 翻滚角 {{ cameraData.roll }}°
+	</div>
 </template>
 
 <script setup lang="ts" name="BaseMapCoodinations">
 import { ref } from "vue";
-import { mapFactory } from "../../core/index";
+import { mapFactory } from "../../../modules/factory/map-factory";
+import { mittBus } from "../../../utils/mitt-bus";
 
 defineOptions({
 	name: "BaseMapCoodinations"
@@ -14,6 +20,11 @@ const coodinationVisible = ref(true);
 const coodination = ref({
 	x: "0",
 	y: "0"
+});
+const cameraData = ref({
+	heading: 0,
+	pitch: 0,
+	roll: 0
 });
 
 // 鼠标位置坐标
@@ -44,22 +55,19 @@ const initCoods = (mapId: string) => {
 		},
 		true
 	);
+	eventFactory.push(
+		"MOVE_END",
+		() => {
+			// 获取当前场景的相机
+			const camera = viewer.camera;
+			// 获取相机的姿态角度
+			cameraData.value.heading = Math.floor(Cesium.Math.toDegrees(camera.heading));
+			cameraData.value.pitch = Math.floor(Cesium.Math.toDegrees(camera.pitch));
+			cameraData.value.roll = Math.floor(Cesium.Math.toDegrees(camera.roll));
+		},
+		true
+	);
 };
 
-defineExpose({ initCoods });
+mittBus.on("baseMapCreated", initCoods);
 </script>
-
-<style lang="scss" scoped>
-.coods-label {
-	position: absolute;
-	right: 5px;
-	bottom: 0;
-	z-index: 1001;
-	padding: 2px;
-	font-size: 12px;
-	font-weight: 600;
-	color: #000000;
-	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-	letter-spacing: 0;
-}
-</style>
