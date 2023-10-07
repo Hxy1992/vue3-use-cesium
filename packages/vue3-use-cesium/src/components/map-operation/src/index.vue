@@ -30,11 +30,11 @@
 
 <script setup lang="ts" name="MapOperation">
 import help from "./help.vue";
-import zoomIn from "./zoomIn.vue";
-import zoomOut from "./zoomOut.vue";
-import recoverNorth from "./recoverNorth.vue";
-import homeView from "./homeView.vue";
-import viewSet from "./viewSet.vue";
+import zoomIn from "./zoom-in.vue";
+import zoomOut from "./zoom-out.vue";
+import recoverNorth from "./recover-north.vue";
+import homeView from "./home-view.vue";
+import viewSet from "./view-set.vue";
 
 defineOptions({
 	name: "MapOperation"
