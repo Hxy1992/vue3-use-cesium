@@ -3,7 +3,8 @@ import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { BaseMap, MapOperation, MapScale, MapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
-// import recoverNorth from "./assets/recoverNorth.svg"
+import recoverNorth from "./assets/recoverNorth.svg"
+import homeSvg from "./assets/home.svg"
 
 const route = useRoute();
 const menuList = ref<Record<string, any>[]>([
@@ -47,7 +48,19 @@ watch(
 	<main class="main">
 		<RouterView />
 		<base-map>
-			<map-operation />
+			<map-operation>
+				<template #help>?</template>
+				<template #view2d>2D</template>
+				<template #view3d>3D</template>
+				<template #homeView>
+					<img class="btn-icons" :src="homeSvg" alt="">
+				</template>
+				<template #recoverNorth>
+					<img class="btn-icons" :src="recoverNorth" alt="">
+				</template>
+				<template #zoomOut>-</template>
+				<template #zoomIn>+</template>
+			</map-operation>
 			<map-scale />
 			<map-status />
 		</base-map>
@@ -81,5 +94,10 @@ watch(
 	top: 50px;
 	width: 100%;
 	height: calc(100% - 50px);
+}
+
+.btn-icons {
+	width: 18px;
+	height: 18px;
 }
 </style>

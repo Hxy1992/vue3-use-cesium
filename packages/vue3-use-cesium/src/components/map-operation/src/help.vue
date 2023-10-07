@@ -1,7 +1,7 @@
 <template>
 	<!-- 操作帮助按钮 -->
 	<div class="zhd-map-operation-button help">
-		<slot v-if="$slots.help" />
+		<slot v-if="$slots.help" name="help" />
 		<div v-else class="txt-button" title="操作说明" @click="visibleChange">?</div>
 
 		<div v-if="popoverVisible" class="box-popover">
@@ -92,7 +92,6 @@
 
 <script setup lang="ts" name="MapOprationHelp">
 import { ref } from "vue";
-
 defineOptions({
 	name: "MapOprationHelp"
 });

@@ -1,11 +1,11 @@
 <template>
 	<div class="zhd-map-operation-button view-set" :disabled="isAnimating" @click="viewChange">
 		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">
-			<slot v-if="$slots.view3d" />
+			<slot v-if="$slots.view3d" name="view3d" />
 			<template v-else>3D</template>
 		</div>
 		<div v-else class="txt-button" title="切换至3D视图">
-			<slot v-if="$slots.view2d" />
+			<slot v-if="$slots.view2d" name="view2d" />
 			<template v-else>2D</template>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 <template>
 	<div class="zhd-map-operation-button zoom-in" @click="zoomIn" title="放大">
-		<slot v-if="$slots.zoomIn" />
+		<slot v-if="$slots.zoomIn" name="zoomIn" />
 		<div v-else class="txt-button">+</div>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 	<div class="zhd-map-operation-button recover-north" @click="north" title="恢复正北方向">
-		<slot v-if="$slots.recoverNorth" />
+		<slot v-if="$slots.recoverNorth" name="recoverNorth" />
 		<div v-else class="north-icon"></div>
 	</div>
 </template>
