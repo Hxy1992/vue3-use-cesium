@@ -21,7 +21,7 @@ const menuList = ref<Record<string, any>[]>([
 		selected: false
 	},
 	{
-		path: "/mapview2",
+		path: "/formview",
 		label: "表单地图",
 		selected: false
 	}

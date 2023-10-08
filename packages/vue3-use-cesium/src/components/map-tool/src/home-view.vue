@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation-button home-view" @click="homeView" title="默认视图">
+	<div class="zmap-tool_button home-view" @click="homeView" title="默认视图">
 		<slot v-if="$slots.homeView" name="homeView" />
 		<div v-else class="home-icon">
 			<div class="top"></div>
@@ -11,10 +11,6 @@
 <script setup lang="ts" name="MapOprationHomeView">
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState } from "../../../utils/store";
-
-defineOptions({
-	name: "MapOprationHomeView"
-});
 
 const baseMapStore = getState();
 

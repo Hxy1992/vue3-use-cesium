@@ -63,6 +63,7 @@ useBaseMap("#my-map2", viewer => {
 }
 
 #my-map2 {
-	width: 500px;
+	width: 600px;
 	height: 500px;
-}</style>
+}
+</style>

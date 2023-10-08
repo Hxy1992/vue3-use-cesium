@@ -1,7 +1,7 @@
 @use "../mixins.scss" as *;
 @use "../config.scss" as *;
 
-@include b(map-status) {
+@include b(status) {
 	position: absolute;
 	right: 5px;
 	bottom: 0;

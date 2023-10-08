@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation">
+	<div class="zmap-tool">
 		<viewSet>
 			<template v-if="$slots.view2d" #view2d>
 				<slot name="view2d"></slot>
@@ -87,10 +87,6 @@ defineProps<{
 		backgroundImage?: string;
 	}[]
 }>()
-
-defineOptions({
-	name: "MapOperation"
-});
 
 defineSlots<{
 	/**

@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation-button view-set" :disabled="isAnimating" @click="viewChange">
+	<div class="zmap-tool_button view-set" :disabled="isAnimating" @click="viewChange">
 		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">
 			<slot v-if="$slots.view3d" name="view3d" />
 			<template v-else>3D</template>
@@ -16,10 +16,6 @@ import { computed, ref } from "vue";
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState, setViewType } from "../../../utils/store";
 import { morphMap, getCameraHeight } from "../../../modules/util";
-
-defineOptions({
-	name: "MapOprationViewSet"
-});
 
 const baseMapStore = getState();
 const isAnimating = ref(false);

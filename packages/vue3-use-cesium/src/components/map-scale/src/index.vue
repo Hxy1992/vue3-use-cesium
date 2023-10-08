@@ -1,8 +1,8 @@
 <template>
-	<div v-show="distanceLabel" class="zhd-map-scale">
-		<label class="legend-text">{{ distanceLabel }}</label>
-		<div class="ic-scale" :style="`width: ${barWidth}px; height: 12px;`">
-			<div class="ic-inner"></div>
+	<div v-show="distanceLabel" class="zmap-scale">
+		<span>{{ distanceLabel }}</span>
+		<div class="zmap-scale_ic" :style="`width: ${barWidth}px; height: 12px;`">
+			<div class="zmap-scale_ic_inner"></div>
 		</div>
 	</div>
 </template>
@@ -11,10 +11,6 @@
 import { ref } from "vue";
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { mittBus } from "../../../utils/mitt-bus";
-
-defineOptions({
-	name: "BaseMapMapScale"
-});
 
 const distanceLabel = ref<string | undefined>();
 const barWidth = ref<number | undefined>();

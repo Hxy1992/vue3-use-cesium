@@ -2,7 +2,7 @@ import type { App } from "vue";
 
 // 组件
 import BaseMap from "./base-map";
-import MapOperation from "./map-operation";
+import MapOperation from "./map-tool";
 import MapScale from "./map-scale";
 import MapStatus from "./map-status";
 

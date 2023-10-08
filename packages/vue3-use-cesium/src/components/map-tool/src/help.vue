@@ -1,6 +1,6 @@
 <template>
 	<!-- 操作帮助按钮 -->
-	<div class="zhd-map-operation-button help">
+	<div class="zmap-tool_button help">
 		<div class="txt-button" title="操作说明" @click="visibleChange">
 			<slot v-if="$slots.help" name="help" />
 			<template v-else>?</template>
@@ -96,9 +96,6 @@
 
 <script setup lang="ts" name="MapOprationHelp">
 import { ref, nextTick } from "vue";
-defineOptions({
-	name: "MapOprationHelp"
-});
 
 // 鼠标操作
 const navigation = ref("left");

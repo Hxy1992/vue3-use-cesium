@@ -1,7 +1,7 @@
 @use "../mixins.scss" as *;
 @use "../config.scss" as *;
 
-@include b(base-map) {
+@include b(base) {
 	position: relative;
 	width: 100%;
 	height: 100%;

@@ -20,9 +20,9 @@ const router = createRouter({
 			}
 		},
 		{
-			path: "/mapview2",
+			path: "/formview",
 			name: "表单地图",
-			component: () => import("../views/MapView2.vue"),
+			component: () => import("../views/FormView.vue"),
 			meta: {
 				hasMap: true
 			}

@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation-button recover-north" @click="north" title="恢复正北方向">
+	<div class="zmap-tool_button recover-north" @click="north" title="恢复正北方向">
 		<slot v-if="$slots.recoverNorth" name="recoverNorth" />
 		<div v-else class="north-icon"></div>
 	</div>
@@ -9,10 +9,6 @@
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState } from "../../../utils/store";
 import { recoverNorth } from "../../../modules/util";
-
-defineOptions({
-	name: "MapOprationRecoverNoth"
-});
 
 const baseMapStore = getState();
 const north = () => {

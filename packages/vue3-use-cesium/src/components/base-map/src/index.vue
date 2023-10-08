@@ -1,21 +1,17 @@
 <template>
 	<Teleport :to="baseMapStore.toTarget">
-		<div v-show="baseMapStore.visible" class="zhd-base-map" ref="mapRef" :map-id="baseMapStore.mapId" tabindex="0">
+		<div v-show="baseMapStore.visible" class="zmap-base" ref="mapRef" :map-id="baseMapStore.mapId" tabindex="0">
 			<slot></slot>
 		</div>
 	</Teleport>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="BaseMap">
 import { ref, onBeforeUnmount } from "vue";
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState, setMapId } from "../../../utils/store";
 import { mittBus } from "../../../utils/mitt-bus";
 import type { MapOptionTypes } from "../../../interface/map";
-
-defineOptions({
-	name: "BaseMap"
-});
 
 let mapId: string;
 const mapRef = ref();

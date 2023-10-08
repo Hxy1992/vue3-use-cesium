@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-status">
+	<div class="zmap-status">
 		<template v-if="coodinationVisible">
 			鼠标位置: {{ coodination.x }}, {{ coodination.y }} |
 		</template>
@@ -11,10 +11,6 @@
 import { ref } from "vue";
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { mittBus } from "../../../utils/mitt-bus";
-
-defineOptions({
-	name: "BaseMapCoodinations"
-});
 
 const coodinationVisible = ref(true);
 const coodination = ref({

@@ -1,7 +1,7 @@
 @use "../mixins.scss" as *;
 @use "../config.scss" as *;
 
-@include b(map-scale) {
+@include b(scale) {
 	position: absolute;
 	right: 5px;
 	bottom: 20px;
@@ -17,7 +17,7 @@
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 	pointer-events: none;
 
-	.ic-scale {
+	&_ic {
 		box-sizing: border-box;
 		background-color: transparent;
 		border-color: #000000;
@@ -26,7 +26,7 @@
 		border-top: 0;
 		box-shadow: 0 1px 1px white;
 
-		.ic-inner {
+		&_inner {
 			width: 100%;
 			height: 100%;
 			border: 1px solid white;

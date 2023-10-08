@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation-button zoom-out" @click="zoomOut" title="缩小">
+	<div class="zmap-tool_button zoom-out" @click="zoomOut" title="缩小">
 		<slot v-if="$slots.zoomOut" name="zoomOut" />
 		<div v-else class="txt-button">-</div>
 	</div>
@@ -9,10 +9,6 @@
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState } from "../../../utils/store";
 import { setZoomInOrOut } from "../../../modules/util";
-
-defineOptions({
-	name: "MapOprationZoomOut"
-});
 
 const baseMapStore = getState();
 

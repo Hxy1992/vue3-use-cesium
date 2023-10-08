@@ -1,5 +1,5 @@
 <template>
-	<div class="zhd-map-operation-button imagery">
+	<div class="zmap-tool_button imagery">
 		<div class="txt-button" title="底图管理" @click="imageryClick">
 			<slot v-if="$slots.imagery" name="imagery" />
 			<template v-else>底</template>
@@ -24,10 +24,6 @@ import { getState, setCurrentImagery } from "../../../utils/store";
 import type { ImageryItemTypes, ImageryListTypes } from "../../../interface/components";
 import { ref, nextTick } from "vue";
 import { setImagery } from "../../../modules/imagery/index";
-
-defineOptions({
-	name: "MapOprationImagery"
-});
 
 defineProps<{
 	imagerys: ImageryListTypes
