@@ -17,7 +17,7 @@ async function main() {
 
 	// 指定代码入口
 	const entries = [
-		rootPath('packages/vue3-use-cesium/*'),
+		rootPath('packages/vue3-use-cesium/src/*'),
 	];
 
 	// 指定 TypeDoc 配置项

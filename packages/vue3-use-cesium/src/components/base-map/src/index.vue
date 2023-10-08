@@ -11,7 +11,7 @@ import { ref, onBeforeUnmount } from "vue";
 import { mapFactory } from "../../../modules/factory/map-factory";
 import { getState, setMapId } from "../../../utils/store";
 import { mittBus } from "../../../utils/mitt-bus";
-import type { MapTypes } from "../../../types";
+import type { MapOptionTypes } from "../../../interface/map";
 
 defineOptions({
 	name: "BaseMap"
@@ -22,7 +22,7 @@ const mapRef = ref();
 const baseMapStore = getState();
 
 let isCreated = false; // 标识只能创建一次
-const createBaseMap = async (options?: MapTypes.MapOptionTypes) => {
+const createBaseMap = async (options?: MapOptionTypes) => {
 	if (isCreated) return; // 只能创建一个
 	mapId = await mapFactory.addStatic(mapRef.value, options);
 	setMapId(mapId);

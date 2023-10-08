@@ -1,5 +1,5 @@
 import { generateUUID } from "../../utils/index";
-import type { MapTypes } from "../../types";
+import type { EventTypes } from "../../interface/map";
 import { EventTypeEnum } from "../../enums/map-enum";
 
 /**
@@ -101,7 +101,7 @@ export class EventFactory {
 	 * @param {String} eventType 事件类型
 	 * @param {Object} params 执行参数
 	 */
-	private doEvents(eventType: MapTypes.EventTypes, params: any) {
+	private doEvents(eventType: EventTypes, params: any) {
 		const eventList = this.events[eventType];
 		if (Array.isArray(eventList) && eventList.length > 0) {
 			for (let index = 0; index < eventList.length; index++) {
@@ -120,7 +120,7 @@ export class EventFactory {
 	 * @param {Boolean} disabledClear 禁止clear该事件，仍可remove
 	 * @returns 事件参数，用于移除事件
 	 */
-	push(eventType: MapTypes.EventTypes, func: Function, disabledClear = false) {
+	push(eventType: EventTypes, func: Function, disabledClear = false) {
 		if (!EventTypeEnum[eventType]) return false;
 		const id = generateUUID();
 		this.events[eventType].push({
@@ -161,7 +161,7 @@ export class EventFactory {
 	 * @param {String} eventType 事件类型，为空时清空所有类型的事件
 	 * @param force 强制清空所有
 	 */
-	clear(eventType?: MapTypes.EventTypes, force = false) {
+	clear(eventType?: EventTypes, force = false) {
 		if (eventType && !EventTypeEnum[eventType]) return false;
 		const empty = (t: any) => {
 			const eventList = this.events[t];

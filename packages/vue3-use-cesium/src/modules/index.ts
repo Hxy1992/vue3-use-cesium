@@ -2,7 +2,7 @@ import { mapFactory } from "../modules/factory/map-factory";
 import { getState } from "../utils/store";
 import { loaderScript } from "../utils/loader-script";
 import { mittBus } from "../utils/mitt-bus";
-import type { MapTypes } from "../types";
+import type { MapOptionTypes } from "../interface/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
 
 const baseMapStore = getState();
@@ -30,7 +30,7 @@ export function getEventFactory() {
  * @param options 配置参数
  * @returns Promise
  */
-export function initMap(cesiumUrls: string[], options?: MapTypes.MapOptionTypes) {
+export function initMap(cesiumUrls: string[], options?: MapOptionTypes) {
 	return new Promise<boolean>(async (resolve, reject) => {
 		try {
 			await loaderScript(cesiumUrls);

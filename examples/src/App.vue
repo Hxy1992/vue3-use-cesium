@@ -5,6 +5,8 @@ import { BaseMap, MapOperation, MapScale, MapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
 import recoverNorth from "./assets/recoverNorth.svg"
 import homeSvg from "./assets/home.svg"
+import elecImg from "./assets/elec.jpg"
+import satelliteImg from "./assets/satellite.jpg"
 
 const route = useRoute();
 const menuList = ref<Record<string, any>[]>([
@@ -24,6 +26,24 @@ const menuList = ref<Record<string, any>[]>([
 		selected: false
 	}
 ]);
+
+const defaultImagerys: any = [
+	{
+		label: "高德卫星(无偏移)",
+		type: "gd-img",
+		backgroundImage: satelliteImg
+	},
+	{
+		label: "高德电子(无偏移)",
+		type: "gd-vec",
+		backgroundImage: elecImg
+	},
+	{
+		label: "OSM",
+		type: "osm-normal",
+		backgroundImage: elecImg
+	}
+]
 
 // 监听路由的变化
 watch(
@@ -48,7 +68,7 @@ watch(
 	<main class="main">
 		<RouterView />
 		<base-map>
-			<map-operation>
+			<map-operation :imagerys="defaultImagerys">
 				<template #help>?</template>
 				<template #view2d>2D</template>
 				<template #view3d>3D</template>

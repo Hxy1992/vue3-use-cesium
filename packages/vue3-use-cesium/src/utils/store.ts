@@ -1,21 +1,23 @@
 // 简易存储器
 
 import { reactive } from "vue";
-import type { StoreType } from "../types";
+import type { BaseMapType } from "../interface/store";
+import type { ImageryTypes } from "../interface/map";
 
-const state = reactive<StoreType.BaseMapType>({
+const state = reactive<BaseMapType>({
 	mapId: null,
 	visible: false,
 	toTarget: "body",
 	viewType: "3d",
-	flyHomeDuration: 0
+	flyHomeDuration: 0,
+	currentImagery: "osm-normal"
 });
 
 /**
  * 获取状态
  * @returns state
  */
-export const getState = (): StoreType.BaseMapType => state;
+export const getState = (): BaseMapType => state;
 /**
  * 设置地图id
  * @param val 地图id
@@ -43,4 +45,11 @@ export function setToTarget(val: string) {
  */
 export function setViewType(type: "2d" | "3d") {
 	state.viewType = type;
+}
+/**
+ * 设置底图
+ * @param type 底图类型
+ */
+export function setCurrentImagery(type: ImageryTypes) {
+	state.currentImagery = type;
 }

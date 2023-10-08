@@ -18,6 +18,11 @@
 				<slot name="recoverNorth"></slot>
 			</template>
 		</recoverNorth>
+		<imagery :imagerys="imagerys || defaultImagerys">
+			<template v-if="$slots.imagery" #imagery>
+				<slot name="imagery"></slot>
+			</template>
+		</imagery>
 		<zoomOut>
 			<template v-if="$slots.zoomOut" #zoomOut>
 				<slot name="zoomOut"></slot>
@@ -43,6 +48,45 @@ import zoomOut from "./zoom-out.vue";
 import recoverNorth from "./recover-north.vue";
 import homeView from "./home-view.vue";
 import viewSet from "./view-set.vue";
+import imagery from "./imagery.vue"
+
+const defaultImagerys: any = [
+	{
+		label: "高德卫星(无偏移)",
+		type: "gd-img"
+	},
+	{
+		label: "高德电子(无偏移)",
+		type: "gd-vec"
+	},
+	{
+		label: "OSM",
+		type: "osm-normal"
+	}
+]
+
+defineProps<{
+	imagerys?: {
+		label: string;
+		type: | "tdt-img"
+		| "tdt-vec"
+		| "gd-img"
+		| "gd-vec"
+		| "bd-vec"
+		| "tencent-vec"
+		| "tencent-img"
+		| "tms-offline"
+		| "osm-normal"
+		| "geoq-colour"
+		| "geoq-gray"
+		| "geoq-midnightblue"
+		| "carto-darkall"
+		| "carto-lightall"
+		| "empty";
+		url?: string;
+		backgroundImage?: string;
+	}[]
+}>()
 
 defineOptions({
 	name: "MapOperation"

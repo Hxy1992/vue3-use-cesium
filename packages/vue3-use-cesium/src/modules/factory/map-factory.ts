@@ -2,7 +2,8 @@ import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "./event-factory";
 import { setImagery } from "../imagery";
 import { morphMap } from "../util";
-import type { MapTypes } from "../../types";
+import type { MapOptionTypes } from "../../interface/map";
+import { setCurrentImagery } from "../../utils/store";
 
 interface MapEventType {
 	[key: string]: EventFactory;
@@ -14,7 +15,7 @@ interface ViewMapType {
 /**
  * 地图工厂
  */
-class MapFactory {
+export class MapFactory {
 	private viewerMap: ViewMapType;
 	private eventMap: MapEventType;
 	private staticMap: ViewMapType;
@@ -37,7 +38,7 @@ class MapFactory {
 	 * @param options 参数
 	 * @returns 地图id
 	 */
-	async add(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
+	async add(dom: HTMLElement | null, options?: MapOptionTypes) {
 		const uuid = generateUUID();
 		this.viewerMap[uuid] = await createMap(dom, options);
 		this.eventMap[uuid] = createFactory(this.viewerMap[uuid]);
@@ -48,7 +49,7 @@ class MapFactory {
 	 * @param dom 参考add方法
 	 * @param options 参考add方法
 	 */
-	async addStatic(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
+	async addStatic(dom: HTMLElement | null, options?: MapOptionTypes) {
 		const uuid = await this.add(dom, options);
 		this.staticMap[uuid] = true;
 		return uuid;
@@ -101,7 +102,7 @@ export const mapFactory = new MapFactory();
  * @param threeD 是否3d
  * @returns 地图实例
  */
-async function createMap(dom: HTMLElement | null, options?: MapTypes.MapOptionTypes) {
+async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
 	const { viewType = "3d", imagery, extra = {} } = options || {};
 	if (!dom) return;
 	const viewer = new Cesium.Viewer(dom, {
@@ -147,7 +148,10 @@ async function createMap(dom: HTMLElement | null, options?: MapTypes.MapOptionTy
 	// 视图3D/2D
 	morphMap(viewer, viewType);
 	// 默认地图
-	if (imagery) setImagery(viewer, imagery, "zh");
+	if (imagery) {
+		setImagery(viewer, imagery, "zh");
+		setCurrentImagery(imagery);
+	}
 	errorHandle(viewer);
 	return viewer;
 }

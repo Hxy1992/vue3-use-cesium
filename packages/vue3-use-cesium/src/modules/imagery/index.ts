@@ -1,6 +1,6 @@
 // 底图图层管理
-import type { MapTypes } from "../../types";
-
+import type { ImageryTypes } from "../../interface/map";
+import { AmapImageryProvider, BaiduImageryProvider, TencentImageryProvider } from "../factory/imagery-factory/index.js";
 /**
  * 设置图层
  * @param viewer 地图实例
@@ -8,17 +8,11 @@ import type { MapTypes } from "../../types";
  * @param language 语言
  * @param url 链接
  */
-export async function setImagery(viewer: any, layer: MapTypes.ImageryTypes, language: "zh" | "en", url?: string) {
+export async function setImagery(viewer: any, layer: ImageryTypes, language: "zh" | "en", url?: string) {
 	clearImagery(viewer);
-	// 增加缓存数量
-	// viewer.scene.globe.tileCacheSize = 600;
-	// viewer.scene.globe.loadingDescendantLimit = 600;
-	// viewer.scene.globe.preloadSiblings = true;
-	// viewer.scene.globe.preloadAncestors = true;
 	switch (layer) {
 		// 天地图-- 影像在线
 		case "tdt-img": {
-			// viewer.scene.globe.maximumScreenSpaceError = 1.8;
 			const imageryProvider = createTDT("img_w", "img", "tdtBasicLayer");
 			const imageryAnnotation = language === "en" ? createTDTAnnotation("eia_w", "eia") : createTDTAnnotation("cia_w", "cia");
 			viewer.imageryLayers.addImageryProvider(imageryProvider);
@@ -27,7 +21,6 @@ export async function setImagery(viewer: any, layer: MapTypes.ImageryTypes, lang
 		}
 		// 天地图-- 电子在线
 		case "tdt-vec": {
-			// viewer.scene.globe.maximumScreenSpaceError = 1.4;
 			const imageryProvider = createTDT("vec_w", "vec", "tdtVecBasicLayer");
 			const imageryAnnotation = language === "en" ? createTDTAnnotation("eva_w", "eva") : createTDTAnnotation("cva_w", "cva");
 			viewer.imageryLayers.addImageryProvider(imageryProvider);
@@ -42,6 +35,30 @@ export async function setImagery(viewer: any, layer: MapTypes.ImageryTypes, lang
 				url: `${url}/{z}/{x}/{y}.png`
 			});
 			viewer.imageryLayers.addImageryProvider(tms);
+			break;
+		}
+		// 高德地图-- 影像在线
+		case "gd-img": {
+			const GetClass = AmapImageryProvider();
+			viewer.imageryLayers.addImageryProvider(
+				new GetClass({
+					lang: language,
+					style: "img", // style: img、elec、cva
+					crs: "WGS84" // 使用84坐标系，默认为：GCJ02
+				})
+			);
+			break;
+		}
+		// 高德地图-- 电子在线
+		case "gd-vec": {
+			const GetClass = AmapImageryProvider();
+			viewer.imageryLayers.addImageryProvider(
+				new GetClass({
+					lang: language,
+					style: "elec", // style: img、elec、cva
+					crs: "WGS84" // 使用84坐标系，默认为：GCJ02
+				})
+			);
 			break;
 		}
 		// osm标准地图
@@ -95,6 +112,32 @@ export async function setImagery(viewer: any, layer: MapTypes.ImageryTypes, lang
 			viewer.imageryLayers.addImageryProvider(
 				new Cesium.UrlTemplateImageryProvider({
 					url: "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+				})
+			);
+			break;
+		}
+		// 百度地图-- 电子在线
+		case "bd-vec": {
+			const GetClass = BaiduImageryProvider();
+			viewer.imageryLayers.addImageryProvider(
+				new GetClass({
+					crs: "WGS84"
+				})
+			);
+			break;
+		}
+		// 腾讯地图-- 电子在线(存在偏移)
+		case "tencent-vec": {
+			const GetClass = TencentImageryProvider();
+			viewer.imageryLayers.addImageryProvider(new GetClass({}));
+			break;
+		}
+		// 腾讯地图-- 卫星在线(存在偏移)
+		case "tencent-img": {
+			const GetClass = TencentImageryProvider();
+			viewer.imageryLayers.addImageryProvider(
+				new GetClass({
+					style: "img"
 				})
 			);
 			break;

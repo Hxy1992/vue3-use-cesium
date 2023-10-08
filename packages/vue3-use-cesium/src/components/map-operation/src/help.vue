@@ -1,25 +1,29 @@
 <template>
 	<!-- 操作帮助按钮 -->
 	<div class="zhd-map-operation-button help">
-		<slot v-if="$slots.help" name="help" />
-		<div v-else class="txt-button" title="操作说明" @click="visibleChange">?</div>
+		<div class="txt-button" title="操作说明" @click="visibleChange">
+			<slot v-if="$slots.help" name="help" />
+			<template v-else>?</template>
+		</div>
 
-		<div v-if="popoverVisible" class="box-popover">
+		<div v-if="popoverVisible" ref="popoverRef" class="box-popover" tabindex="2" @blur="popoverVisible = false">
 			<div class="cesium-navigation-help cesium-navigation-help-visible">
-				<button type="button" :class="{
+				<div :class="{
 					'cesium-navigation-button': true,
 					'cesium-navigation-button-left': true,
 					'cesium-navigation-button-selected': navigation === 'left',
 					'cesium-navigation-button-unselected': navigation !== 'left'
-				}" @click="navigation = 'left'">
-					鼠标操作</button><button type="button" :class="{
-						'cesium-navigation-button': true,
-						'cesium-navigation-button-right': true,
-						'cesium-navigation-button-selected': navigation === 'right',
-						'cesium-navigation-button-unselected': navigation !== 'right'
-					}" @click="navigation = 'right'">
+				}" @click="selectItem('left')">
+					鼠标操作
+				</div>
+				<div :class="{
+					'cesium-navigation-button': true,
+					'cesium-navigation-button-right': true,
+					'cesium-navigation-button-selected': navigation === 'right',
+					'cesium-navigation-button-unselected': navigation !== 'right'
+				}" @click="selectItem('right')">
 					触摸手势
-				</button>
+				</div>
 				<div v-if="navigation === 'left'"
 					class="cesium-click-navigation-help cesium-navigation-help-instructions cesium-touch-navigation-help-visible">
 					<table>
@@ -91,7 +95,7 @@
 </template>
 
 <script setup lang="ts" name="MapOprationHelp">
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 defineOptions({
 	name: "MapOprationHelp"
 });
@@ -99,8 +103,18 @@ defineOptions({
 // 鼠标操作
 const navigation = ref("left");
 const popoverVisible = ref(false);
+const popoverRef = ref();
 
 function visibleChange() {
 	popoverVisible.value = !popoverVisible.value;
+	if (popoverVisible.value) {
+		nextTick(() => {
+			popoverRef.value.focus();
+		})
+	}
+}
+
+function selectItem(nav: "left" | "right") {
+	navigation.value = nav;
 }
 </script>
