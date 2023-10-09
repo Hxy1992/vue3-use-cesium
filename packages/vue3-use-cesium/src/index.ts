@@ -6,6 +6,7 @@ export { BaseMap, MapOperation, MapScale, MapStatus };
 export default AllComponents;
 
 // 样式
+import "./style/iconfont/iconfont.css";
 import "./style/index.scss";
 
 // 方法

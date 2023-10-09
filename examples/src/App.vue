@@ -69,7 +69,8 @@ watch(
 		<RouterView />
 		<base-map>
 			<map-operation :imagerys="defaultImagerys">
-				<template #help>?</template>
+				<!-- 插槽-自定义按钮图标 -->
+				<!-- <template #help>?</template>
 				<template #view2d>2D</template>
 				<template #view3d>3D</template>
 				<template #homeView>
@@ -79,7 +80,7 @@ watch(
 					<img class="btn-icons" :src="recoverNorth" alt="">
 				</template>
 				<template #zoomOut>-</template>
-				<template #zoomIn>+</template>
+				<template #zoomIn>+</template> -->
 			</map-operation>
 			<map-scale />
 			<map-status />

@@ -1,7 +1,7 @@
 <template>
 	<div class="zmap-tool_button zoom-in" @click="zoomIn" title="放大">
 		<slot v-if="$slots.zoomIn" name="zoomIn" />
-		<div v-else class="txt-button">+</div>
+		<span v-else class="iconfont icon-zmapfangda"></span>
 	</div>
 </template>
 

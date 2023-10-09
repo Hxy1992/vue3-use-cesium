@@ -1,9 +1,9 @@
 <template>
 	<!-- 操作帮助按钮 -->
 	<div class="zmap-tool_button help">
-		<div class="txt-button" title="操作说明" @click="visibleChange">
+		<div title="操作说明" @click="visibleChange">
 			<slot v-if="$slots.help" name="help" />
-			<template v-else>?</template>
+			<span v-else class="iconfont icon-zmapbangzhu"></span>
 		</div>
 
 		<div v-if="popoverVisible" ref="popoverRef" class="box-popover" tabindex="2" @blur="popoverVisible = false">

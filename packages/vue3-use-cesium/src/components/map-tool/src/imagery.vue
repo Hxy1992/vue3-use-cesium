@@ -1,8 +1,8 @@
 <template>
 	<div class="zmap-tool_button imagery">
-		<div class="txt-button" title="底图管理" @click="imageryClick">
+		<div title="底图管理" @click="imageryClick">
 			<slot v-if="$slots.imagery" name="imagery" />
-			<template v-else>底</template>
+			<span v-else class="iconfont icon-zmaptuceng-01"></span>
 		</div>
 
 		<div v-if="popoverVisible" ref="popoverRef" class="imageryChoose" tabindex="2" @blur="popoverVisible = false">

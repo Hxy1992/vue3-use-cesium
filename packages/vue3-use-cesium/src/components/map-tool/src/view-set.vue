@@ -1,12 +1,12 @@
 <template>
 	<div class="zmap-tool_button view-set" :disabled="isAnimating" @click="viewChange">
-		<div v-if="viewType === '3d'" class="txt-button" title="切换至2D视图">
+		<div v-if="viewType === '3d'" title="切换至2D视图">
 			<slot v-if="$slots.view3d" name="view3d" />
-			<template v-else>3D</template>
+			<span v-else class="iconfont icon-zmapdiqiu"></span>
 		</div>
-		<div v-else class="txt-button" title="切换至3D视图">
+		<div v-else title="切换至3D视图">
 			<slot v-if="$slots.view2d" name="view2d" />
-			<template v-else>2D</template>
+			<span v-else class="iconfont icon-zmapditulei_wanggequ"></span>
 		</div>
 	</div>
 </template>

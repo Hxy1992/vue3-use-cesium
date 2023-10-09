@@ -1,7 +1,7 @@
 <template>
 	<div class="zmap-tool_button recover-north" @click="north" title="恢复正北方向">
 		<slot v-if="$slots.recoverNorth" name="recoverNorth" />
-		<div v-else class="north-icon"></div>
+		<span v-else class="iconfont icon-zmapdingweifangxiang"></span>
 	</div>
 </template>
 

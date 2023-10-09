@@ -1,10 +1,7 @@
 <template>
 	<div class="zmap-tool_button home-view" @click="homeView" title="默认视图">
 		<slot v-if="$slots.homeView" name="homeView" />
-		<div v-else class="home-icon">
-			<div class="top"></div>
-			<div class="bottom"></div>
-		</div>
+		<span v-else class="iconfont icon-zmapzhuye"></span>
 	</div>
 </template>
 
