@@ -4,6 +4,7 @@ import { loaderScript } from "../utils/loader-script";
 import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interface/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
+export * from "./plot";
 
 const baseMapStore = getState();
 

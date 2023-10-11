@@ -26,6 +26,14 @@ const router = createRouter({
 			meta: {
 				hasMap: true
 			}
+		},
+		{
+			path: "/plot",
+			name: "标绘",
+			component: () => import("../views/PlotView.vue"),
+			meta: {
+				hasMap: true
+			}
 		}
 	]
 });
@@ -43,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
 		// ]);
 		// 使用本地地址调试(网速慢时改用本地地址)
 		await initMap([`/CesiumV1.105/Cesium.js`, `/CesiumV1.105/Widgets/widgets.css`], {
-			imagery: "geoq-midnightblue"
+			imagery: "gd-img"
 		});
 		loading.value = false;
 	}
