@@ -9,7 +9,7 @@
 			</div>
 			<div>仅绘制：</div>
 			<ul>
-				<!-- <li><button @click="drawClick('point')">点</button></li> -->
+				<li><button @click="drawClick('point')">点</button></li>
 				<li><button @click="drawClick('polyline')">线</button></li>
 				<li><button @click="drawClick('polygon')">面</button></li>
 				<!-- <li><button @click="drawClick('circle')">圆</button></li> -->
@@ -18,9 +18,18 @@
 			</ul>
 			<div>绘制后立即编辑：</div>
 			<ul>
-				<!-- <li><button @click="drawEditClick('point')">点</button></li> -->
+				<li><button @click="drawEditClick('point')">点</button></li>
 				<li><button @click="drawEditClick('polyline')">线</button></li>
 				<li><button @click="drawEditClick('polygon')">面</button></li>
+				<!-- <li><button @click="drawEditClick('circle')">圆</button></li> -->
+				<!-- <li><button @click="drawEditClick('rect')">矩形</button></li> -->
+				<li><button @click="stopPlot()">停止编辑</button></li>
+			</ul>
+			<div>转geojson：</div>
+			<ul>
+				<li><button @click="drawGeojsonClick('point')">点</button></li>
+				<li><button @click="drawGeojsonClick('polyline')">线</button></li>
+				<li><button @click="drawGeojsonClick('polygon')">面</button></li>
 				<!-- <li><button @click="drawEditClick('circle')">圆</button></li> -->
 				<!-- <li><button @click="drawEditClick('rect')">矩形</button></li> -->
 				<li><button @click="stopPlot()">停止编辑</button></li>
@@ -32,7 +41,12 @@
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount } from "vue";
-import { Plot } from "vue3-use-cesium";
+import { Plot, toGeoJson } from "vue3-use-cesium";
+
+/**
+ * TODO
+ * 需区分贴地、不贴地绘制
+ */
 
 let plot: Plot;
 
@@ -52,6 +66,13 @@ function drawEditClick(type: any) {
 	if (!plot) return;
 	plot.draw(type, coods => {
 		if (coods) plot.edit(type, coods);
+	});
+}
+function drawGeojsonClick(type: any) {
+	if (!plot) return;
+	plot.draw(type, coods => {
+		const geojson = toGeoJson(type, coods);
+		alert(JSON.stringify(geojson));
 	});
 }
 

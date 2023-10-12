@@ -1,7 +1,7 @@
 /**
  * 标绘类型
  */
-export type PlotTypes = "polyline" | "polygon";
+export type PlotTypes = "point" | "polyline" | "polygon";
 /**
  * 坐标类型
  */

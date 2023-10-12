@@ -1,11 +1,14 @@
-import { DrawPolygon, DrawPolyline } from "./draw";
-import { EditPolygon, EditPolyline } from "./edit";
+import { DrawPolygon, DrawPolyline, DrawPoint } from "./draw";
+import { EditPolygon, EditPolyline, EditPoint } from "./edit";
 import { getState } from "../../utils/store";
 import type { PlotTypes, CoodinateType, PlotCallBackType } from "../../interface/plot";
 
+/**
+ * 标绘
+ */
 export class Plot {
 	private mapId: string | null;
-	private instence: DrawPolygon | DrawPolyline | EditPolygon | EditPolyline | null;
+	private instence: DrawPoint | DrawPolygon | DrawPolyline | EditPoint | EditPolygon | EditPolyline | null;
 	constructor() {
 		this.mapId = getState().mapId;
 		this.instence = null;
@@ -26,6 +29,10 @@ export class Plot {
 		if (!this.mapId) return;
 		this.stopPrevious();
 		switch (type) {
+			case "point":
+				this.instence = new DrawPoint(this.mapId, callback);
+				this.instence.start();
+				break;
 			case "polyline":
 				this.instence = new DrawPolyline(this.mapId, callback);
 				this.instence.start();
@@ -50,6 +57,10 @@ export class Plot {
 		if (!this.mapId) return;
 		this.stopPrevious();
 		switch (type) {
+			case "point":
+				this.instence = new EditPoint(this.mapId);
+				this.instence.start(coods);
+				break;
 			case "polyline":
 				this.instence = new EditPolyline(this.mapId);
 				this.instence.start(coods);

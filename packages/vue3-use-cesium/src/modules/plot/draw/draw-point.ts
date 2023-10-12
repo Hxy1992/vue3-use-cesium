@@ -2,15 +2,15 @@ import { Draw } from "./draw";
 import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle } from "../config";
+import { PointStyle } from "../config";
 import type { PlotCallBackType } from "../../../interface/plot";
 /**
- * 绘制线
+ * 绘制点
  */
-export class DrawPolyline extends Draw {
-	private movePosition: any;
+export class DrawPoint extends Draw {
+	private pointCollection: any;
 	/**
-	 * 绘制线
+	 * 绘制点
 	 * @param mapUid 地图id
 	 * @param callback 成功回调
 	 */
@@ -42,7 +42,7 @@ export class DrawPolyline extends Draw {
 	 * 完成编辑（双击）
 	 */
 	private completeEdit() {
-		if (this.coods.length < 2) {
+		if (this.coods.length === 0) {
 			return this.end();
 		}
 		this.setEndStates();
@@ -57,6 +57,7 @@ export class DrawPolyline extends Draw {
 	private addEvents() {
 		const viewer = this.viewer;
 		const eventFactory = mapFactory.getEvent(this.mapUid);
+		let lastFeature: any;
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
 				const worldPosition = viewer.camera.pickEllipsoid(event.position, viewer.scene.globe.ellipsoid);
@@ -64,21 +65,17 @@ export class DrawPolyline extends Draw {
 					return;
 				}
 				this.coods.push(worldPosition);
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.MOUSE_MOVE, (event: any) => {
-				const worldPosition = viewer.camera.pickEllipsoid(event.endPosition, viewer.scene.globe.ellipsoid);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.movePosition = worldPosition;
+				lastFeature = this.addPoint(worldPosition);
 			})
 		);
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
 				// 双击会触发两次单击，所以需要去掉最后一个点
 				this.coods.pop();
+				if (lastFeature) {
+					this.pointCollection.remove(lastFeature);
+					lastFeature = null;
+				}
 				this.completeEdit();
 			})
 		);
@@ -86,28 +83,29 @@ export class DrawPolyline extends Draw {
 			eventFactory.push(EventTypeEnum.RIGHT_CLICK, () => {
 				if (this.coods.length > 0) {
 					this.coods.pop();
+					const p = this.pointCollection.get(this.pointCollection.length - 1);
+					this.pointCollection.remove(p);
 				} else {
 					this.end();
 				}
 			})
 		);
 	}
-	private addLayers() {
-		this.entity = this.viewer.entities.add({
-			name: "draw-temp-entity",
-			polyline: {
-				show: true,
-				positions: new Cesium.CallbackProperty(() => {
-					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
-				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color()
-			}
+	private addPoint(cood: any) {
+		return this.pointCollection.add({
+			position: cood,
+			pixelSize: 4,
+			outlineWidth: 2,
+			color: PointStyle.color().withAlpha(0.8),
+			outlineColor: PointStyle.outlineColor().withAlpha(0.8)
 		});
 	}
+	private addLayers() {
+		this.pointCollection = this.viewer.scene.primitives.add(new Cesium.PointPrimitiveCollection());
+	}
 	private clearLayers() {
-		this.viewer.entities.remove(this.entity);
-		this.entity = null;
+		this.viewer.scene.primitives.remove(this.pointCollection);
+		this.pointCollection = null;
 	}
 	/**
 	 * 销毁

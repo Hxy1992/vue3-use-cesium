@@ -5,6 +5,7 @@ import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interface/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
 export * from "./plot";
+export { toGeoJson } from "./transform";
 
 const baseMapStore = getState();
 

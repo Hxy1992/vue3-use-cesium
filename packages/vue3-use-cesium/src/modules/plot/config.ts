@@ -8,6 +8,14 @@ export const EditPointStyle = {
 	TempLayerName: "edit-points-temp-middle" // 编辑临时添加中点图层名
 };
 /**
+ * 点样式
+ */
+export const PointStyle = {
+	color: () => Cesium.Color.WHITE,
+	outlineColor: () => Cesium.Color.BLACK,
+	LayerName: "edit-points" // 编辑点图层名
+};
+/**
  * 线样式
  */
 export const PolylineStyle = {

@@ -29,6 +29,11 @@
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount } from "vue";
 
+/**
+ * TODO
+ * 需区分贴地、不贴地测量
+ */
+
 let measure: any;
 let tileset: any;
 let viewer: any;
