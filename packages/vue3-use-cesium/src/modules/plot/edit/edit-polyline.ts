@@ -3,7 +3,8 @@ import { cartesianListToLngLat, LngLatListTocartesian } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolylineStyle, EditPointStyle } from "../config";
-import type { CoodinateType } from "../../../interface/plot";
+import type { CoodinateType, PlotTypes } from "../../../interface/plot";
+import { pickPosition } from "../../pick-position";
 
 /**
  * 编辑线
@@ -14,9 +15,10 @@ export class EditPolyline extends Edit {
 	/**
 	 * 编辑多边形
 	 * @param mapUid 地图id
+	 * @param type 类型
 	 */
-	constructor(mapUid: string) {
-		super(mapUid);
+	constructor(mapUid: string, type: PlotTypes) {
+		super(mapUid, type);
 		this.pointEntities = [];
 		this.tempMiddleEntities = [];
 	}
@@ -86,7 +88,7 @@ export class EditPolyline extends Edit {
 				}
 				// 编辑操作
 				if (!isMouseDown || pickIndex === null) return;
-				const worldPosition = viewer.camera.pickEllipsoid(event.endPosition, viewer.scene.globe.ellipsoid);
+				const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
 				if (!Cesium.defined(worldPosition)) {
 					return;
 				}
@@ -112,7 +114,8 @@ export class EditPolyline extends Edit {
 					return this.coods;
 				}, false),
 				width: PolylineStyle.width,
-				material: PolylineStyle.color()
+				material: PolylineStyle.color(),
+				clampToGround: this.clampToGround
 			}
 		});
 		for (let index = 0; index < this.coods.length; index++) {

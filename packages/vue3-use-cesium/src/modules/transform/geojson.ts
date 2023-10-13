@@ -44,11 +44,17 @@ function toPolygon(coods: CoodinateType[]) {
  */
 export function toGeoJson(type: PlotTypes, coods: CoodinateType[]) {
 	switch (type) {
-		case "point":
+		case "EllipsoidPoint":
+		case "TerrainSurfacePoint":
+		case "ModelSurfacePoint":
 			return toPoint(coods);
-		case "polyline":
+		case "EllipsoidPolyline":
+		case "TerrainSurfacePolyline":
+		case "ModelSurfacePolyline":
 			return toPolyline(coods);
-		case "polygon":
+		case "EllipsoidPolygon":
+		case "TerrainSurfacePolygon":
+		case "ModelSurfacePolygon":
 			return toPolygon(coods);
 		default:
 			return null;

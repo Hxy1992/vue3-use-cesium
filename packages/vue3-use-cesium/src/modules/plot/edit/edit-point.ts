@@ -3,7 +3,8 @@ import { cartesianListToLngLat, LngLatListTocartesian } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PointStyle } from "../config";
-import type { CoodinateType } from "../../../interface/plot";
+import type { CoodinateType, PlotTypes } from "../../../interface/plot";
+import { pickPosition } from "../../pick-position";
 
 /**
  * 编辑点
@@ -13,9 +14,10 @@ export class EditPoint extends Edit {
 	/**
 	 * 编辑点
 	 * @param mapUid 地图id
+	 * @param type 类型
 	 */
-	constructor(mapUid: string) {
-		super(mapUid);
+	constructor(mapUid: string, type: PlotTypes) {
+		super(mapUid, type);
 		this.entities = [];
 	}
 	/**
@@ -73,7 +75,7 @@ export class EditPoint extends Edit {
 				}
 				// 编辑操作
 				if (!isMouseDown || pickIndex === null) return;
-				const worldPosition = viewer.camera.pickEllipsoid(event.endPosition, viewer.scene.globe.ellipsoid);
+				const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
 				if (!Cesium.defined(worldPosition)) {
 					return;
 				}

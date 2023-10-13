@@ -4,6 +4,8 @@ import { setImagery } from "../imagery";
 import { morphMap } from "../util";
 import type { MapOptionTypes } from "../../interface/map";
 import { setCurrentImagery } from "../../utils/store";
+import { TerrainTypeEnum } from "../../enums/map-enum";
+import { TerrainFactory } from "../terrain";
 
 interface MapEventType {
 	[key: string]: EventFactory;
@@ -103,10 +105,13 @@ export const mapFactory = new MapFactory();
  * @returns 地图实例
  */
 async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
-	const { viewType = "3d", imagery, extra = {} } = options || {};
+	const { viewType = "3d", imagery, extra = {}, terrain = TerrainTypeEnum.NONE, terrainUrl = "" } = options || {};
 	if (!dom) return;
+	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
+		url: terrainUrl
+	});
 	const viewer = new Cesium.Viewer(dom, {
-		terrainProvider: Cesium.EllipsoidTerrainProvider(),
+		terrainProvider,
 		geocoder: false,
 		navigationHelpButton: false,
 		animation: false,

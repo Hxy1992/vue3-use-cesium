@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { BaseMap, MapOperation, MapScale, MapStatus } from "vue3-use-cesium";
+import { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
 import recoverNorth from "./assets/recoverNorth.svg"
 import homeSvg from "./assets/home.svg"
@@ -72,8 +72,8 @@ watch(
 	</header>
 	<main class="main">
 		<RouterView />
-		<base-map>
-			<map-operation :imagerys="defaultImagerys">
+		<z-map-base>
+			<z-map-tool :imagerys="defaultImagerys">
 				<!-- 插槽-自定义按钮图标 -->
 				<!-- <template #help>?</template>
 				<template #view2d>2D</template>
@@ -86,10 +86,10 @@ watch(
 				</template>
 				<template #zoomOut>-</template>
 				<template #zoomIn>+</template> -->
-			</map-operation>
-			<map-scale />
-			<map-status />
-		</base-map>
+			</z-map-tool>
+			<z-map-scale />
+			<z-map-status />
+		</z-map-base>
 	</main>
 	<loading />
 </template>

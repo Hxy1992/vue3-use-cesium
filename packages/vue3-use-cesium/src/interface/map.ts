@@ -1,3 +1,5 @@
+import { TerrainTypeEnum } from "../enums/map-enum";
+
 /**
  * 地图事件类型
  */
@@ -46,6 +48,14 @@ export interface MapOptionTypes {
 	 * 默认底图为本地时需传入url
 	 */
 	imageryUrl?: string;
+	/**
+	 * 地形
+	 */
+	terrain?: TerrainTypeEnum;
+	/**
+	 * 地形地址
+	 */
+	terrainUrl?: string;
 	/**
 	 * new Cesium.Viewer时配置参数，会覆盖默认参数
 	 */

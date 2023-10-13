@@ -1,13 +1,13 @@
 import type { App } from "vue";
 
 // 组件
-import BaseMap from "./base-map";
-import MapOperation from "./map-tool";
-import MapScale from "./map-scale";
-import MapStatus from "./map-status";
+import ZMapBase from "./base-map";
+import ZMapTool from "./map-tool";
+import ZMapScale from "./map-scale";
+import ZMapStatus from "./map-status";
 
-const components = [BaseMap, MapOperation, MapScale, MapStatus];
-function install(app: App) {
+const components = [ZMapBase, ZMapTool, ZMapScale, ZMapStatus];
+function install(app: App): void {
 	components.forEach(item => {
 		if (item.install!) {
 			app.use(item);
@@ -17,8 +17,7 @@ function install(app: App) {
 	});
 }
 
-export { BaseMap, MapOperation, MapScale, MapStatus };
-
+export { ZMapBase, ZMapTool, ZMapScale, ZMapStatus };
 export default {
 	install,
 	components

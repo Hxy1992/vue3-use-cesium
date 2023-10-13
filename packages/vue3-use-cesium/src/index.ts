@@ -1,9 +1,8 @@
-import AllComponents from "./components";
-import { BaseMap, MapOperation, MapScale, MapStatus } from "./components";
+import installPlugins from "./components";
 
 // 组件
-export { BaseMap, MapOperation, MapScale, MapStatus };
-export default AllComponents;
+export { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "./components";
+export default installPlugins;
 
 // 样式
 import "./style/iconfont/iconfont.css";

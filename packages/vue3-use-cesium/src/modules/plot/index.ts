@@ -9,15 +9,24 @@ import type { PlotTypes, CoodinateType, PlotCallBackType } from "../../interface
 export class Plot {
 	private mapId: string | null;
 	private instence: DrawPoint | DrawPolygon | DrawPolyline | EditPoint | EditPolygon | EditPolyline | null;
+	private clampToGround: boolean;
 	constructor() {
 		this.mapId = getState().mapId;
 		this.instence = null;
+		this.clampToGround = false;
 	}
 	private stopPrevious() {
 		if (this.instence) {
 			this.instence.dispose();
 			this.instence = null;
 		}
+	}
+	/**
+	 * 设置图形贴地
+	 * @param val 是否贴地
+	 */
+	public setClampToGround(val: boolean = false) {
+		this.clampToGround = val;
 	}
 	/**
 	 * 绘制
@@ -29,16 +38,25 @@ export class Plot {
 		if (!this.mapId) return;
 		this.stopPrevious();
 		switch (type) {
-			case "point":
-				this.instence = new DrawPoint(this.mapId, callback);
+			case "EllipsoidPoint":
+			case "TerrainSurfacePoint":
+			case "ModelSurfacePoint":
+				this.instence = new DrawPoint(this.mapId, type, callback);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start();
 				break;
-			case "polyline":
-				this.instence = new DrawPolyline(this.mapId, callback);
+			case "EllipsoidPolyline":
+			case "TerrainSurfacePolyline":
+			case "ModelSurfacePolyline":
+				this.instence = new DrawPolyline(this.mapId, type, callback);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start();
 				break;
-			case "polygon":
-				this.instence = new DrawPolygon(this.mapId, callback);
+			case "EllipsoidPolygon":
+			case "TerrainSurfacePolygon":
+			case "ModelSurfacePolygon":
+				this.instence = new DrawPolygon(this.mapId, type, callback);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start();
 				break;
 			default:
@@ -57,16 +75,25 @@ export class Plot {
 		if (!this.mapId) return;
 		this.stopPrevious();
 		switch (type) {
-			case "point":
-				this.instence = new EditPoint(this.mapId);
+			case "EllipsoidPoint":
+			case "TerrainSurfacePoint":
+			case "ModelSurfacePoint":
+				this.instence = new EditPoint(this.mapId, type);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start(coods);
 				break;
-			case "polyline":
-				this.instence = new EditPolyline(this.mapId);
+			case "EllipsoidPolyline":
+			case "TerrainSurfacePolyline":
+			case "ModelSurfacePolyline":
+				this.instence = new EditPolyline(this.mapId, type);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start(coods);
 				break;
-			case "polygon":
-				this.instence = new EditPolygon(this.mapId);
+			case "EllipsoidPolygon":
+			case "TerrainSurfacePolygon":
+			case "ModelSurfacePolygon":
+				this.instence = new EditPolygon(this.mapId, type);
+				this.instence.setClampToGround(this.clampToGround);
 				this.instence.start(coods);
 				break;
 			default:

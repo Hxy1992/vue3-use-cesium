@@ -6,6 +6,7 @@ import type { MapOptionTypes } from "../interface/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
 export * from "./plot";
 export { toGeoJson } from "./transform";
+export * from "./terrain";
 
 const baseMapStore = getState();
 

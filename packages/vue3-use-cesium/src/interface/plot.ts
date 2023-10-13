@@ -1,7 +1,16 @@
 /**
  * 标绘类型
  */
-export type PlotTypes = "point" | "polyline" | "polygon";
+export type PlotTypes =
+	| "EllipsoidPoint"
+	| "EllipsoidPolyline"
+	| "EllipsoidPolygon"
+	| "TerrainSurfacePoint"
+	| "TerrainSurfacePolyline"
+	| "TerrainSurfacePolygon"
+	| "ModelSurfacePoint"
+	| "ModelSurfacePolyline"
+	| "ModelSurfacePolygon";
 /**
  * 坐标类型
  */

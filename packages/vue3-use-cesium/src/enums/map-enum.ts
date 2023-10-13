@@ -1,5 +1,8 @@
 // 地图枚举
 
+/**
+ * 地图事件
+ */
 export enum EventTypeEnum {
 	/**
 	 * 地图移动开始事件
@@ -49,4 +52,30 @@ export enum EventTypeEnum {
 	 * 鼠标左键双击
 	 */
 	LEFT_DOUBLE_CLICK = "LEFT_DOUBLE_CLICK"
+}
+
+/**
+ * 地形
+ */
+export enum TerrainTypeEnum {
+	/**
+	 * 无地形
+	 */
+	NONE = "none",
+	/**
+	 * UrlTerrain
+	 */
+	XYZ = "xyz",
+	/**
+	 * ArcgisTerrain
+	 */
+	ARCGIS = "arcgis",
+	/**
+	 * GoogleTerrain
+	 */
+	GOOGLE = "google",
+	/**
+	 * VRTerrain
+	 */
+	VR = "vr"
 }

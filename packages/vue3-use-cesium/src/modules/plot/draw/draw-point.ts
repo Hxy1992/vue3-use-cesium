@@ -3,7 +3,9 @@ import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PointStyle } from "../config";
-import type { PlotCallBackType } from "../../../interface/plot";
+import type { PlotTypes, PlotCallBackType } from "../../../interface/plot";
+import { pickPosition } from "../../pick-position";
+
 /**
  * 绘制点
  */
@@ -12,10 +14,11 @@ export class DrawPoint extends Draw {
 	/**
 	 * 绘制点
 	 * @param mapUid 地图id
+	 * @param type 类型
 	 * @param callback 成功回调
 	 */
-	constructor(mapUid: string, callback: PlotCallBackType) {
-		super(mapUid, callback);
+	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
+		super(mapUid, type, callback);
 	}
 	/**
 	 * 开始绘制
@@ -60,7 +63,7 @@ export class DrawPoint extends Draw {
 		let lastFeature: any;
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
-				const worldPosition = viewer.camera.pickEllipsoid(event.position, viewer.scene.globe.ellipsoid);
+				const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
 				if (!Cesium.defined(worldPosition)) {
 					return;
 				}

@@ -3,7 +3,8 @@ import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolygonStyle, PolylineStyle } from "../config";
-import type { PlotCallBackType } from "../../../interface/plot";
+import type { PlotCallBackType, PlotTypes } from "../../../interface/plot";
+import { pickPosition } from "../../pick-position";
 /**
  * 绘制多边形
  */
@@ -12,10 +13,11 @@ export class DrawPolygon extends Draw {
 	/**
 	 * 绘制多边形
 	 * @param mapUid 地图id
+	 * @param type 类型
 	 * @param callback 成功回调
 	 */
-	constructor(mapUid: string, callback: PlotCallBackType) {
-		super(mapUid, callback);
+	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
+		super(mapUid, type, callback);
 	}
 	/**
 	 * 开始绘制
@@ -59,7 +61,7 @@ export class DrawPolygon extends Draw {
 		const eventFactory = mapFactory.getEvent(this.mapUid);
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
-				const worldPosition = viewer.camera.pickEllipsoid(event.position, viewer.scene.globe.ellipsoid);
+				const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
 				if (!Cesium.defined(worldPosition)) {
 					return;
 				}
@@ -68,7 +70,7 @@ export class DrawPolygon extends Draw {
 		);
 		this.events.push(
 			eventFactory.push(EventTypeEnum.MOUSE_MOVE, (event: any) => {
-				const worldPosition = viewer.camera.pickEllipsoid(event.endPosition, viewer.scene.globe.ellipsoid);
+				const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
 				if (!Cesium.defined(worldPosition)) {
 					return;
 				}
@@ -101,7 +103,8 @@ export class DrawPolygon extends Draw {
 					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
 				}, false),
 				width: PolylineStyle.width,
-				material: PolylineStyle.color()
+				material: PolylineStyle.color(),
+				clampToGround: this.clampToGround
 			},
 			polygon: {
 				hierarchy: new Cesium.CallbackProperty(() => {
@@ -110,7 +113,8 @@ export class DrawPolygon extends Draw {
 						: new Cesium.PolygonHierarchy();
 				}, false),
 				material: PolygonStyle.color(),
-				outlineWidth: 0
+				outlineWidth: 0,
+				clampToGround: this.clampToGround
 			}
 		});
 	}

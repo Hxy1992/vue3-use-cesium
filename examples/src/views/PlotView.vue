@@ -7,31 +7,40 @@
 				<br>
 				编辑：鼠标按住编辑点拖拽可编辑
 			</div>
+			<div>
+				<button @click="terrainClick('xyz')" :selected="terrainType === 'xyz'">有地形</button>
+				<button @click="terrainClick('none')" :selected="terrainType === 'none'">无地形</button>
+			</div>
+			<div>
+				<button @click="clampToGroundClick(true)" :selected="clampToGround">图形贴地</button>
+				<button @click="clampToGroundClick(false)" :selected="!clampToGround">不贴地</button>
+			</div>
 			<div>仅绘制：</div>
 			<ul>
-				<li><button @click="drawClick('point')">点</button></li>
-				<li><button @click="drawClick('polyline')">线</button></li>
-				<li><button @click="drawClick('polygon')">面</button></li>
-				<!-- <li><button @click="drawClick('circle')">圆</button></li> -->
-				<!-- <li><button @click="drawClick('rect')">矩形</button></li> -->
+				<li><button @click="drawClick('EllipsoidPoint')">点(椭球)</button></li>
+				<li><button @click="drawClick('EllipsoidPolyline')">线(椭球)</button></li>
+				<li><button @click="drawClick('EllipsoidPolygon')">面(椭球)</button></li>
+				<li><button @click="drawClick('TerrainSurfacePoint')">点(地形)</button></li>
+				<li><button @click="drawClick('TerrainSurfacePolyline')">线(地形)</button></li>
+				<li><button @click="drawClick('TerrainSurfacePolygon')">面(地形)</button></li>
+				<li><button @click="drawClick('ModelSurfacePoint')">点(模型)</button></li>
+				<li><button @click="drawClick('ModelSurfacePolyline')">线(模型)</button></li>
+				<li><button @click="drawClick('ModelSurfacePolygon')">面(模型)</button></li>
 				<li><button @click="stopPlot()">停止绘制</button></li>
 			</ul>
-			<div>绘制后立即编辑：</div>
+			<div>绘制后编辑：</div>
 			<ul>
-				<li><button @click="drawEditClick('point')">点</button></li>
-				<li><button @click="drawEditClick('polyline')">线</button></li>
-				<li><button @click="drawEditClick('polygon')">面</button></li>
-				<!-- <li><button @click="drawEditClick('circle')">圆</button></li> -->
-				<!-- <li><button @click="drawEditClick('rect')">矩形</button></li> -->
+				<li><button @click="drawEditClick('EllipsoidPoint')">点(椭球)</button></li>
+				<li><button @click="drawEditClick('EllipsoidPolyline')">线(椭球)</button></li>
+				<li><button @click="drawEditClick('EllipsoidPolygon')">面(椭球)</button></li>
 				<li><button @click="stopPlot()">停止编辑</button></li>
 			</ul>
-			<div>转geojson：</div>
+			<div>结果转geojson：</div>
 			<ul>
-				<li><button @click="drawGeojsonClick('point')">点</button></li>
-				<li><button @click="drawGeojsonClick('polyline')">线</button></li>
-				<li><button @click="drawGeojsonClick('polygon')">面</button></li>
-				<!-- <li><button @click="drawEditClick('circle')">圆</button></li> -->
-				<!-- <li><button @click="drawEditClick('rect')">矩形</button></li> -->
+				<li><button @click="drawGeojsonClick('EllipsoidPolyline')">线(椭球)</button></li>
+				<li><button @click="drawGeojsonClick('TerrainSurfacePolyline')">线(地形)</button></li>
+				<li><button @click="drawGeojsonClick('ModelSurfacePolyline')">线(模型)</button></li>
+				<li><button @click="drawGeojsonClick('TerrainSurfacePolygon')">面(地形)</button></li>
 				<li><button @click="stopPlot()">停止编辑</button></li>
 			</ul>
 		</div>
@@ -40,21 +49,39 @@
 
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
-import { onBeforeUnmount } from "vue";
-import { Plot, toGeoJson } from "vue3-use-cesium";
-
-/**
- * TODO
- * 需区分贴地、不贴地绘制
- */
+import { onBeforeUnmount, ref } from "vue";
+import { Plot, toGeoJson, TerrainFactory } from "vue3-use-cesium";
 
 let plot: Plot;
+let viewer: any;
+const terrainType = ref("none");
+const clampToGround = ref(false)
 
 // 地图初始化
-useBaseMap("#my-map", viewer => {
-	console.log(viewer);
+useBaseMap("#my-map", v => {
+	viewer = v;
 	plot = new Plot();
+
+	const tileset = new Cesium.Cesium3DTileset({
+		url: "http://resource.dvgis.cn/data/3dtiles/dayanta/tileset.json",
+		projectTo2D: true
+	});
+	viewer.scene.primitives.add(tileset);
+	viewer.zoomTo(tileset)
 });
+
+async function terrainClick(type: any) {
+	terrainType.value = type;
+	viewer.terrainProvider = await TerrainFactory.createTerrain(type, {
+		url: type === "xyz" ? "http://data.marsgis.cn/terrain" : ""
+	});
+}
+
+function clampToGroundClick(val: boolean) {
+	if (!plot) return;
+	clampToGround.value = val;
+	plot.setClampToGround(val);
+}
 
 function drawClick(type: any) {
 	if (!plot) return;
@@ -71,6 +98,7 @@ function drawEditClick(type: any) {
 function drawGeojsonClick(type: any) {
 	if (!plot) return;
 	plot.draw(type, coods => {
+		if (!coods) return
 		const geojson = toGeoJson(type, coods);
 		alert(JSON.stringify(geojson));
 	});
@@ -109,6 +137,11 @@ onBeforeUnmount(() => {
 .btn-box button {
 	width: 80px;
 	margin: 2px 0;
+}
+
+.btn-box button[selected=true] {
+	color: white;
+	background-color: #4064e2;
 }
 
 .btn-box .description {
