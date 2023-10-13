@@ -2,9 +2,8 @@ import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "./event-factory";
 import { setImagery } from "../imagery";
 import { morphMap } from "../util";
-import type { MapOptionTypes } from "../../interface/map";
+import type { MapOptionTypes, TerrainTypes } from "../../interface/map";
 import { setCurrentImagery } from "../../utils/store";
-import { TerrainTypeEnum } from "../../enums/map-enum";
 import { TerrainFactory } from "../terrain";
 
 interface MapEventType {
@@ -105,7 +104,7 @@ export const mapFactory = new MapFactory();
  * @returns 地图实例
  */
 async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
-	const { viewType = "3d", imagery, extra = {}, terrain = TerrainTypeEnum.NONE, terrainUrl = "" } = options || {};
+	const { viewType = "3d", imagery, extra = {}, terrain = "none", terrainUrl = "" } = options || {};
 	if (!dom) return;
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
 		url: terrainUrl

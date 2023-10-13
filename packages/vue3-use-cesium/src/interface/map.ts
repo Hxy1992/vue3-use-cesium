@@ -1,5 +1,3 @@
-import { TerrainTypeEnum } from "../enums/map-enum";
-
 /**
  * 地图事件类型
  */
@@ -35,6 +33,15 @@ export type ImageryTypes =
 	| "carto-darkall"
 	| "carto-lightall"
 	| "empty";
+
+/**
+ * 地形类型
+ */
+export type TerrainTypes = "none" | "xyz" | "arcgis" | "google" | "vr";
+
+/**
+ * 组件参数
+ */
 export interface MapOptionTypes {
 	/**
 	 * 默认视图类型
@@ -51,7 +58,7 @@ export interface MapOptionTypes {
 	/**
 	 * 地形
 	 */
-	terrain?: TerrainTypeEnum;
+	terrain?: TerrainTypes;
 	/**
 	 * 地形地址
 	 */

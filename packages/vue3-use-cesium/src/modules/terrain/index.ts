@@ -1,4 +1,4 @@
-import { TerrainTypeEnum } from "../../enums/map-enum";
+import { TerrainTypes } from "../../interface/map";
 
 interface TerrainOptions {
 	url: string;
@@ -77,24 +77,24 @@ export class TerrainFactory {
 	 * @param options
 	 */
 	static createTerrain(
-		type: TerrainTypeEnum,
+		type: TerrainTypes,
 		options: TerrainOptions | EllipsoidTerrainOptions | GoogleTerrainOptions | ArcGISTerrainOptions | VRTerrainOptions
 	): Promise<any> {
 		let promise: Promise<any> = Promise.resolve(null);
 		switch (type) {
-			case TerrainTypeEnum.NONE:
+			case "none":
 				promise = this.createEllipsoidTerrain(options as EllipsoidTerrainOptions);
 				break;
-			case TerrainTypeEnum.XYZ:
+			case "xyz":
 				promise = this.createUrlTerrain(options as TerrainOptions);
 				break;
-			case TerrainTypeEnum.GOOGLE:
+			case "google":
 				promise = this.createGoogleTerrain(options as GoogleTerrainOptions);
 				break;
-			case TerrainTypeEnum.ARCGIS:
+			case "arcgis":
 				promise = this.createArcgisTerrain(options as ArcGISTerrainOptions);
 				break;
-			case TerrainTypeEnum.VR:
+			case "vr":
 				promise = this.createVRTerrain(options as VRTerrainOptions);
 				break;
 			default:

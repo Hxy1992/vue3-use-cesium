@@ -54,6 +54,7 @@ import { Plot, toGeoJson, TerrainFactory } from "vue3-use-cesium";
 
 let plot: Plot;
 let viewer: any;
+let tileset: any;
 const terrainType = ref("none");
 const clampToGround = ref(false)
 
@@ -62,7 +63,7 @@ useBaseMap("#my-map", v => {
 	viewer = v;
 	plot = new Plot();
 
-	const tileset = new Cesium.Cesium3DTileset({
+	tileset = new Cesium.Cesium3DTileset({
 		url: "http://resource.dvgis.cn/data/3dtiles/dayanta/tileset.json",
 		projectTo2D: true
 	});
@@ -108,7 +109,11 @@ function stopPlot() {
 	plot && plot.stop()
 }
 
-onBeforeUnmount(() => {
+onBeforeUnmount(async () => {
+	viewer.scene.primitives.remove(tileset);
+	viewer.terrainProvider = await TerrainFactory.createTerrain("none", {
+		url: ""
+	});
 	plot && plot.dispose()
 });
 </script>

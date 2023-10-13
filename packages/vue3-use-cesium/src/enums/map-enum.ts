@@ -53,29 +53,3 @@ export enum EventTypeEnum {
 	 */
 	LEFT_DOUBLE_CLICK = "LEFT_DOUBLE_CLICK"
 }
-
-/**
- * 地形
- */
-export enum TerrainTypeEnum {
-	/**
-	 * 无地形
-	 */
-	NONE = "none",
-	/**
-	 * UrlTerrain
-	 */
-	XYZ = "xyz",
-	/**
-	 * ArcgisTerrain
-	 */
-	ARCGIS = "arcgis",
-	/**
-	 * GoogleTerrain
-	 */
-	GOOGLE = "google",
-	/**
-	 * VRTerrain
-	 */
-	VR = "vr"
-}
