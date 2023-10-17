@@ -118,11 +118,15 @@ onBeforeUnmount(async () => {
 });
 </script>
 
-<style>
+<style scoped>
 .bbox,
 .content-box {
 	width: 100%;
 	height: 100%;
+}
+
+ul {
+	margin: 5px 0;
 }
 
 .btn-box {
@@ -142,6 +146,7 @@ onBeforeUnmount(async () => {
 .btn-box button {
 	width: 80px;
 	margin: 2px 0;
+	cursor: pointer;
 }
 
 .btn-box button[selected=true] {

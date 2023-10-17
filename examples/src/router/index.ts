@@ -34,6 +34,14 @@ const router = createRouter({
 			meta: {
 				hasMap: true
 			}
+		},
+		{
+			path: "/measure",
+			name: "测量",
+			component: () => import("../views/MeasureView.vue"),
+			meta: {
+				hasMap: true
+			}
 		}
 	]
 });

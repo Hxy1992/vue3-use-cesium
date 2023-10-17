@@ -48,6 +48,10 @@ export interface MapOptionTypes {
 	 */
 	viewType?: "2d" | "3d"; // true - 3d视图；false - 2d视图
 	/**
+	 * 深度检测
+	 */
+	depthTestAgainstTerrain?: boolean;
+	/**
 	 * 默认底图
 	 */
 	imagery?: ImageryTypes;

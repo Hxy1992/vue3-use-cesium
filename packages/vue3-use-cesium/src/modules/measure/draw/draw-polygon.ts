@@ -1,23 +1,23 @@
 import { Draw } from "./draw";
-import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../factory/map-factory";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolygonStyle, PolylineStyle } from "../config";
-import type { PlotCallBackType, PlotTypes } from "../../../interface/plot";
+import { PolygonStyle, PolylineStyle, LabelStyle, PointStyle } from "../config";
+import type { MeasureAreaTypes } from "../../../interface/measure";
 import { pickPosition } from "../../pick-position";
+import { calcArea } from "../helper";
 /**
  * 绘制多边形
  */
 export class DrawPolygon extends Draw {
 	private movePosition: any;
+	private labelEntity: any;
 	/**
 	 * 绘制多边形
 	 * @param mapUid 地图id
 	 * @param type 类型
-	 * @param callback 成功回调
 	 */
-	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
-		super(mapUid, type, callback);
+	constructor(mapUid: string, type: MeasureAreaTypes) {
+		super(mapUid, type);
 	}
 	/**
 	 * 开始绘制
@@ -26,34 +26,34 @@ export class DrawPolygon extends Draw {
 		if (this.isEditing) return;
 		// 地图事件、容器等
 		this.init();
-		this.setStartStates();
+		this.setStates(true);
 		this.coods = [];
 	}
 	/**
 	 * 结束绘制
 	 */
-	end() {
+	stop() {
 		if (!this.isEditing) return;
 		// 地图事件、容器等
-		this.setEndStates();
-		this.dispose();
-		this.callback(null);
+		this.setStates(false);
+		this.clearEvents();
+	}
+	public clear() {
+		this.viewer.entities.remove(this.entity);
+		this.viewer.entities.remove(this.labelEntity);
+		this.entity = null;
+		this.labelEntity = null;
 		this.coods = [];
 	}
 	/**
-	 * 完成编辑（双击）
+	 * 销毁
 	 */
-	private completeEdit() {
-		if (this.coods.length < 3) {
-			return this.end();
-		}
-		this.setEndStates();
-		this.dispose();
-		this.callback(cartesianListToLngLat(this.coods));
-		this.coods = [];
+	public dispose() {
+		this.clearEvents();
+		this.clear();
 	}
 	private init() {
-		this.addLayers();
+		this.addPolygon();
 		this.addEvents();
 	}
 	private addEvents() {
@@ -81,7 +81,10 @@ export class DrawPolygon extends Draw {
 			eventFactory.push(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
 				// 双击会触发两次单击，所以需要去掉最后一个点
 				this.coods.pop();
-				this.completeEdit();
+				this.stop();
+
+				// 结束显示面积
+				this.showArea();
 			})
 		);
 		this.events.push(
@@ -89,12 +92,20 @@ export class DrawPolygon extends Draw {
 				if (this.coods.length > 0) {
 					this.coods.pop();
 				} else {
-					this.end();
+					this.stop();
 				}
 			})
 		);
 	}
-	private addLayers() {
+	private showArea() {
+		if (this.coods.length > 2) {
+			const position = Cesium.BoundingSphere.fromPoints(this.coods)?.center;
+			const text = `面积：${calcArea(this.coods).toFixed(2)} 平方米`;
+			this.addLabel(position, text);
+		}
+	}
+	private addPolygon() {
+		// TODO 标绘和测量时，加载地形，绘制多边形的polyline有问题
 		this.entity = this.viewer.entities.add({
 			name: "draw-temp-entity",
 			polyline: {
@@ -112,19 +123,30 @@ export class DrawPolygon extends Draw {
 				}, false),
 				material: PolygonStyle.color(),
 				outlineWidth: 0,
-				perPositionHeight: !this.clampToGround && (this.type === "ModelSurfacePolygon" || this.type === "TerrainSurfacePolygon")
+				perPositionHeight: !this.clampToGround && (this.type === "TerrainSurfaceArea" || this.type === "ModelSurfaceArea")
 			}
 		});
 	}
-	private clearLayers() {
-		this.viewer.entities.remove(this.entity);
-		this.entity = null;
-	}
-	/**
-	 * 销毁
-	 */
-	public dispose() {
-		this.clearEvents();
-		this.clearLayers();
+	private addLabel(position: any, text: string) {
+		this.labelEntity = this.viewer.entities.add({
+			position: position,
+			point: {
+				pixelSize: 6,
+				outlineWidth: 2,
+				color: PointStyle.color(),
+				outlineColor: PointStyle.outlineColor(),
+				clampToGround: this.clampToGround
+			},
+			label: {
+				show: true,
+				showBackground: true,
+				font: LabelStyle.font,
+				horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+				verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+				pixelOffset: new Cesium.Cartesian2(0, -10),
+				text
+			}
+		});
+		return this.labelEntity;
 	}
 }

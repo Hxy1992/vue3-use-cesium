@@ -7,6 +7,7 @@ export { setToTarget, setViewType, setVisible } from "../utils/store";
 export * from "./plot";
 export { toGeoJson } from "./transform";
 export * from "./terrain";
+export * from "./measure";
 
 const baseMapStore = getState();
 

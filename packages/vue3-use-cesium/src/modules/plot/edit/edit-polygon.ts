@@ -114,14 +114,13 @@ export class EditPolygon extends Edit {
 		this.entity = this.viewer.entities.add({
 			name: "draw-temp-entity",
 			polygon: {
-				perPositionHeight: true,
 				hierarchy: new Cesium.CallbackProperty(() => {
 					return new Cesium.PolygonHierarchy(this.coods);
 				}, false),
 				material: PolygonStyle.color(),
 				outlineWidth: 0,
 				zIndex: 0,
-				clampToGround: this.clampToGround
+				perPositionHeight: !this.clampToGround && (this.type === "ModelSurfacePolygon" || this.type === "TerrainSurfacePolygon")
 			}
 		});
 		for (let index = 0; index < this.coods.length; index++) {

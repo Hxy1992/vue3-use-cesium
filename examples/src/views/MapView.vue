@@ -13,7 +13,7 @@ useBaseMap("#my-map", viewer => {
 });
 </script>
 
-<style>
+<style scoped>
 .bbox,
 .content-box {
 	width: 100%;

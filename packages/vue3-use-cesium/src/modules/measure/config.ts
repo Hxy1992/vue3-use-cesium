@@ -13,7 +13,7 @@ export const EditPointStyle = {
 export const PointStyle = {
 	color: () => Cesium.Color.WHITE,
 	outlineColor: () => Cesium.Color.BLACK,
-	LayerName: "zmap-plot-points" // 编辑点图层名
+	LayerName: "zmap-measure-points" // 编辑点图层名
 };
 /**
  * 线样式
@@ -27,4 +27,8 @@ export const PolylineStyle = {
  */
 export const PolygonStyle = {
 	color: () => Cesium.Color.BLACK.withAlpha(0.4)
+};
+
+export const LabelStyle = {
+	font: "14px sans-serif"
 };

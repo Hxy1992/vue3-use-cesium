@@ -104,7 +104,14 @@ export const mapFactory = new MapFactory();
  * @returns 地图实例
  */
 async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
-	const { viewType = "3d", imagery, extra = {}, terrain = "none", terrainUrl = "" } = options || {};
+	const {
+		viewType = "3d",
+		imagery,
+		extra = {},
+		terrain = "none",
+		terrainUrl = "",
+		depthTestAgainstTerrain = false
+	} = options || {};
 	if (!dom) return;
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
 		url: terrainUrl
@@ -136,10 +143,12 @@ async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
 	// // 背景白色
 	// scene.backgroundColor = new Cesium.Color(0, 0, 0, 0.0);
 	// // 地形深度检测,使用pick时需要开启，否则高程不准确
-	// Cesium1.105 深度检测问题
-	setTimeout(() => {
-		scene.globe.depthTestAgainstTerrain = true;
-	}, 0);
+	// Cesium1.105 深度检测开启问题
+	if (depthTestAgainstTerrain) {
+		setTimeout(() => {
+			scene.globe.depthTestAgainstTerrain = true;
+		}, 0);
+	}
 	// viewer.sceneModePicker.viewModel.duration = 0.0;
 	// scene.globe.baseColor = new Cesium.Color(0, 0, 0, 0.0);
 
