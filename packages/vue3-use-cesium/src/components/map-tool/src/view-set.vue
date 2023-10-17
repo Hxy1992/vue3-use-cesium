@@ -13,7 +13,7 @@
 
 <script setup lang="ts" name="MapOprationViewSet">
 import { computed, ref } from "vue";
-import { mapFactory } from "../../../modules/factory/map-factory";
+import { mapFactory } from "../../../modules/basemap";
 import { getState, setViewType } from "../../../utils/store";
 import { morphMap, getCameraHeight } from "../../../modules/util";
 

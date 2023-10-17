@@ -1,5 +1,4 @@
 /**
- * TODO
  * 按坐标拾取有三种类型、按是否贴地有两种类型
  * +++ 坐标测量：点击获取位置坐标，按 坐标拾取分类，共3种；
  * +++ 距离测距：按 坐标拾取 * 是否贴地 分类，共6种；
@@ -16,7 +15,7 @@ import type {
 	MeasureAreaTypes,
 	MeasureHeightTypes,
 	MeasureTriangleTypes
-} from "../../interface/measure";
+} from "../../interfaces/measure";
 
 /**
  * 测量

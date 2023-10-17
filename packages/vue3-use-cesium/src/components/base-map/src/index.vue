@@ -8,10 +8,10 @@
 
 <script setup lang="ts" name="BaseMap">
 import { ref, onBeforeUnmount } from "vue";
-import { mapFactory } from "../../../modules/factory/map-factory";
+import { mapFactory } from "../../../modules/basemap";
 import { getState, setMapId } from "../../../utils/store";
 import { mittBus } from "../../../utils/mitt-bus";
-import type { MapOptionTypes } from "../../../interface/map";
+import type { MapOptionTypes } from "../../../interfaces/map";
 
 let mapId: string;
 const mapRef = ref();

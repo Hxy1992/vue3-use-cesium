@@ -1,5 +1,5 @@
 import { generateUUID } from "../../utils/index";
-import type { EventTypes } from "../../interface/map";
+import type { EventTypes } from "../../interfaces/map";
 import { EventTypeEnum } from "../../enums/map-enum";
 
 /**

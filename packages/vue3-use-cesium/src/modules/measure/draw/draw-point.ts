@@ -1,8 +1,8 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PointStyle, LabelStyle } from "../config";
-import type { MeasurePositionTypes } from "../../../interface/measure";
+import type { MeasurePositionTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 
 /**

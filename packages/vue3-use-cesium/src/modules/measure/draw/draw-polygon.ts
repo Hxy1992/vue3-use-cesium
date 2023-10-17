@@ -1,8 +1,8 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolygonStyle, PolylineStyle, LabelStyle, PointStyle } from "../config";
-import type { MeasureAreaTypes } from "../../../interface/measure";
+import type { MeasureAreaTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 import { calcArea } from "../helper";
 /**
@@ -105,7 +105,6 @@ export class DrawPolygon extends Draw {
 		}
 	}
 	private addPolygon() {
-		// TODO 标绘和测量时，加载地形，绘制多边形的polyline有问题
 		this.entity = this.viewer.entities.add({
 			name: "draw-temp-entity",
 			polyline: {

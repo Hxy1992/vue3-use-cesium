@@ -1,5 +1,5 @@
-import { mapFactory } from "../../factory/map-factory";
-import type { PlotTypes, CoodinateType } from "../../../interface/plot";
+import { mapFactory } from "../../basemap";
+import type { PlotTypes, CoodinateType } from "../../../interfaces/plot";
 
 /**
  * 基类

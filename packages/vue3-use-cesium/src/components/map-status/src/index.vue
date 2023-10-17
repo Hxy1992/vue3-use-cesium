@@ -9,7 +9,7 @@
 
 <script setup lang="ts" name="BaseMapCoodinations">
 import { ref } from "vue";
-import { mapFactory } from "../../../modules/factory/map-factory";
+import { mapFactory } from "../../../modules/basemap";
 import { mittBus } from "../../../utils/mitt-bus";
 
 const coodinationVisible = ref(true);

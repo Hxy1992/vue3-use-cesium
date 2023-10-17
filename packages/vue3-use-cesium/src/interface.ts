@@ -2,6 +2,6 @@
  * 类型定义
  */
 
-export * from "./interface/components";
-export * from "./interface/map";
-export * from "./interface/store";
+export * from "./interfaces/components";
+export * from "./interfaces/map";
+export * from "./interfaces/store";

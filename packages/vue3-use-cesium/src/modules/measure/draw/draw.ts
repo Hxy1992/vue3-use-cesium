@@ -1,5 +1,5 @@
-import { mapFactory } from "../../factory/map-factory";
-import type { MeasureTypes } from "../../../interface/measure";
+import { mapFactory } from "../../basemap";
+import type { MeasureTypes } from "../../../interfaces/measure";
 
 /**
  * 基类

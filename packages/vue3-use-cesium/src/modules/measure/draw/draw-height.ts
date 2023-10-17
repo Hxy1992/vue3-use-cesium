@@ -1,8 +1,8 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolylineStyle, LabelStyle, PointStyle } from "../config";
-import type { MeasureHeightTypes } from "../../../interface/measure";
+import type { MeasureHeightTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 /**
  * 绘制高度差

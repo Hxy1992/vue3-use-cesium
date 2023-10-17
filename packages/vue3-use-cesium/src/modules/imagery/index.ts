@@ -1,6 +1,6 @@
 // 底图图层管理
-import type { ImageryTypes } from "../../interface/map";
-import { AmapImageryProvider, BaiduImageryProvider, TencentImageryProvider } from "../factory/imagery-factory/index.js";
+import type { ImageryTypes } from "../../interfaces/map";
+import { AmapImageryProvider, BaiduImageryProvider, TencentImageryProvider } from "./provide/index.js";
 /**
  * 设置图层
  * @param viewer 地图实例

@@ -1,7 +1,7 @@
 import { DrawPolygon, DrawPolyline, DrawPoint } from "./draw";
 import { EditPolygon, EditPolyline, EditPoint } from "./edit";
 import { getState } from "../../utils/store";
-import type { PlotTypes, CoodinateType, PlotCallBackType } from "../../interface/plot";
+import type { PlotTypes, CoodinateType, PlotCallBackType } from "../../interfaces/plot";
 
 /**
  * 标绘

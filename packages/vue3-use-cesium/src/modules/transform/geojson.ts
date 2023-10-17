@@ -1,4 +1,4 @@
-import type { PlotTypes, CoodinateType } from "../../interface/plot";
+import type { PlotTypes, CoodinateType } from "../../interfaces/plot";
 
 function toPoint(coods: CoodinateType[]) {
 	return {

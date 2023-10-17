@@ -1,9 +1,9 @@
 import { Draw } from "./draw";
 import { cartesianListToLngLat } from "../../transform";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolygonStyle, PolylineStyle } from "../config";
-import type { PlotCallBackType, PlotTypes } from "../../../interface/plot";
+import type { PlotCallBackType, PlotTypes } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 /**
  * 绘制多边形

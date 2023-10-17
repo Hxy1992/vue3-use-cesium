@@ -1,4 +1,4 @@
-import type { CoodinateType } from "../../interface/plot";
+import type { CoodinateType } from "../../interfaces/plot";
 
 /**
  * 笛卡尔坐标转为经纬度

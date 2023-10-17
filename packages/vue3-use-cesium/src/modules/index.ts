@@ -1,8 +1,8 @@
-import { mapFactory } from "../modules/factory/map-factory";
+import { mapFactory } from "../modules/basemap";
 import { getState } from "../utils/store";
 import { loaderScript } from "../utils/loader-script";
 import { mittBus } from "../utils/mitt-bus";
-import type { MapOptionTypes } from "../interface/map";
+import type { MapOptionTypes } from "../interfaces/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
 export * from "./plot";
 export { toGeoJson } from "./transform";

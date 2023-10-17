@@ -1,4 +1,4 @@
-import { TerrainTypes } from "../../interface/map";
+import { TerrainTypes } from "../../interfaces/map";
 
 interface TerrainOptions {
 	url: string;

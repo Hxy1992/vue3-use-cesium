@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts" name="MapOprationImagery">
-import { mapFactory } from "../../../modules/factory/map-factory";
+import { mapFactory } from "../../../modules/basemap";
 import { getState, setCurrentImagery } from "../../../utils/store";
-import type { ImageryItemTypes, ImageryListTypes } from "../../../interface/components";
+import type { ImageryItemTypes, ImageryListTypes } from "../../../interfaces/components";
 import { ref, nextTick } from "vue";
 import { setImagery } from "../../../modules/imagery/index";
 

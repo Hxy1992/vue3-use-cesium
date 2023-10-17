@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts" name="MapOprationRecoverNoth">
-import { mapFactory } from "../../../modules/factory/map-factory";
+import { mapFactory } from "../../../modules/basemap";
 import { getState } from "../../../utils/store";
 import { recoverNorth } from "../../../modules/util";
 

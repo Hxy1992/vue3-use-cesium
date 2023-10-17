@@ -1,8 +1,8 @@
 import { generateUUID } from "../../utils/index";
-import { createFactory, EventFactory } from "./event-factory";
+import { createFactory, EventFactory } from "../event";
 import { setImagery } from "../imagery";
 import { morphMap } from "../util";
-import type { MapOptionTypes, TerrainTypes } from "../../interface/map";
+import type { MapOptionTypes, TerrainTypes } from "../../interfaces/map";
 import { setCurrentImagery } from "../../utils/store";
 import { TerrainFactory } from "../terrain";
 

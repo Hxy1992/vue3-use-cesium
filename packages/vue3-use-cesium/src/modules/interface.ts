@@ -1,2 +1,2 @@
-export { EventFactory } from "./factory/event-factory";
-export { MapFactory } from "./factory/map-factory";
+export { EventFactory } from "./event";
+export { MapFactory } from "./basemap";

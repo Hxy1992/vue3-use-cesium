@@ -1,8 +1,8 @@
 // 简易存储器
 
 import { reactive } from "vue";
-import type { BaseMapType } from "../interface/store";
-import type { ImageryTypes } from "../interface/map";
+import type { BaseMapType } from "../interfaces/store";
+import type { ImageryTypes } from "../interfaces/map";
 
 const state = reactive<BaseMapType>({
 	mapId: null,

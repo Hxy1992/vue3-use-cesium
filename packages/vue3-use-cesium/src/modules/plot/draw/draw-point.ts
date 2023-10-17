@@ -1,9 +1,9 @@
 import { Draw } from "./draw";
 import { cartesianListToLngLat } from "../../transform";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PointStyle } from "../config";
-import type { PlotTypes, PlotCallBackType } from "../../../interface/plot";
+import type { PlotTypes, PlotCallBackType } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 
 /**

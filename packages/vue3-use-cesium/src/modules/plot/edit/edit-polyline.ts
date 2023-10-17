@@ -1,9 +1,9 @@
 import { Edit } from "./edit";
 import { cartesianListToLngLat, LngLatListTocartesian } from "../../transform";
-import { mapFactory } from "../../factory/map-factory";
+import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PolylineStyle, EditPointStyle } from "../config";
-import type { CoodinateType, PlotTypes } from "../../../interface/plot";
+import type { CoodinateType, PlotTypes } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 
 /**
