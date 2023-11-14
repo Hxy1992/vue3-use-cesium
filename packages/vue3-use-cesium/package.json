@@ -33,6 +33,7 @@
 		"build": "gulp --require @esbuild-kit/cjs-loader -f scripts/build/index.ts"
 	},
 	"peerDependencies": {
+		"lodash-es": "^4.x",
 		"vue": "^3.x"
 	},
 	"dependencies": {},
@@ -42,17 +43,19 @@
 		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@types/fs-extra": "^9.0.13",
 		"@types/gulp": "^4.0.9",
+		"@types/lodash-es": "^4.17.11",
 		"@vitejs/plugin-vue": "^3.0.3",
 		"@vitejs/plugin-vue-jsx": "^2.0.0",
 		"esbuild": "^0.15.5",
 		"execa": "^6.1.0",
 		"fs-extra": "^10.1.0",
 		"gulp": "^4.0.2",
-		"sass": "^1.49.7",
 		"happy-dom": "^6.0.4",
+		"lodash-es": "^4.17.21",
 		"rollup": "^2.78.1",
 		"rollup-plugin-esbuild": "^4.9.3",
 		"rollup-plugin-scss": "^4.0.0",
+		"sass": "^1.49.7",
 		"tsx": "^3.8.2",
 		"typescript": "^4.7.4",
 		"unplugin-vue-define-options": "^0.10.0",

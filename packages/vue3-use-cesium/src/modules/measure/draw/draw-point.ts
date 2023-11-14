@@ -1,9 +1,8 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PointStyle, LabelStyle } from "../config";
 import type { MeasurePositionTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
+import { LabelStyle, PointStyle } from "../config";
 
 /**
  * 绘制点
@@ -18,45 +17,18 @@ export class DrawPoint extends Draw {
 	constructor(mapUid: string, type: MeasurePositionTypes) {
 		super(mapUid, type);
 	}
-	/**
-	 * 开始绘制
-	 */
-	start() {
-		if (this.isEditing) return;
-		// 地图事件、容器等
-		this.init();
-		this.setStates(true);
-	}
-	/**
-	 * 停止绘制
-	 */
-	stop() {
-		if (!this.isEditing) return;
-		// 地图事件、容器等
-		this.setStates(false);
-		this.clearEvents();
-	}
-	clear() {
-		this.viewer.entities.remove(this.entity);
-		this.entity = null;
-	}
-	private init() {
-		this.addEvents();
-	}
-	private addEvents() {
+	protected addEvents() {
 		const viewer = this.viewer;
-		const eventFactory = mapFactory.getEvent(this.mapUid);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
-				const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.addPoint(worldPosition);
-				this.stop();
-			})
-		);
+		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
+			const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
+			if (!Cesium.defined(worldPosition)) {
+				return;
+			}
+			this.addPoint(worldPosition);
+			this.stop();
+		});
 	}
+	protected addEntities() {}
 	private addPoint(position: any) {
 		const cartographic = Cesium.Cartographic.fromCartesian(position);
 		const lng = Cesium.Math.toDegrees(cartographic.longitude).toFixed(8);
@@ -66,8 +38,7 @@ export class DrawPoint extends Draw {
 		}
 		const x = Number(lng) > 0 ? `${lng}E` : `${Math.abs(Number(lng))}W`;
 		const y = Number(lat) > 0 ? `${lat}N` : `${Math.abs(Number(lat))}S`;
-		this.entity = this.viewer.entities.add({
-			name: PointStyle.LayerName,
+		this.drawLayer.add({
 			position,
 			point: {
 				pixelSize: 6,
@@ -86,13 +57,5 @@ export class DrawPoint extends Draw {
 				text: `经度: ${x}\n纬度: ${y}\n高程: ${cartographic.height.toFixed(2)}米`
 			}
 		});
-	}
-
-	/**
-	 * 销毁
-	 */
-	public dispose() {
-		this.clearEvents();
-		this.clear();
 	}
 }

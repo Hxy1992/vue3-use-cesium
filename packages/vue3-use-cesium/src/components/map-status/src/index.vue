@@ -30,6 +30,11 @@ const initCoods = (mapId: string) => {
 	eventFactory.push(
 		"MOUSE_MOVE",
 		(event: any) => {
+			// 跟踪时不显示鼠标坐标
+			if (viewer.trackedEntity) {
+				coodinationVisible.value = false;
+				return;
+			}
 			const worldPosition = viewer.camera.pickEllipsoid(event.endPosition, viewer.scene.globe.ellipsoid);
 			if (!Cesium.defined(worldPosition)) {
 				coodinationVisible.value = false;

@@ -10,7 +10,6 @@ import { lerp, getSampledHeight } from "../helper";
  */
 export class DrawPolyline extends Draw {
 	private movePosition: any;
-	private labelEntities: any[];
 	/**
 	 * 总长度
 	 */
@@ -22,97 +21,46 @@ export class DrawPolyline extends Draw {
 	 */
 	constructor(mapUid: string, type: MeasureDistanceTypes) {
 		super(mapUid, type);
-		this.labelEntities = [];
 		this.distanceSum = 0;
 	}
-	/**
-	 * 开始绘制
-	 */
-	public start() {
-		if (this.isEditing) return;
-		// 地图事件、容器等
-		this.init();
-		this.setStates(true);
-		this.coods = [];
-		this.labelEntities = [];
-	}
-	/**
-	 * 停止绘制
-	 */
-	public stop() {
-		if (!this.isEditing) return;
-		// 地图事件、容器等
-		this.setStates(false);
-		this.clearEvents();
-	}
-	/**
-	 * 清空
-	 */
-	public clear() {
-		this.viewer.entities.remove(this.entity);
-		for (let index = 0; index < this.labelEntities.length; index++) {
-			const element = this.labelEntities[index];
-			this.viewer.entities.remove(element);
-		}
-		this.labelEntities = [];
-		this.entity = null;
-		this.coods = [];
-	}
-	/**
-	 * 销毁
-	 */
-	public dispose() {
-		this.clearEvents();
-		this.clear();
-	}
-	private init() {
-		this.addPolyline();
-		this.addEvents();
-	}
-	private addEvents() {
+	protected addEvents() {
 		const viewer = this.viewer;
 		const eventFactory = mapFactory.getEvent(this.mapUid);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
-				const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.coods.push(worldPosition);
-				this.drawDistance();
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.MOUSE_MOVE, (event: any) => {
-				const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.movePosition = worldPosition;
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
-				// 双击会触发两次单击，所以需要去掉最后一个点
+		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
+			const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
+			if (!Cesium.defined(worldPosition)) {
+				return;
+			}
+			this.coods.push(worldPosition);
+			this.drawDistance();
+		});
+		this.drawLayer.addEvent(EventTypeEnum.MOUSE_MOVE, (event: any) => {
+			const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
+			if (!Cesium.defined(worldPosition)) {
+				return;
+			}
+			this.movePosition = worldPosition;
+		});
+		this.drawLayer.addEvent(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
+			// 双击会触发两次单击，所以需要去掉最后一个点
+			this.coods.pop();
+			this.removeLastIndexOfLabels();
+			this.stop();
+		});
+		this.drawLayer.addEvent(EventTypeEnum.RIGHT_CLICK, () => {
+			if (this.coods.length > 0) {
 				this.coods.pop();
 				this.removeLastIndexOfLabels();
+			} else {
 				this.stop();
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.RIGHT_CLICK, () => {
-				if (this.coods.length > 0) {
-					this.coods.pop();
-					this.removeLastIndexOfLabels();
-				} else {
-					this.stop();
-				}
-			})
-		);
+			}
+		});
+	}
+	protected addEntities() {
+		this.addPolyline();
 	}
 	private addPolyline() {
-		this.entity = this.viewer.entities.add({
-			name: "draw-temp-entity",
+		this.drawLayer.add({
 			polyline: {
 				show: true,
 				positions: new Cesium.CallbackProperty(() => {
@@ -145,7 +93,9 @@ export class DrawPolyline extends Draw {
 		const lerpInters = lerp(start, end);
 		const lerpPositions = [start, ...lerpInters, end];
 		const label = this.addLabel(end, "计算中");
-		getSampledHeight(this.viewer, lerpPositions, this.type === "ModelSurfaceDistance", [...this.labelEntities, this.entity])
+		const allLabels = this.labelLayer.getAllEntities();
+		const drawEntity = this.drawLayer.getAllEntities()[0];
+		getSampledHeight(this.viewer, lerpPositions, this.type === "ModelSurfaceDistance", [...allLabels, drawEntity])
 			.then(([updatedCartographics, updatedCartesians]) => {
 				return updatedCartographics.map((item: any, index: number) =>
 					Cesium.Cartesian3.fromDegrees(
@@ -179,32 +129,18 @@ export class DrawPolyline extends Draw {
 		this.addLabel(end, text);
 	}
 	private addLabel(position: any, text: string) {
-		const labelEntity = this.viewer.entities.add({
-			position: position,
+		return this.labelLayer.add({
+			position,
 			point: {
-				pixelSize: 6,
-				outlineWidth: 2,
-				color: PointStyle.color(),
-				outlineColor: PointStyle.outlineColor(),
 				clampToGround: this.clampToGround
 			},
 			label: {
-				show: true,
-				showBackground: true,
-				font: LabelStyle.font,
-				horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-				verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-				pixelOffset: new Cesium.Cartesian2(0, -10),
 				text
 			}
 		});
-		this.labelEntities.push(labelEntity);
-		return labelEntity;
 	}
 	private removeLastIndexOfLabels() {
-		if (this.labelEntities.length === 0) return;
-		const last = this.labelEntities.pop();
-		this.viewer.entities.remove(last);
+		this.labelLayer.popEntity();
 	}
 	private getDistanceText(distance: number) {
 		if (this.distanceSum > distance) {

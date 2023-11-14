@@ -8,6 +8,7 @@ export * from "./plot";
 export { toGeoJson } from "./transform";
 export * from "./terrain";
 export * from "./measure";
+export * from "./layer";
 
 const baseMapStore = getState();
 

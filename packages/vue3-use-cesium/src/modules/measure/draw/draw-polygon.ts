@@ -10,7 +10,6 @@ import { calcArea } from "../helper";
  */
 export class DrawPolygon extends Draw {
 	private movePosition: any;
-	private labelEntity: any;
 	/**
 	 * 绘制多边形
 	 * @param mapUid 地图id
@@ -19,83 +18,40 @@ export class DrawPolygon extends Draw {
 	constructor(mapUid: string, type: MeasureAreaTypes) {
 		super(mapUid, type);
 	}
-	/**
-	 * 开始绘制
-	 */
-	start() {
-		if (this.isEditing) return;
-		// 地图事件、容器等
-		this.init();
-		this.setStates(true);
-		this.coods = [];
-	}
-	/**
-	 * 结束绘制
-	 */
-	stop() {
-		if (!this.isEditing) return;
-		// 地图事件、容器等
-		this.setStates(false);
-		this.clearEvents();
-	}
-	public clear() {
-		this.viewer.entities.remove(this.entity);
-		this.viewer.entities.remove(this.labelEntity);
-		this.entity = null;
-		this.labelEntity = null;
-		this.coods = [];
-	}
-	/**
-	 * 销毁
-	 */
-	public dispose() {
-		this.clearEvents();
-		this.clear();
-	}
-	private init() {
-		this.addPolygon();
-		this.addEvents();
-	}
-	private addEvents() {
+	protected addEvents() {
 		const viewer = this.viewer;
-		const eventFactory = mapFactory.getEvent(this.mapUid);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.LEFT_CLICK, (event: any) => {
-				const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.coods.push(worldPosition);
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.MOUSE_MOVE, (event: any) => {
-				const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
-				if (!Cesium.defined(worldPosition)) {
-					return;
-				}
-				this.movePosition = worldPosition;
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
-				// 双击会触发两次单击，所以需要去掉最后一个点
-				this.coods.pop();
-				this.stop();
+		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
+			const worldPosition = pickPosition(this.getPickType(), viewer, event.position);
+			if (!Cesium.defined(worldPosition)) {
+				return;
+			}
+			this.coods.push(worldPosition);
+		});
+		this.drawLayer.addEvent(EventTypeEnum.MOUSE_MOVE, (event: any) => {
+			const worldPosition = pickPosition(this.getPickType(), viewer, event.endPosition);
+			if (!Cesium.defined(worldPosition)) {
+				return;
+			}
+			this.movePosition = worldPosition;
+		});
+		this.drawLayer.addEvent(EventTypeEnum.LEFT_DOUBLE_CLICK, () => {
+			// 双击会触发两次单击，所以需要去掉最后一个点
+			this.coods.pop();
+			this.stop();
 
-				// 结束显示面积
-				this.showArea();
-			})
-		);
-		this.events.push(
-			eventFactory.push(EventTypeEnum.RIGHT_CLICK, () => {
-				if (this.coods.length > 0) {
-					this.coods.pop();
-				} else {
-					this.stop();
-				}
-			})
-		);
+			// 结束显示面积
+			this.showArea();
+		});
+		this.drawLayer.addEvent(EventTypeEnum.RIGHT_CLICK, () => {
+			if (this.coods.length > 0) {
+				this.coods.pop();
+			} else {
+				this.stop();
+			}
+		});
+	}
+	protected addEntities() {
+		this.addPolygon();
 	}
 	private showArea() {
 		if (this.coods.length > 2) {
@@ -105,8 +61,7 @@ export class DrawPolygon extends Draw {
 		}
 	}
 	private addPolygon() {
-		this.entity = this.viewer.entities.add({
-			name: "draw-temp-entity",
+		this.drawLayer.add({
 			polyline: {
 				show: true,
 				positions: new Cesium.CallbackProperty(() => {
@@ -127,25 +82,14 @@ export class DrawPolygon extends Draw {
 		});
 	}
 	private addLabel(position: any, text: string) {
-		this.labelEntity = this.viewer.entities.add({
-			position: position,
+		return this.labelLayer.add({
+			position,
 			point: {
-				pixelSize: 6,
-				outlineWidth: 2,
-				color: PointStyle.color(),
-				outlineColor: PointStyle.outlineColor(),
 				clampToGround: this.clampToGround
 			},
 			label: {
-				show: true,
-				showBackground: true,
-				font: LabelStyle.font,
-				horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-				verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-				pixelOffset: new Cesium.Cartesian2(0, -10),
 				text
 			}
 		});
-		return this.labelEntity;
 	}
 }
