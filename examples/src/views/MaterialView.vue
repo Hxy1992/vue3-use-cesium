@@ -19,30 +19,32 @@ useBaseMap("#my-map", v => {
 	viewer = v;
 	addElements();
 });
-
+// 添加地图元素
 function addElements() {
-	createWall();
-	createWall2();
-	createWall3();
-	createPolyline();
-	createPolyline2();
-	createPolyline3();
-	createCircle();
-	createCircle2();
-	createCircle3();
-	createCircle4();
-	createEllipsoid();
-	createCylinder();
-	createRadar();
-	createRadar2();
+	createWallTrail();
+	createWallDiffuse();
+	createWallLineTrail();
+	createPolylineFlicker();
+	createPolylineFlow();
+	createPolylineLightingTrail();
+	createCircleDiffuse();
+	createCircleFade();
+	createCircleRing();
+	createCircleBlur();
+	createEllipsoids();
+	createCylinderFade();
+	createRadarWave();
+	createRadarSweep();
 }
+// 清空地图元素
 function clearElements() {
 	for (let i = 0; i < primitives.length; i++) {
 		viewer.scene.primitives.remove(primitives[i]);
 	}
 	primitives = [];
 }
-function createWall() {
+// 创建墙体-渐变动画
+function createWallTrail() {
 	const wall = new Cesium.WallGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([
 			-107.0,
@@ -81,7 +83,8 @@ function createWall() {
 	);
 	primitives.push(p);
 }
-function createWall2() {
+// 创建墙体-渐变
+function createWallDiffuse() {
 	const wall = new Cesium.WallGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([
 			-99.0,
@@ -118,7 +121,8 @@ function createWall2() {
 	);
 	primitives.push(p);
 }
-function createWall3() {
+// 创建墙体-跟踪线材质
+function createWallLineTrail() {
 	const wall = new Cesium.WallGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([
 			-93.0,
@@ -158,7 +162,8 @@ function createWall3() {
 	);
 	primitives.push(p);
 }
-function createPolyline() {
+// 创建线-闪烁线
+function createPolylineFlicker() {
 	const polyline = new Cesium.PolylineGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([-107, 35, 1000, -97, 35, 1000]),
 		width: 5.0,
@@ -184,7 +189,8 @@ function createPolyline() {
 	);
 	primitives.push(p);
 }
-function createPolyline2() {
+// 创建线-跟踪线
+function createPolylineFlow() {
 	const polyline = new Cesium.PolylineGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([-107, 34, 1000, -97, 34, 1000]),
 		width: 5.0,
@@ -212,7 +218,8 @@ function createPolyline2() {
 	);
 	primitives.push(p);
 }
-function createPolyline3() {
+// 创建线-发光跟踪线
+function createPolylineLightingTrail() {
 	const polyline = new Cesium.PolylineGeometry({
 		positions: Cesium.Cartesian3.fromDegreesArrayHeights([-107, 33, 1000, -97, 33, 1000]),
 		width: 10.0,
@@ -239,7 +246,8 @@ function createPolyline3() {
 	);
 	primitives.push(p);
 }
-function createCircle() {
+// 创建圆-扩散圆
+function createCircleDiffuse() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-111.0, 40.0, 150000.0),
 		radius: 100000.0
@@ -262,7 +270,8 @@ function createCircle() {
 	);
 	primitives.push(p);
 }
-function createCircle2() {
+// 创建圆-渐变褪色圆
+function createCircleFade() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-111.0, 38.0, 150000.0),
 		radius: 100000.0
@@ -285,7 +294,8 @@ function createCircle2() {
 	);
 	primitives.push(p);
 }
-function createCircle3() {
+// 创建圆-渐变圆环
+function createCircleRing() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-111.0, 36.0, 150000.0),
 		radius: 100000.0
@@ -307,7 +317,8 @@ function createCircle3() {
 	);
 	primitives.push(p);
 }
-function createCircle4() {
+// 创建圆-模糊圆
+function createCircleBlur() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-111.0, 34.0, 150000.0),
 		radius: 100000.0
@@ -330,7 +341,8 @@ function createCircle4() {
 	);
 	primitives.push(p);
 }
-function createEllipsoid() {
+// 创建球-光电扫描球和颜色扫描球
+function createEllipsoids() {
 	const ellipsoid = new Cesium.EllipsoidGeometry({
 		vertexFormat: Cesium.VertexFormat.ALL,
 		radii: new Cesium.Cartesian3(300000.0, 300000.0, 300000.0)
@@ -385,7 +397,8 @@ function createEllipsoid() {
 	);
 	primitives.push(p2);
 }
-function createCylinder() {
+// 创建圆柱-渐变圆柱
+function createCylinderFade() {
 	const cylinder = new Cesium.CylinderGeometry({
 		length: 200000,
 		topRadius: 80000,
@@ -415,7 +428,8 @@ function createCylinder() {
 	);
 	primitives.push(p);
 }
-function createRadar() {
+// 创建圆-雷达扫描1
+function createRadarWave() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-85.0, 38.0, 150000.0),
 		radius: 100000.0
@@ -438,7 +452,8 @@ function createRadar() {
 	);
 	primitives.push(p);
 }
-function createRadar2() {
+// 创建圆-雷达扫描2
+function createRadarSweep() {
 	const circle = new Cesium.CircleGeometry({
 		center: Cesium.Cartesian3.fromDegrees(-85.0, 36.0, 150000.0),
 		radius: 100000.0
