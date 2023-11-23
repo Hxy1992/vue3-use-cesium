@@ -34,6 +34,11 @@ const menuList = ref<Record<string, any>[]>([
 		path: "/measure",
 		label: "测量",
 		selected: false
+	},
+	{
+		path: "/material",
+		label: "材质",
+		selected: false
 	}
 ]);
 

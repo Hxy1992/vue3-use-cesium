@@ -9,6 +9,7 @@ export { toGeoJson } from "./transform";
 export * from "./terrain";
 export * from "./measure";
 export * from "./layer";
+export * as Material from "./material";
 
 const baseMapStore = getState();
 

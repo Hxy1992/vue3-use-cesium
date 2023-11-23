@@ -42,6 +42,14 @@ const router = createRouter({
 			meta: {
 				hasMap: true
 			}
+		},
+		{
+			path: "/material",
+			name: "材质",
+			component: () => import("../views/MaterialView.vue"),
+			meta: {
+				hasMap: true
+			}
 		}
 	]
 });

@@ -114,10 +114,6 @@ importers:
         version: 1.6.5(typescript@5.0.4)
 
   packages/vue3-use-cesium:
-    dependencies:
-      '@types/lodash-es':
-        specifier: ^4.17.11
-        version: 4.17.11
     devDependencies:
       '@esbuild-kit/cjs-loader':
         specifier: ^2.3.3
@@ -134,6 +130,9 @@ importers:
       '@types/gulp':
         specifier: ^4.0.9
         version: 4.0.9
+      '@types/lodash-es':
+        specifier: ^4.17.11
+        version: 4.17.11
       '@vitejs/plugin-vue':
         specifier: ^3.0.3
         version: 3.0.3(vite@3.0.5)(vue@3.2.37)
@@ -1141,11 +1140,11 @@ packages:
     resolution: {integrity: sha512-eCw8FYAWHt2DDl77s+AMLLzPn310LKohruumpucZI4oOFJkIgnlaJcy23OKMJxx4r9PeTF13Gv6w+jqjWQaYUg==}
     dependencies:
       '@types/lodash': 4.14.201
-    dev: false
+    dev: true
 
   /@types/lodash@4.14.201:
     resolution: {integrity: sha512-y9euML0cim1JrykNxADLfaG0FgD1g/yTHwUs/Jg9ZIU7WKj2/4IW9Lbb1WZbvck78W/lfGXFfe+u2EGfIJXdLQ==}
-    dev: false
+    dev: true
 
   /@types/minimist@1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
