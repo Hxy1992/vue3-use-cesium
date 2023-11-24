@@ -5,12 +5,13 @@ import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interfaces/map";
 export { setToTarget, setViewType, setVisible } from "../utils/store";
 export * from "./plot";
-export { toGeoJson } from "./transform";
+export { toGeoJson, cartesianToLngLat } from "./transform";
 export * from "./terrain";
 export * from "./measure";
 export * from "./layer";
 export * as Material from "./material";
 export * from "./popup";
+export * from "./camera";
 
 const baseMapStore = getState();
 

@@ -21,6 +21,9 @@ let primitives: any[] = [];
 // 地图初始化
 useBaseMap("#my-map", v => {
 	viewer = v;
+	viewer.camera.setView({
+		destination: Cesium.Cartesian3.fromDegrees(-98, 35, 5000000)
+	});
 	addElements();
 });
 // 添加地图元素
@@ -491,39 +494,5 @@ onBeforeUnmount(async () => {
 .content-box {
 	width: 100%;
 	height: 100%;
-}
-
-ul {
-	margin: 5px 0;
-}
-
-.btn-box {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	padding: 16px;
-	color: white;
-	background-color: rgb(32 177 143 / 50%);
-	border-radius: 5px;
-}
-
-.btn-box li {
-	list-style-type: none;
-}
-
-.btn-box button {
-	width: 80px;
-	margin: 2px 0;
-	cursor: pointer;
-}
-
-.btn-box button[selected=true] {
-	color: white;
-	background-color: #4064e2;
-}
-
-.btn-box .description {
-	margin-bottom: 8px;
-	font-size: 12px;
 }
 </style>

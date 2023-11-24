@@ -26,7 +26,7 @@ import { useBaseMap } from "../hooks/useBaseMap";
 
 // 地图初始化
 useBaseMap("#my-map2", viewer => {
-	console.log(viewer);
+	viewer.camera.flyHome();
 });
 </script>
 

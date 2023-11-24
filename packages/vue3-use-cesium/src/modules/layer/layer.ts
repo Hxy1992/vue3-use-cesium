@@ -32,7 +32,7 @@ export class Layer {
 		this.events = [];
 		this.popupWindow = null;
 		const id = getState().mapId;
-		if (!id) return;
+		if (!id) throw new Error("mapId is not defined");
 		this.name = name || "临时图层" + index++;
 		this.id = generateUUID();
 		this.mapId = id;

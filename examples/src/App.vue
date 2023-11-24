@@ -44,6 +44,11 @@ const menuList = ref<Record<string, any>[]>([
 		path: "/layer",
 		label: "图层和弹窗",
 		selected: false
+	},
+	{
+		path: "/bookmark",
+		label: "场景书签",
+		selected: false
 	}
 ]);
 

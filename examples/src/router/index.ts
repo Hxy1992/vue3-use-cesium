@@ -58,6 +58,14 @@ const router = createRouter({
 			meta: {
 				hasMap: true
 			}
+		},
+		{
+			path: "/bookmark",
+			name: "场景书签",
+			component: () => import("../views/BookmarkView.vue"),
+			meta: {
+				hasMap: true
+			}
 		}
 	]
 });

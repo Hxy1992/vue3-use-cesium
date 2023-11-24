@@ -50,7 +50,9 @@ let timer: NodeJS.Timeout | null = null;
 
 // 地图初始化
 useBaseMap("#my-map", viewer => {
-	console.log(viewer);
+	viewer.camera.setView({
+		destination: Cesium.Cartesian3.fromDegrees(110, 31, 5000000)
+	});
 	addlayer();
 });
 

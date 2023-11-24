@@ -155,7 +155,7 @@ ul {
 	left: 10px;
 	padding: 16px;
 	color: white;
-	background-color: rgb(32 177 143 / 50%);
+	background-color: rgb(9 16 59 / 85%);
 	border-radius: 5px;
 }
 
