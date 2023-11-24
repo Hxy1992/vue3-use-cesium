@@ -12,6 +12,10 @@ import fenceImg from "../assets/fence.png";
 import spaceLineImg from "../assets/space_line.png";
 import lightingImg from "../assets/lighting.png";
 
+/**
+ * 材质暂只支持在Primitive上使用，不支持在Entity上使用
+ */
+
 let viewer: any;
 let primitives: any[] = [];
 // 地图初始化

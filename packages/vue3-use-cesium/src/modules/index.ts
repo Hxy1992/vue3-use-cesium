@@ -10,6 +10,7 @@ export * from "./terrain";
 export * from "./measure";
 export * from "./layer";
 export * as Material from "./material";
+export * from "./popup";
 
 const baseMapStore = getState();
 

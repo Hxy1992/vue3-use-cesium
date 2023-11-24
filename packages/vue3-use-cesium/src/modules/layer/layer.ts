@@ -4,6 +4,8 @@ import type { EventTypes } from "../../interfaces/map";
 import { generateUUID } from "../../utils";
 import merge from "lodash-es/merge";
 import cloneDeep from "lodash-es/cloneDeep";
+import type { OptionTypes } from "../popup";
+import { PopupWindow } from "../popup";
 
 let index = 1;
 /**
@@ -17,6 +19,7 @@ export class Layer {
 	private events: any[];
 	private name: string;
 	private id: string;
+	private popupWindow: PopupWindow | null;
 	/**
 	 *
 	 * @param name 图层名称
@@ -27,6 +30,7 @@ export class Layer {
 		this.name = "";
 		this.id = "";
 		this.events = [];
+		this.popupWindow = null;
 		const id = getState().mapId;
 		if (!id) return;
 		this.name = name || "临时图层" + index++;
@@ -148,7 +152,7 @@ export class Layer {
 		return this.events;
 	}
 	/**
-	 * 添加事件监听
+	 * 添加事件监听(监听Cesium原生事件，不做处理)
 	 * @param type 事件类型
 	 * @param listener 监听回调
 	 * @returns 返回removeEvent的参数
@@ -180,9 +184,31 @@ export class Layer {
 		this.events = [];
 	}
 	/**
+	 * 图层弹窗事件(与addEvent的事件独立)
+	 * @param options 配置参数
+	 * @param includeFeature 判断pick结果是否符合要求
+	 * @param visibleChange 显示/隐藏回调
+	 * @returns popupWindow
+	 */
+	onPopup(options: OptionTypes, includeFeature: (pick: any) => boolean, visibleChange?: (visible: boolean, pick: any) => void) {
+		if (this.popupWindow) return;
+		this.popupWindow = new PopupWindow(options, includeFeature, visibleChange);
+		return this.popupWindow;
+	}
+	/**
+	 * 取消弹窗事件
+	 */
+	unPopup() {
+		if (this.popupWindow) {
+			this.popupWindow.dispose();
+			this.popupWindow = null;
+		}
+	}
+	/**
 	 * 清空并销毁图层
 	 */
 	dispose() {
+		this.unPopup();
 		this.removeAllEvent();
 		this.removeAll();
 		this.viewer.dataSources.remove(this.dataSource);

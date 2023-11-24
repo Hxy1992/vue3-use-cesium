@@ -50,6 +50,14 @@ const router = createRouter({
 			meta: {
 				hasMap: true
 			}
+		},
+		{
+			path: "/layer",
+			name: "图层和弹窗",
+			component: () => import("../views/LayerPopupView.vue"),
+			meta: {
+				hasMap: true
+			}
 		}
 	]
 });

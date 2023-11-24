@@ -39,6 +39,11 @@ const menuList = ref<Record<string, any>[]>([
 		path: "/material",
 		label: "材质",
 		selected: false
+	},
+	{
+		path: "/layer",
+		label: "图层和弹窗",
+		selected: false
 	}
 ]);
 
