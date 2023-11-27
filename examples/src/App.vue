@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
+import router from './router'
 import { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
 import recoverNorth from "./assets/recoverNorth.svg"
@@ -9,48 +10,14 @@ import elecImg from "./assets/elec.jpg"
 import satelliteImg from "./assets/satellite.jpg"
 
 const route = useRoute();
-const menuList = ref<Record<string, any>[]>([
-	{
-		path: "/",
-		label: "主页",
+const menuList = ref<Record<string, any>[]>([]);
+menuList.value = router.getRoutes().map(item => {
+	return {
+		path: item.path,
+		label: item.meta?.title,
 		selected: false
-	},
-	{
-		path: "/mapview",
-		label: "满屏地图",
-		selected: false
-	},
-	{
-		path: "/formview",
-		label: "表单地图",
-		selected: false
-	},
-	{
-		path: "/plot",
-		label: "标绘",
-		selected: false
-	},
-	{
-		path: "/measure",
-		label: "测量",
-		selected: false
-	},
-	{
-		path: "/material",
-		label: "材质",
-		selected: false
-	},
-	{
-		path: "/layer",
-		label: "图层和弹窗",
-		selected: false
-	},
-	{
-		path: "/bookmark",
-		label: "场景书签",
-		selected: false
-	}
-]);
+	};
+})
 
 const defaultImagerys: any = [
 	{
@@ -86,10 +53,10 @@ watch(
 </script>
 
 <template>
-	<header class="head">
+	<aside class="side">
 		<RouterLink v-for="item in menuList" :key="item.path" :to="item.path"
 			:class="{ 'menu-item': true, 'selected': item.selected }">{{ item.label }}</RouterLink>
-	</header>
+	</aside>
 	<main class="main">
 		<RouterView />
 		<z-map-base>
@@ -115,31 +82,52 @@ watch(
 </template>
 
 <style scoped>
-.head {
+.side {
 	position: absolute;
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 50px;
+	flex-direction: column;
+	/* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 215px;
+	height: 100%;
+	padding: 16px 0;
 	background: #191c29;
 }
 
 .menu-item {
-	margin: 0 8px;
+	position: relative;
+	width: 100%;
+	padding-left: 16px;
+	line-height: 40px;
 	color: white;
 	text-decoration-line: none;
 }
 
+.menu-item:hover {
+	color: #4064e2;
+}
+
 .menu-item.selected {
-	color: aquamarine;
+	background: #060708;
+}
+
+.menu-item.selected::before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 4px;
+	content: "";
+	background: #4064e2;
 }
 
 .main {
 	position: absolute;
-	top: 50px;
-	width: 100%;
-	height: calc(100% - 50px);
+	left: 215px;
+	width: calc(100% - 215px);
+	height: 100%;
 }
 
 .btn-icons {

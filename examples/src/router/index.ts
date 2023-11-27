@@ -9,62 +9,72 @@ const router = createRouter({
 		{
 			path: "/",
 			name: "home",
-			component: HomeView
+			component: HomeView,
+			meta: {
+				title: "项目简介"
+			}
 		},
 		{
 			path: "/mapview",
-			name: "满屏地图",
+			name: "MapView",
 			component: () => import("../views/MapView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "Hello World"
 			}
 		},
 		{
 			path: "/formview",
-			name: "表单地图",
+			name: "FormView",
 			component: () => import("../views/FormView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "表单地图"
 			}
 		},
 		{
 			path: "/plot",
-			name: "标绘",
+			name: "PlotView",
 			component: () => import("../views/PlotView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "标绘"
 			}
 		},
 		{
 			path: "/measure",
-			name: "测量",
+			name: "MeasureView",
 			component: () => import("../views/MeasureView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "测量"
 			}
 		},
 		{
 			path: "/material",
-			name: "材质",
+			name: "MaterialView",
 			component: () => import("../views/MaterialView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "材质"
 			}
 		},
 		{
 			path: "/layer",
-			name: "图层和弹窗",
+			name: "LayerPopupView",
 			component: () => import("../views/LayerPopupView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "图层和弹窗"
 			}
 		},
 		{
 			path: "/bookmark",
-			name: "场景书签",
+			name: "BookmarkView",
 			component: () => import("../views/BookmarkView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "场景书签"
 			}
 		}
 	]
@@ -72,7 +82,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
 	// ...
-
+	document.title = `use cesium-${to.meta.title as string}`;
 	// 如果页面包含地图则加载Cesium.js
 	if (to.meta.hasMap) {
 		loading.value = true;
