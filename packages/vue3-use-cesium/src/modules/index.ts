@@ -52,8 +52,7 @@ export function initMap(cesiumUrls: string[], options?: MapOptionTypes) {
 }
 
 /**
- * 清空地图事件
- * @returns void
+ * 清空地图事件(mapFactory中事件)
  */
 export function clearMapEvents(): void {
 	const mapUid = baseMapStore.mapId;
@@ -62,9 +61,7 @@ export function clearMapEvents(): void {
 	events.clear();
 }
 /**
- * 清空地图元素
- * @description primitives需另外自行清空
- * @returns void
+ * 清空viewer中entities和dataSources
  */
 export function clearMapElements(): void {
 	const mapUid = baseMapStore.mapId;
