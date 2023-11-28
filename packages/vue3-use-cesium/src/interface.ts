@@ -5,3 +5,4 @@
 export * from "./interfaces/components";
 export * from "./interfaces/map";
 export * from "./interfaces/store";
+export * from "./interfaces/layer";

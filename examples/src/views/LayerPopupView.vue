@@ -84,6 +84,10 @@ function addlayer() {
 				position: Cesium.Cartesian3.fromDegrees(i, j, 0),
 				label: {
 					text: `测试${i}${j}`
+				},
+				// 额外属性
+				attr: {
+					name: `测试${i}${j}`
 				}
 			})
 		}
@@ -93,6 +97,10 @@ function addlayer() {
 		position: Cesium.Cartesian3.fromDegrees(114, 26, 0),
 		label: {
 			text: "移动的billboard"
+		},
+		// 额外属性
+		attr: {
+			name: `移动的billboard`
 		}
 	})
 	timer = setInterval(() => {
@@ -112,7 +120,7 @@ function addlayer() {
 	}, (visible, pick) => {
 		if (visible) {
 			popupData.value = {
-				name: pick.id?.label?.text || "--",
+				name: pick.id?.attr?.name || "--",
 				phone: Math.floor(Math.random() * 100000000000).toString()
 			};
 		}

@@ -76,6 +76,15 @@ const router = createRouter({
 				hasMap: true,
 				title: "场景书签"
 			}
+		},
+		{
+			path: "/cluster",
+			name: "ClusterView",
+			component: () => import("../views/ClusterView.vue"),
+			meta: {
+				hasMap: true,
+				title: "图层聚合"
+			}
 		}
 	]
 });

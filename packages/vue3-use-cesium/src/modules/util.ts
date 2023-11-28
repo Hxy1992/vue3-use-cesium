@@ -73,3 +73,16 @@ export function recoverNorth(viewer: any) {
 		}
 	}
 }
+/**
+ * 获取zoom层级
+ * @param viewer 视图
+ * @returns zoom
+ */
+export function getZoom(viewer: any) {
+	let height = viewer.camera.positionCartographic.height;
+	let A = 40487.57;
+	let B = 0.00007096758;
+	let C = 91610.74;
+	let D = -40467.74;
+	return Math.round(D + (A - D) / (1 + Math.pow(height / C, B)));
+}
