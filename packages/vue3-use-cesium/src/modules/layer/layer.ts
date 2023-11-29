@@ -126,6 +126,12 @@ export class Layer {
 		return this.dataSource.entities.values;
 	}
 	/**
+	 * 获取图层可见性
+	 */
+	getVisible(): boolean {
+		return this.dataSource.show;
+	}
+	/**
 	 * 设置图层可见性
 	 * @param val 可见性
 	 */

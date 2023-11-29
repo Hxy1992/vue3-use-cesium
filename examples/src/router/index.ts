@@ -61,11 +61,20 @@ const router = createRouter({
 		},
 		{
 			path: "/layer",
+			name: "LayerView",
+			component: () => import("../views/LayerView.vue"),
+			meta: {
+				hasMap: true,
+				title: "图层管理"
+			}
+		},
+		{
+			path: "/layerPopup",
 			name: "LayerPopupView",
 			component: () => import("../views/LayerPopupView.vue"),
 			meta: {
 				hasMap: true,
-				title: "图层和弹窗"
+				title: "图层弹窗"
 			}
 		},
 		{
