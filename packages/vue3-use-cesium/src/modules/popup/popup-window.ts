@@ -135,7 +135,7 @@ export class PopupWindow {
 				// 判断pick结果是否包含绑定popup的元素
 				if (Cesium.defined(pick) && this.includeFeature(pick)) {
 					this.show(pick);
-					this.keepPosition(event, pick);
+					this.keepPosition(event, pick, true);
 				} else {
 					this.hide(pick);
 					this.unKeepPosition();
@@ -148,7 +148,7 @@ export class PopupWindow {
 					// 判断pick结果是否包含绑定popup的元素
 					if (Cesium.defined(pick) && this.includeFeature(pick)) {
 						this.show(pick);
-						this.keepPosition(event, pick);
+						this.keepPosition(event, pick, false);
 					} else {
 						this.hide(pick);
 					}
