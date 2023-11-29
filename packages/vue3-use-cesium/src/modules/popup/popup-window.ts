@@ -168,8 +168,7 @@ export class PopupWindow {
 		} else if (this.positionType === PositionType.Entity) {
 			return pick.id.position.getValue(Date.now());
 		} else if (this.positionType === PositionType.Mouse) {
-			const worldPosition = this.viewer.camera.pickEllipsoid(event.position, this.viewer.scene.globe.ellipsoid);
-			return worldPosition;
+			return this.viewer.camera.pickEllipsoid(event.position, this.viewer.scene.globe.ellipsoid);
 		}
 	}
 	/**
@@ -184,11 +183,13 @@ export class PopupWindow {
 	 * 保持弹窗位置
 	 * @param event 事件参数
 	 * @param pick 拾取参数
+	 * @param isKeep 是否添加scenePostRender用于保持弹窗位置（MOUSE_MOVE不需要）
 	 */
-	private keepPosition(event: any, pick: any) {
+	private keepPosition(event: any, pick: any, isKeep: boolean = false) {
 		this.unKeepPosition();
 		if (!this.dom) return;
-		const position = Cesium.SceneTransforms.wgs84ToWindowCoordinates(this.viewer.scene, this.getPosition(event, pick));
+		const realPick = this.getPosition(event, pick);
+		const position = Cesium.SceneTransforms.wgs84ToWindowCoordinates(this.viewer.scene, realPick);
 		if (!position) return;
 		const pupupDom = this.dom;
 		const offsetX = this.offsetX;
@@ -220,13 +221,15 @@ export class PopupWindow {
 		}
 		pupupDom.style.top = position.y + dy + offsetY + "px";
 		pupupDom.style.left = position.x + dx + offsetX + "px";
-		// 鼠标位置不保持弹窗
-		if (this.positionType === PositionType.Mouse) return;
+		if (!isKeep) return;
 		this.scenePostRender = () => {
-			const position = Cesium.SceneTransforms.wgs84ToWindowCoordinates(this.viewer.scene, this.getPosition(event, pick));
-			if (!position) return;
-			pupupDom.style.top = position.y + dy + offsetY + "px";
-			pupupDom.style.left = position.x + dx + offsetX + "px";
+			const currentPosition =
+				this.positionType === PositionType.Mouse
+					? Cesium.SceneTransforms.wgs84ToWindowCoordinates(this.viewer.scene, realPick)
+					: Cesium.SceneTransforms.wgs84ToWindowCoordinates(this.viewer.scene, this.getPosition(event, pick));
+			if (!currentPosition) return;
+			pupupDom.style.top = currentPosition.y + dy + offsetY + "px";
+			pupupDom.style.left = currentPosition.x + dx + offsetX + "px";
 		};
 		this.viewer.scene.postRender.addEventListener(this.scenePostRender);
 	}
