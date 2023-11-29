@@ -105,6 +105,7 @@ export class ClusterLayer {
 	 */
 	setVisible(val: boolean) {
 		this.dataSource.show = val;
+		if (!val) this.popupWindow?.hidePopup();
 	}
 	/**
 	 * 获取图层绑定的dataSource
@@ -125,6 +126,7 @@ export class ClusterLayer {
 	 * 删除全部
 	 */
 	private removeAll() {
+		this.popupWindow?.hidePopup();
 		this.dataSource.entities.removeAll();
 	}
 	// 新增billboard

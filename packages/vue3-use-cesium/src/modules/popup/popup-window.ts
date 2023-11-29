@@ -87,7 +87,7 @@ export class PopupWindow {
 	private mapEvents: any;
 	private scenePostRender: any;
 	private eventFactory: EventFactory;
-
+	private pickedObject: any;
 	/**
 	 * 地图信息弹窗
 	 * @param options 配置参数
@@ -136,9 +136,11 @@ export class PopupWindow {
 				if (Cesium.defined(pick) && this.includeFeature(pick)) {
 					this.show(pick);
 					this.keepPosition(event, pick, true);
+					this.pickedObject = pick;
 				} else {
 					this.hide(pick);
 					this.unKeepPosition();
+					this.pickedObject = undefined;
 				}
 			});
 		} else {
@@ -249,6 +251,25 @@ export class PopupWindow {
 	private hide(pick: any) {
 		if (this.dom) this.dom.style.display = "none";
 		this.visibleChange(false, pick);
+	}
+	/**
+	 * 获取弹窗的dom
+	 */
+	getDom() {
+		return this.dom;
+	}
+	/**
+	 * 获取拾取结果(只有LEFT_CLICK方式可获取到)
+	 */
+	getPicked() {
+		return this.pickedObject;
+	}
+	/**
+	 * 主动隐藏弹窗
+	 */
+	hidePopup() {
+		if (this.dom) this.dom.style.display = "none";
+		this.unKeepPosition();
 	}
 	/**
 	 * 销毁

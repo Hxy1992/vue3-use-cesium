@@ -72,6 +72,7 @@ export class Layer {
 	 * @param entity entity
 	 */
 	remove(entity: any) {
+		this.handleRemovePopup(undefined, entity);
 		this.dataSource.entities.remove(entity);
 	}
 	/**
@@ -99,12 +100,14 @@ export class Layer {
 	 */
 	removeAll() {
 		this.dataSource.entities.removeAll();
+		this.popupWindow?.hidePopup();
 	}
 	/**
 	 * 根据id删除
 	 * @param id id
 	 */
 	removeById(id: string) {
+		this.handleRemovePopup(id);
 		this.dataSource.entities.removeById(id);
 	}
 	/**
@@ -128,6 +131,7 @@ export class Layer {
 	 */
 	setVisible(val: boolean) {
 		this.dataSource.show = val;
+		if (!val) this.popupWindow?.hidePopup();
 	}
 	/**
 	 * 获取图层绑定的dataSource
@@ -202,6 +206,15 @@ export class Layer {
 		if (this.popupWindow) {
 			this.popupWindow.dispose();
 			this.popupWindow = null;
+		}
+	}
+	// 弹窗开启时，关联的entity被删除，同步隐藏弹窗
+	private handleRemovePopup(id?: string, entity?: any) {
+		if (!id && !entity) return;
+		if (!this.popupWindow) return;
+		const picked = this.popupWindow.getPicked();
+		if (id === picked.id.id || entity === picked.id) {
+			this.popupWindow.hidePopup();
 		}
 	}
 	/**
