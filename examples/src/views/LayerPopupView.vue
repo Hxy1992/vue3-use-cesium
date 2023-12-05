@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from "vue";
 import { useBaseMap } from "../hooks/useBaseMap";
-import { Layer, LayerFactory } from "vue3-use-cesium";
+import { Layer, LayerFactory } from "@zhdgps/vue3-use-cesium";
 import img from "../assets/locate.png";
 
 // 方式1：在图层中添加弹出事件（见本页示例）
@@ -89,7 +89,7 @@ const popupData = ref({
 });
 let layerFactory: LayerFactory | null;
 let layerBillboard: Layer | null;
-let timer: NodeJS.Timeout | null = null;
+let timer: any = null;
 let popupBillboard: any;
 let popupPolygon: any;
 let popupModel: any;

@@ -9,7 +9,6 @@
 		"use"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
 	"publishConfig": {
 		"directory": "packages/vue3-use-cesium"
 	},

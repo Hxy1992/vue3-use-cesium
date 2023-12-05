@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount, ref } from "vue";
-import { Plot, toGeoJson, TerrainFactory } from "vue3-use-cesium";
+import { Plot, toGeoJson, TerrainFactory } from "@zhdgps/vue3-use-cesium";
 
 let plot: Plot;
 let viewer: any;

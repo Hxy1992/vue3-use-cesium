@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 import apidocConfig from '../apidocConfig.json';
 export default defineConfig({
-  title: 'vue3-use-cesium',
+  title: '@zhdgps/vue3-use-cesium',
   base: '/',
   themeConfig: {
     nav: [

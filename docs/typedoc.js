@@ -22,7 +22,7 @@ async function main() {
 
 	// 指定 TypeDoc 配置项
 	app.bootstrap({
-		name: "vue3-use-cesium",
+		name: "@zhdgps/vue3-use-cesium",
 		entryPoints: entries,
 		tsconfig: rootPath('tsconfig.json'),
 		plugin: ['typedoc-plugin-markdown'],

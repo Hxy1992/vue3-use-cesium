@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount, ref } from "vue";
-import { Measure, TerrainFactory } from "vue3-use-cesium";
+import { Measure, TerrainFactory } from "@zhdgps/vue3-use-cesium";
 
 /**
  * TODO

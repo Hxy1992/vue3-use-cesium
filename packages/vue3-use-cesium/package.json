@@ -1,7 +1,7 @@
 {
-	"name": "vue3-use-cesium",
+	"name": "@zhdgps/vue3-use-cesium",
 	"author": "Hxy1992",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "在 Vue3 中简洁、快速的使用 Cesium",
 	"main": "lib/index.js",
 	"module": "es/index.mjs",
@@ -28,7 +28,6 @@
 		"use"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
 	"scripts": {
 		"build": "gulp --require @esbuild-kit/cjs-loader -f scripts/build/index.ts"
 	},

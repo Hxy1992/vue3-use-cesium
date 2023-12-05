@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import { initMap } from "vue3-use-cesium";
+import { initMap } from "@zhdgps/vue3-use-cesium";
 import { loading } from "../loading";
 
 const router = createRouter({

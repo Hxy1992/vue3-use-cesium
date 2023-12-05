@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount } from "vue";
-import { Material } from "vue3-use-cesium";
+import { Material } from "@zhdgps/vue3-use-cesium";
 import fenceImg from "../assets/fence.png";
 import spaceLineImg from "../assets/space_line.png";
 import lightingImg from "../assets/lighting.png";

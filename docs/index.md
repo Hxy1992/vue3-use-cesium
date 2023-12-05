@@ -1,10 +1,10 @@
-# vue3-use-cesium
+# @zhdgps/vue3-use-cesium
 
 基于 Vue3、Typescrip、Cesium 的组件库。
 
 ### 功能 📖
 
-基于 pnpm workspace、vite、glup、rollup 脚手架，依赖 Vue3、Cesium 开发的 CBB 公共库——vue3-use-cesium
+基于 pnpm workspace、vite、glup、rollup 脚手架，依赖 Vue3、Cesium 开发的 CBB 公共库——@zhdgps/vue3-use-cesium
 有以下特点/功能：
 
 - 可支持 Cesium 库的按需加载

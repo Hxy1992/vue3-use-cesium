@@ -75,15 +75,15 @@ importers:
 
   examples:
     dependencies:
+      '@zhdgps/vue3-use-cesium':
+        specifier: workspace:*
+        version: link:../packages/vue3-use-cesium
       vue:
         specifier: ^3.3.4
         version: 3.3.4
       vue-router:
         specifier: ^4.2.2
         version: 4.2.2(vue@3.3.4)
-      vue3-use-cesium:
-        specifier: workspace:*
-        version: link:../packages/vue3-use-cesium
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.1

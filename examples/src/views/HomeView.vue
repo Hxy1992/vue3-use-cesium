@@ -1,9 +1,9 @@
 <template>
 	<div class="content">
-		<h1 id="vue3-use-cesium">vue3-use-cesium</h1>
+		<h1 id="vue3-use-cesium">@zhdgps/vue3-use-cesium</h1>
 		<p>基于 Vue3、Typescrip、Cesium 的组件库。</p>
 		<h3>功能 📖</h3>
-		<p>基于 pnpm workspace、vite、glup、rollup 脚手架，依赖 Vue3、Cesium 开发的 CBB 公共库——vue3-use-cesium
+		<p>基于 pnpm workspace、vite、glup、rollup 脚手架，依赖 Vue3、Cesium 开发的 CBB 公共库——@zhdgps/vue3-use-cesium
 			有以下特点/功能：</p>
 		<ul>
 			<li>可支持 Cesium 库的按需加载</li>
@@ -25,7 +25,7 @@
 			</li>
 		</ul>
 		<pre>
-	<code class="language-bash">yarn add vue3-use-cesium # npm i vue3-use-cesium --save
+	<code class="language-bash">yarn add @zhdgps/vue3-use-cesium # npm i @zhdgps/vue3-use-cesium --save
 </code>
 </pre>
 		<ul>
@@ -43,20 +43,20 @@
     &lt;z-map-base /&gt;
 &lt;/template&gt;
 &lt;script setup lang=&quot;ts&quot;&gt;
-import { ZMapBase } from &quot;vue3-use-cesium&quot;;
+import { ZMapBase } from &quot;@zhdgps/vue3-use-cesium&quot;;
 &lt;/script&gt;
 </code>
 </pre>
 		<p>在 main.js 引入样式：</p>
 		<pre>
-	<code class="language-typescript">import &quot;vue3-use-cesium/style&quot;;
+	<code class="language-typescript">import &quot;@zhdgps/vue3-use-cesium/style&quot;;
 </code>
 </pre>
 		<ol start="2">
 			<li>在路由拦截中加载初始化并加载 Cesium.js</li>
 		</ol>
 		<pre>
-	<code class="language-typescript">import { initMap } from &quot;vue3-use-cesium&quot;;
+	<code class="language-typescript">import { initMap } from &quot;@zhdgps/vue3-use-cesium&quot;;
 // 路由拦截
 router.beforeEach(async (to, from, next) =&gt; {
     // ...
@@ -78,7 +78,7 @@ router.beforeEach(async (to, from, next) =&gt; {
 		</ol>
 		<pre>
 	<code class="language-typescript">import { onBeforeUnmount, onMounted } from &quot;vue&quot;;
-import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from &quot;vue3-use-cesium&quot;;
+import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from &quot;@zhdgps/vue3-use-cesium&quot;;
 
 /**
  * 基础地图使用

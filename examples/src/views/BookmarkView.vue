@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount, ref } from "vue";
-import { BookMark } from "vue3-use-cesium";
+import { BookMark } from "@zhdgps/vue3-use-cesium";
 
 const bookList = ref<any[]>([]);
 const bookName = ref("");

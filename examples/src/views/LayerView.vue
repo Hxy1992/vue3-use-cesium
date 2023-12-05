@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from "vue";
 import { useBaseMap } from "../hooks/useBaseMap";
-import { LayerFactory } from "vue3-use-cesium";
+import { LayerFactory } from "@zhdgps/vue3-use-cesium";
 import img from "../assets/locate.png";
 
 interface LayerItem {
