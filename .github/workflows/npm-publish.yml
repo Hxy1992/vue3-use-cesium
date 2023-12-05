@@ -21,7 +21,7 @@ jobs:
       # 安装 pnpm
       - uses: pnpm/action-setup@v2
         with:
-         version: 8.6.6
+          version: 8.6.6
       # 设定 node 环境
       - uses: actions/setup-node@v3
         with:
@@ -30,7 +30,8 @@ jobs:
           registry-url: https://registry.npmjs.org
       # 安装依赖，相当于 npm ci
       - name: Install dependencies
-        run: pnpm install
+        # run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       # 执行构建步骤
       - name: 构建
         run: |
