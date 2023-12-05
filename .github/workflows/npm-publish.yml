@@ -47,7 +47,7 @@ jobs:
       #     BRANCH: pages
       #     # 指定构建之后的产物要推送哪个目录的代码
       #     FOLDER: build
-      - run: pnpm publish --no-git-checks
+      - run: pnpm publish
         env:
           # 刚刚设置的 NPM_TOKEN
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
