@@ -1,10 +1,8 @@
 import "./assets/main.css";
-
 import { createApp } from "vue";
-import App from "./App.vue";
+import AppMain from "./App.vue";
 import router from "./router";
-import "vue3-use-cesium/style";
-const app = createApp(App);
+const app = createApp(AppMain);
 
 app.use(router);
 

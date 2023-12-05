@@ -9,7 +9,6 @@
 		"use"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
 	"publishConfig": {
 		"directory": "packages/vue3-use-cesium"
 	},
@@ -19,12 +18,14 @@
 		"examples:dev": "pnpm --filter=examples dev",
 		"examples:build": "pnpm --filter=examples build",
 		"examples:preview": "pnpm --filter=examples preview",
+		"docs:dev": "node docs/typedoc.js && vitepress dev docs",
+		"docs:build": "node docs/typedoc.js && vitepress build docs",
+		"docs:serve": "vitepress serve docs",
 		"lint:lint-staged": "lint-staged",
 		"lint:eslint": "eslint --fix --cache \"**/*.{js,jsx,ts,tsx,vue}\"",
 		"lint:stylelint": "stylelint --fix --cache \"**/*.{css,scss,less,styl,vue}\"",
 		"lint:prettier": "prettier --write  \"**/*.{css,scss,less,styl,js,jsx,ts,tsx,vue}\""
 	},
-	"dependencies": {},
 	"devDependencies": {
 		"autoprefixer": "^10.4.7",
 		"eslint": "^8.14.0",
@@ -42,7 +43,10 @@
 		"stylelint-config-recommended-vue": "^1.4.0",
 		"stylelint-config-standard": "^25.0.0",
 		"stylelint-config-standard-scss": "^3.0.0",
+		"typedoc": "0.23.24",
+		"typedoc-plugin-markdown": "3.14.0",
 		"typescript": "^4.7.4",
-		"unplugin-vue-define-options": "^0.10.0"
+		"unplugin-vue-define-options": "^0.10.0",
+		"vitepress": "1.0.0-alpha.22"
 	}
 }

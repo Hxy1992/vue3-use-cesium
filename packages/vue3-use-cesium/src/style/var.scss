@@ -1,0 +1,10 @@
+@use "./config.scss" as *;
+
+// 全局css变量
+:root {
+	--#{$namespace}-overlay-zindex: 1001;
+	--#{$namespace}-background-color: rgb(23 49 71 / 70%);
+	--#{$namespace}-color: white;
+	--#{$namespace}-color-active: #4064e2;
+	--#{$namespace}-font-size: 14px;
+}

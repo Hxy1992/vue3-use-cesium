@@ -11,8 +11,10 @@
 	},
 	"dependencies": {
 		"vue": "^3.3.4",
+		"@types/lodash-es": "^4.17.11",
+		"lodash-es": "^4.17.21",
 		"vue-router": "^4.2.2",
-		"vue3-use-cesium": "workspace:*"
+		"@zhdgps/vue3-use-cesium": "workspace:*"
 	},
 	"devDependencies": {
 		"@tsconfig/node18": "^2.0.1",

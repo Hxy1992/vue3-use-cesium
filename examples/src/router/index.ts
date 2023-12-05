@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import { initMap } from "vue3-use-cesium";
+import { initMap } from "@zhdgps/vue3-use-cesium";
 import { loading } from "../loading";
 
 const router = createRouter({
@@ -9,22 +9,90 @@ const router = createRouter({
 		{
 			path: "/",
 			name: "home",
-			component: HomeView
-		},
-		{
-			path: "/mapview",
-			name: "满屏地图",
-			component: () => import("../views/MapView.vue"),
+			component: HomeView,
 			meta: {
-				hasMap: true
+				title: "项目简介"
 			}
 		},
 		{
-			path: "/mapview2",
-			name: "表单地图",
-			component: () => import("../views/MapView2.vue"),
+			path: "/mapview",
+			name: "MapView",
+			component: () => import("../views/MapView.vue"),
 			meta: {
-				hasMap: true
+				hasMap: true,
+				title: "Hello World"
+			}
+		},
+		{
+			path: "/formview",
+			name: "FormView",
+			component: () => import("../views/FormView.vue"),
+			meta: {
+				hasMap: true,
+				title: "表单地图"
+			}
+		},
+		{
+			path: "/plot",
+			name: "PlotView",
+			component: () => import("../views/PlotView.vue"),
+			meta: {
+				hasMap: true,
+				title: "标绘"
+			}
+		},
+		{
+			path: "/measure",
+			name: "MeasureView",
+			component: () => import("../views/MeasureView.vue"),
+			meta: {
+				hasMap: true,
+				title: "测量"
+			}
+		},
+		{
+			path: "/material",
+			name: "MaterialView",
+			component: () => import("../views/MaterialView.vue"),
+			meta: {
+				hasMap: true,
+				title: "材质"
+			}
+		},
+		{
+			path: "/layer",
+			name: "LayerView",
+			component: () => import("../views/LayerView.vue"),
+			meta: {
+				hasMap: true,
+				title: "图层管理"
+			}
+		},
+		{
+			path: "/layerPopup",
+			name: "LayerPopupView",
+			component: () => import("../views/LayerPopupView.vue"),
+			meta: {
+				hasMap: true,
+				title: "图层弹窗"
+			}
+		},
+		{
+			path: "/bookmark",
+			name: "BookmarkView",
+			component: () => import("../views/BookmarkView.vue"),
+			meta: {
+				hasMap: true,
+				title: "场景书签"
+			}
+		},
+		{
+			path: "/cluster",
+			name: "ClusterView",
+			component: () => import("../views/ClusterView.vue"),
+			meta: {
+				hasMap: true,
+				title: "图层聚合"
 			}
 		}
 	]
@@ -32,7 +100,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
 	// ...
-
+	document.title = `use cesium-${to.meta.title as string}`;
 	// 如果页面包含地图则加载Cesium.js
 	if (to.meta.hasMap) {
 		loading.value = true;
@@ -42,7 +110,9 @@ router.beforeEach(async (to, from, next) => {
 		// 	`https://unpkg.com/cesium@1.105.0/Build/Cesium/Widgets/widgets.css`
 		// ]);
 		// 使用本地地址调试(网速慢时改用本地地址)
-		await initMap([`/CesiumV1.105/Cesium.js`, `/CesiumV1.105/Widgets/widgets.css`]);
+		await initMap([`/CesiumV1.105/Cesium.js`, `/CesiumV1.105/Widgets/widgets.css`], {
+			imagery: "gd-img"
+		});
 		loading.value = false;
 	}
 
