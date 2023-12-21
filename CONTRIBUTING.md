@@ -1,4 +1,4 @@
-# @zhdgps/vue3-use-cesium
+# vue3-use-cesium
 
 # 项目介绍
 

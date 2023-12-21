@@ -1,7 +1,7 @@
 {
-	"name": "@zhdgps/vue3-use-cesium",
+	"name": "vue3-use-cesium",
 	"author": "Hxy1992",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "在 Vue3 中简洁、快速的使用 Cesium",
 	"main": "lib/index.js",
 	"module": "es/index.mjs",
@@ -32,8 +32,8 @@
 		"build": "gulp --require @esbuild-kit/cjs-loader -f scripts/build/index.ts"
 	},
 	"peerDependencies": {
-		"lodash-es": "^4.x",
-		"vue": "^3.x"
+		"lodash-es": "^4.17.21",
+		"vue": "^3.2.37"
 	},
 	"dependencies": {
 		"supercluster": "^8.0.1"

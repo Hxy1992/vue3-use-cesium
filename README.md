@@ -1,4 +1,4 @@
-# @zhdgps/vue3-use-cesium
+# vue3-use-cesium
 
 基于 Vue3、Typescrip、Cesium 的组件库。
 
@@ -25,7 +25,7 @@
 - **安装**
 
 ```bash
-yarn add @zhdgps/vue3-use-cesium # npm i @zhdgps/vue3-use-cesium --save
+yarn add vue3-use-cesium # npm i vue3-use-cesium --save
 ```
 
 - **使用**
@@ -40,20 +40,20 @@ yarn add @zhdgps/vue3-use-cesium # npm i @zhdgps/vue3-use-cesium --save
 	<z-map-base />
 </template>
 <script setup lang="ts">
-import { ZMapBase } from "@zhdgps/vue3-use-cesium";
+import { ZMapBase } from "vue3-use-cesium";
 </script>
 ```
 
 在 main.js 引入样式：
 
 ```typescript
-import "@zhdgps/vue3-use-cesium/style";
+import "vue3-use-cesium/style";
 ```
 
 2. 在路由拦截中加载初始化并加载 Cesium.js
 
 ```typescript
-import { initMap } from "@zhdgps/vue3-use-cesium";
+import { initMap } from "vue3-use-cesium";
 // 路由拦截
 router.beforeEach(async (to, from, next) => {
 	// ...
@@ -74,7 +74,7 @@ router.beforeEach(async (to, from, next) => {
 
 ```typescript
 import { onBeforeUnmount, onMounted } from "vue";
-import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from "@zhdgps/vue3-use-cesium";
+import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from "vue3-use-cesium";
 
 /**
  * 基础地图使用
