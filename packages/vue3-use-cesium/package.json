@@ -1,13 +1,14 @@
 {
 	"name": "vue3-use-cesium",
 	"author": "Hxy1992",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "在 Vue3 中简洁、快速的使用 Cesium",
 	"main": "lib/index.js",
 	"module": "es/index.mjs",
 	"types": "es/index.d.ts",
 	"unpkg": "dist/index.min.js",
 	"jsdelivr": "dist/index.min.js",
+	"homepage": "https://github.com/Hxy1992/vue3-use-cesium",
 	"exports": {
 		".": {
 			"dev": "./src/index.ts",
