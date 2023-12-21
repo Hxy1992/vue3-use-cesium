@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
-import { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "@zhdgps/vue3-use-cesium";
+import { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
 import recoverNorth from "./assets/recoverNorth.svg"
 import homeSvg from "./assets/home.svg"

@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted } from "vue";
-import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from "@zhdgps/vue3-use-cesium";
+import { setToTarget, setVisible, clearMapElements, clearMapEvents, getViewer } from "vue3-use-cesium";
 
 /**
  * 基础地图使用
