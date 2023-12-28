@@ -29,6 +29,6 @@ export const MapOperation = withInstall<
 		{},
 		any
 	>,
-	any
+	typeof mapOperation
 >(mapOperation);
 export default MapOperation;
