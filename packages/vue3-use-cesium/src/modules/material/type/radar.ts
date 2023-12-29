@@ -3,7 +3,7 @@ import RadarSweepMaterial from "../shader/radar/sweep";
 import RadarWaveMaterial from "../shader/radar/wava";
 
 /**
- * RadarLine
+ * Primitive材质 - RadarLine
  */
 export function createRadarLine(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -23,7 +23,7 @@ export function createRadarLine(options: { color?: any; speed?: number } = {}) {
 }
 
 /**
- * RadarSweep
+ * Primitive材质 - RadarSweep
  */
 export function createRadarSweep(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -43,7 +43,7 @@ export function createRadarSweep(options: { color?: any; speed?: number } = {}) 
 }
 
 /**
- * RadarWave
+ * Primitive材质 - RadarWave
  */
 export function createRadarWave(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;

@@ -19,7 +19,7 @@ menuList.value = router.getRoutes().map(item => {
 	};
 })
 
-const defaultImagerys: any = [
+const defaultImagerys = [
 	{
 		label: "高德卫星(无偏移)",
 		type: "gd-img",

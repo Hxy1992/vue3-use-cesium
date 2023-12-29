@@ -6,7 +6,7 @@ import LineLightingTrailMaterial from "../shader/polyline/lighting-trail";
 import LineTrailMaterial from "../shader/polyline/trail";
 
 /**
- * PolylineFlicker
+ * Primitive材质 - PolylineFlicker
  */
 export function createPolylineFlicker(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -26,7 +26,7 @@ export function createPolylineFlicker(options: { color?: any; speed?: number } =
 }
 
 /**
- * PolylineFlow
+ * Primitive材质 - PolylineFlow
  */
 export function createPolylineFlow(options: { color?: any; speed?: number; percent?: number; gradient?: number } = {}) {
 	const { color, speed, percent, gradient } = options;
@@ -48,7 +48,7 @@ export function createPolylineFlow(options: { color?: any; speed?: number; perce
 }
 
 /**
- * PolylineImageTrail
+ * Primitive材质 - PolylineImageTrail
  */
 export function createPolylineImageTrail(options: { color?: any; image?: string; speed?: number; repeat?: any } = {}) {
 	const { color, image, speed, repeat } = options;
@@ -70,7 +70,7 @@ export function createPolylineImageTrail(options: { color?: any; image?: string;
 }
 
 /**
- * PolylineLighting
+ * Primitive材质 - PolylineLighting
  */
 export function createPolylineLighting(options: { color?: any; image?: string } = {}) {
 	const { color, image } = options;
@@ -90,7 +90,7 @@ export function createPolylineLighting(options: { color?: any; image?: string } 
 }
 
 /**
- * PolylineLightingTrail
+ * Primitive材质 - PolylineLightingTrail
  */
 export function createPolylineLightingTrail(options: { color?: any; image?: string; speed?: number } = {}) {
 	const { color, image, speed } = options;
@@ -111,7 +111,7 @@ export function createPolylineLightingTrail(options: { color?: any; image?: stri
 }
 
 /**
- * PolylineTrail
+ * Primitive材质 - PolylineTrail
  */
 export function createPolylineTrail(options: { color?: any; image?: string; speed?: number; repeat?: any } = {}) {
 	const { color, image, speed, repeat } = options;

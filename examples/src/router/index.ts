@@ -51,12 +51,21 @@ const router = createRouter({
 			}
 		},
 		{
-			path: "/material",
+			path: "/materialPrimitive",
 			name: "MaterialView",
 			component: () => import("../views/MaterialView.vue"),
 			meta: {
 				hasMap: true,
-				title: "材质"
+				title: "Primitive材质"
+			}
+		},
+		{
+			path: "/materialEntity",
+			name: "EntityMaterialView",
+			component: () => import("../views/EntityMaterialView.vue"),
+			meta: {
+				hasMap: true,
+				title: "Entity材质"
 			}
 		},
 		{

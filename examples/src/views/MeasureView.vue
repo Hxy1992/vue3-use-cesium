@@ -57,12 +57,7 @@ import { useBaseMap } from "../hooks/useBaseMap";
 import { onBeforeUnmount, ref } from "vue";
 import { Measure, TerrainFactory } from "vue3-use-cesium";
 
-/**
- * TODO
- * 需区分贴地、不贴地测量
- */
-
-let measure: any;
+let measure: Measure | null = null;
 let tileset: any;
 let viewer: any;
 const terrainType = ref("none");
@@ -104,23 +99,23 @@ function flyTo(type: "model" | "mountain") {
 
 // 位置测量
 function positionMeasure(type: "EllipsoidPosition" | "TerrainSurfacePosition" | "ModelSurfacePosition") {
-	measure.position(type)
+	measure?.position(type)
 }
 // 距离测量
 function distanceMeasure(type: "EllipsoidDistance" | "TerrainSurfaceDistance" | "ModelSurfaceDistance", clampToGround: boolean) {
-	measure.distance(type, clampToGround);
+	measure?.distance(type, clampToGround);
 }
 // 面积测量
 function areaMeasure(type: "EllipsoidArea" | "TerrainSurfaceArea" | "ModelSurfaceArea", clampToGround: boolean) {
-	measure.area(type, clampToGround)
+	measure?.area(type, clampToGround)
 }
 // 高度差测量
 function heightMeasure(type: "TerrainSurfaceHeight" | "ModelSurfaceHeight") {
-	measure.height(type)
+	measure?.height(type)
 }
 // 三角测量
 function calcTriangleHeight(type: "TerrainSurfaceTriangle" | "ModelSurfaceTriangle") {
-	measure.triangle(type)
+	measure?.triangle(type)
 }
 
 function clearAll() {

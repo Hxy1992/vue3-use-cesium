@@ -13,7 +13,7 @@ import spaceLineImg from "../assets/space_line.png";
 import lightingImg from "../assets/lighting.png";
 
 /**
- * 材质暂只支持在Primitive上使用，不支持在Entity上使用
+ * 在Primitive上使用材质
  */
 
 let viewer: any;

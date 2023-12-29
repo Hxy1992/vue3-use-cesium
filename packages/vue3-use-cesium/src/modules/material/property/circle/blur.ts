@@ -1,39 +1,29 @@
-import MaterialProperty from "../../MaterialProperty";
-import { createCircleBlur } from "../../type/circle";
+import CircleBlurMaterial from "../../shader/circle/blur";
+import { defineMaterialProperty } from "../helper";
+import type { Constructable } from "../helper";
 
-class CircleBlurMaterialProperty extends MaterialProperty {
-	private tempMaterial: any;
-	constructor(options: { color?: any; speed?: number } = {}) {
-		super(options);
-		this.color = Cesium.createPropertyDescriptor("color");
-		this.speed = Cesium.createPropertyDescriptor("speed");
-		this.tempMaterial = createCircleBlur(options);
-	}
+/**
+ * Entity材质 - CircleBlur
+ * @param options
+ */
+function CircleBlurMaterialProperty(options: { color?: any; speed?: number } = {}) {
+	// @ts-ignore
+	this._definitionChanged = new Cesium.Event();
+	// @ts-ignore
+	this._color = undefined;
+	// @ts-ignore
+	this._colorSubscription = undefined;
 
-	getType(time: any) {
-		return this.tempMaterial.type;
-	}
-
-	getValue(time: any, result: any) {
-		result = Cesium.defaultValue(result, {});
-		result.color = Cesium.Property.getValueOrUndefined(this._color, time);
-		result.speed = this._speed;
-		return result;
-	}
-
-	equals(other: any) {
-		return (
-			this === other ||
-			(other instanceof CircleBlurMaterialProperty &&
-				Cesium.Property.equals(this._color, other._color) &&
-				Cesium.Property.equals(this._speed, other._speed))
-		);
-	}
+	// @ts-ignore
+	this.color = options.color;
+	// @ts-ignore
+	this.speed = options.speed;
 }
 
-// Object.defineProperties(CircleBlurMaterialProperty.prototype, {
-// 	color: Cesium.createPropertyDescriptor("color"),
-// 	speed: Cesium.createPropertyDescriptor("speed")
-// });
+defineMaterialProperty("CircleBlur", CircleBlurMaterialProperty, CircleBlurMaterial);
 
-export default CircleBlurMaterialProperty;
+/**
+ * Entity材质 - CircleBlur
+ * @param options
+ */
+export const CircleBlurProperty = CircleBlurMaterialProperty as Constructable<Parameters<typeof CircleBlurMaterialProperty>[0]>;

@@ -4,7 +4,7 @@ import WallLineTrailMaterial from "../shader/wall/line-trail";
 import WallTrailMaterial from "../shader/wall/trail";
 
 /**
- * WallDiffuse
+ * Primitive材质 - WallDiffuse
  */
 export function createWallDiffuse(options: { color?: any } = {}) {
 	const { color } = options;
@@ -23,7 +23,7 @@ export function createWallDiffuse(options: { color?: any } = {}) {
 }
 
 /**
- * WallImageTrail
+ * Primitive材质 - WallImageTrail
  */
 export function createWallImageTrail(options: { color?: any; image?: string; speed?: number; repeat?: any } = {}) {
 	const { color, image, speed, repeat } = options;
@@ -45,7 +45,7 @@ export function createWallImageTrail(options: { color?: any; image?: string; spe
 }
 
 /**
- *  WallLineTrail
+ *  Primitive材质 - WallLineTrail
  */
 export function createWallLineTrail(options: { color?: any; image?: string; speed?: number; repeat?: any } = {}) {
 	const { color, image, speed, repeat } = options;
@@ -67,7 +67,7 @@ export function createWallLineTrail(options: { color?: any; image?: string; spee
 }
 
 /**
- * WallTrail
+ * Primitive材质 - WallTrail
  */
 export function createWallTrail(options: { color?: any; image?: string; speed?: number } = {}) {
 	const { color, image, speed } = options;
