@@ -2,7 +2,7 @@ import CylinderFadeMaterial from "../shader/cylinder/fade";
 import CylinderParticlesMaterial from "../shader/cylinder/particles";
 
 /**
- * CylinderFade
+ * Primitive材质 - CylinderFade
  */
 export function createCylinderFade(options: { color?: any } = {}) {
 	const { color } = options;
@@ -21,7 +21,7 @@ export function createCylinderFade(options: { color?: any } = {}) {
 }
 
 /**
- * CylinderParticles
+ * Primitive材质 - CylinderParticles
  */
 export function createCylinderParticles(options: { color?: any; image?: number } = {}) {
 	const { color, image } = options;

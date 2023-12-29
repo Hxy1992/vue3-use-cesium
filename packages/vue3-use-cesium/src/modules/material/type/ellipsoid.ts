@@ -2,7 +2,7 @@ import EllipsoidElectricMaterial from "../shader/ellipsoid/electric";
 import EllipsoidTrailMaterial from "../shader/ellipsoid/trail";
 
 /**
- * EllipsoidElectric
+ * Primitive材质 - EllipsoidElectric
  */
 export function createEllipsoidElectric(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -22,7 +22,7 @@ export function createEllipsoidElectric(options: { color?: any; speed?: number }
 }
 
 /**
- * EllipsoidTrail
+ * Primitive材质 - EllipsoidTrail
  */
 export function createEllipsoidTrail(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;

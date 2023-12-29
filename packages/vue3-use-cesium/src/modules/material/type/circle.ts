@@ -10,7 +10,7 @@ import CircleVaryMaterial from "../shader/circle/vary";
 import CircleWaveMaterial from "../shader/circle/wave";
 
 /**
- * CircleBlur
+ * Primitive材质 - CircleBlur
  */
 export function createCircleBlur(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -30,7 +30,7 @@ export function createCircleBlur(options: { color?: any; speed?: number } = {}) 
 }
 
 /**
- * CircleDiffuse
+ * Primitive材质 - CircleDiffuse
  */
 export function createCircleDiffuse(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -50,7 +50,7 @@ export function createCircleDiffuse(options: { color?: any; speed?: number } = {
 }
 
 /**
- * CircleFade
+ * Primitive材质 - CircleFade
  */
 export function createCircleFade(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -70,7 +70,7 @@ export function createCircleFade(options: { color?: any; speed?: number } = {}) 
 }
 
 /**
- * CirclePulse
+ * Primitive材质 - CirclePulse
  */
 export function createCirclePulse(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -90,7 +90,7 @@ export function createCirclePulse(options: { color?: any; speed?: number } = {})
 }
 
 /**
- * CircleRing
+ * Primitive材质 - CircleRing
  */
 export function createCircleRing(options: { color?: any } = {}) {
 	const { color } = options;
@@ -109,7 +109,7 @@ export function createCircleRing(options: { color?: any } = {}) {
 }
 
 /**
- * CircleRotate
+ * Primitive材质 - CircleRotate
  */
 export function createCircleRotate(options: { color?: any; image?: string } = {}) {
 	const { color, image } = options;
@@ -129,7 +129,7 @@ export function createCircleRotate(options: { color?: any; image?: string } = {}
 }
 
 /**
- * CircleScan
+ * Primitive材质 - CircleScan
  */
 export function createCircleScan(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -149,7 +149,7 @@ export function createCircleScan(options: { color?: any; speed?: number } = {}) 
 }
 
 /**
- * CircleSpiral
+ * Primitive材质 - CircleSpiral
  */
 export function createCircleSpiral(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -169,7 +169,7 @@ export function createCircleSpiral(options: { color?: any; speed?: number } = {}
 }
 
 /**
- * CircleVary
+ * Primitive材质 - CircleVary
  */
 export function createCircleVary(options: { color?: any; speed?: number } = {}) {
 	const { color, speed } = options;
@@ -189,7 +189,7 @@ export function createCircleVary(options: { color?: any; speed?: number } = {}) 
 }
 
 /**
- * CircleWave
+ * Primitive材质 - CircleWave
  */
 export function createCircleWave(options: { color?: any; speed?: number; count?: number; gradient?: number } = {}) {
 	const { color, speed, count, gradient } = options;
