@@ -20,7 +20,7 @@ const baseMapStore = getState();
 let isCreated = false; // 标识只能创建一次
 const createBaseMap = async (options?: MapOptionTypes) => {
 	if (isCreated) return; // 只能创建一个
-	mapId = await mapFactory.addStatic(mapRef.value, options);
+	mapId = await mapFactory.addStatic(mapRef.value as HTMLElement, options);
 	setMapId(mapId);
 	isCreated = true;
 	mittBus.emit("baseMapCreated", mapId);

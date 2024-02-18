@@ -2,8 +2,8 @@ import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "../event";
 import { setImagery } from "../imagery";
 import { morphMap } from "../util";
-import type { MapOptionTypes, TerrainTypes } from "../../interfaces/map";
-import { setCurrentImagery } from "../../utils/store";
+import type { MapOptionTypes } from "../../interfaces/map";
+import { setCurrentImagery, setUseCesiumDefaultEvent } from "../../utils/store";
 import { TerrainFactory } from "../terrain";
 
 interface MapEventType {
@@ -39,7 +39,7 @@ export class MapFactory {
 	 * @param options 参数
 	 * @returns 地图id
 	 */
-	async add(dom: HTMLElement | null, options?: MapOptionTypes) {
+	async add(dom: HTMLElement, options?: MapOptionTypes) {
 		const uuid = generateUUID();
 		this.viewerMap[uuid] = await createMap(dom, options);
 		this.eventMap[uuid] = createFactory(this.viewerMap[uuid]);
@@ -50,7 +50,7 @@ export class MapFactory {
 	 * @param dom 参考add方法
 	 * @param options 参考add方法
 	 */
-	async addStatic(dom: HTMLElement | null, options?: MapOptionTypes) {
+	async addStatic(dom: HTMLElement, options?: MapOptionTypes) {
 		const uuid = await this.add(dom, options);
 		this.staticMap[uuid] = true;
 		return uuid;
@@ -100,17 +100,18 @@ export const mapFactory = new MapFactory();
 /**
  * 创建地图实例
  * @param dom 地图dom
- * @param threeD 是否3d
+ * @param options 配置参数
  * @returns 地图实例
  */
-async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
+async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	const {
 		viewType = "3d",
 		imagery,
 		extra = {},
 		terrain = "none",
 		terrainUrl = "",
-		depthTestAgainstTerrain = false
+		depthTestAgainstTerrain = false,
+		useCesiumDefaultEvent = false
 	} = options || {};
 	if (!dom) return;
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
@@ -140,24 +141,21 @@ async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
 	viewer.container.querySelector(".cesium-viewer-toolbar").style.display = "none"; // 隐藏工具栏
 	viewer.cesiumWidget.creditContainer.remove();
 	const scene = viewer.scene;
-	// // 背景白色
-	// scene.backgroundColor = new Cesium.Color(0, 0, 0, 0.0);
-	// // 地形深度检测,使用pick时需要开启，否则高程不准确
+
 	// Cesium1.105 深度检测开启问题
 	if (depthTestAgainstTerrain) {
 		setTimeout(() => {
 			scene.globe.depthTestAgainstTerrain = true;
 		}, 0);
 	}
-	// viewer.sceneModePicker.viewModel.duration = 0.0;
-	// scene.globe.baseColor = new Cesium.Color(0, 0, 0, 0.0);
 
-	mapEventsSet(viewer);
+	if (!useCesiumDefaultEvent) mapEventsSet(viewer);
+	setUseCesiumDefaultEvent(useCesiumDefaultEvent);
 
 	// 解决锯齿和页面模糊问题
 	scene.postProcessStages.fxaa.enabled = true;
-	viewer.scene.globe.showWaterEffect = false;
-	viewer.scene.globe.showGroundAtmosphere = false;
+	// viewer.scene.globe.showWaterEffect = false;
+	// viewer.scene.globe.showGroundAtmosphere = false;
 	// 视图3D/2D
 	morphMap(viewer, viewType);
 	// 默认地图
@@ -174,16 +172,11 @@ async function createMap(dom: HTMLElement | null, options?: MapOptionTypes) {
  * @param viewer 地图
  */
 function errorHandle(viewer: any) {
-	// const helper = new Cesium.EventHelper();
 	const helper = viewer._eventHelper;
-	// RuntimeErrorEventHandle(viewer);
-	// RequestErrorEventHandle(viewer);
 	renderErrorHandle(viewer, helper);
 	lowFrameHandle(viewer);
-	// helper.removeAll();
 }
-// function RuntimeErrorEventHandle(viewer: any) {}
-// function RequestErrorEventHandle(viewer: any) {}
+// 渲染错误提示
 function renderErrorHandle(viewer: any, helper: any) {
 	helper.add(viewer.scene.renderError, (...params: any) => {
 		console.error(params);
@@ -191,6 +184,7 @@ function renderErrorHandle(viewer: any, helper: any) {
 		window.location.reload();
 	});
 }
+// 低帧率提示
 function lowFrameHandle(viewer: any) {
 	viewer.extend(Cesium.viewerPerformanceWatchdogMixin, {
 		lowFrameRateMessage: "此应用程序在您的系统上表现不佳。请尝试使用其他web浏览器或更新视频驱动程序。"

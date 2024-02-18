@@ -10,7 +10,8 @@ const state = reactive<BaseMapType>({
 	toTarget: "body",
 	viewType: "3d",
 	flyHomeDuration: 0,
-	currentImagery: "osm-normal"
+	currentImagery: "osm-normal",
+	useCesiumDefaultEvent: false
 });
 
 /**
@@ -52,4 +53,12 @@ export function setViewType(type: "2d" | "3d") {
  */
 export function setCurrentImagery(type: ImageryTypes) {
 	state.currentImagery = type;
+}
+
+/**
+ * 设置操作状态
+ * @param val 是/否
+ */
+export function setUseCesiumDefaultEvent(val: boolean) {
+	state.useCesiumDefaultEvent = val;
 }

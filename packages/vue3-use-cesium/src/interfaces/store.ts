@@ -33,4 +33,8 @@ export interface BaseMapType {
 	 * 当前底图
 	 */
 	currentImagery: ImageryTypes;
+	/**
+	 * 是否使用Cesium默认的操作状态记录
+	 */
+	useCesiumDefaultEvent: boolean;
 }
