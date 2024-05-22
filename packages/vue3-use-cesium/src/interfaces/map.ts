@@ -46,11 +46,15 @@ export interface MapOptionTypes {
 	/**
 	 * 默认视图类型
 	 */
-	viewType?: "2d" | "3d"; // true - 3d视图；false - 2d视图
+	viewType?: "2d" | "3d";
 	/**
 	 * 深度检测
 	 */
 	depthTestAgainstTerrain?: boolean;
+	/**
+	 * 是否使用Cesium默认的旋转、平移、缩放操作（默认false，使用框架自定义操作）
+	 */
+	useCesiumDefaultEvent?: boolean;
 	/**
 	 * 默认底图
 	 */
@@ -59,6 +63,10 @@ export interface MapOptionTypes {
 	 * 默认底图为本地时需传入url
 	 */
 	imageryUrl?: string;
+	/**
+	 * 默认底图为天地图时需传入token
+	 */
+	tdtToken?: string;
 	/**
 	 * 地形
 	 */

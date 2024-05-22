@@ -11,6 +11,7 @@
 import { ref } from "vue";
 import { mapFactory } from "../../../modules/basemap";
 import { mittBus } from "../../../utils/mitt-bus";
+import { BusEnum } from "../../../enums/bus-enum";
 
 const coodinationVisible = ref(true);
 const coodination = ref({
@@ -70,5 +71,5 @@ const initCoods = (mapId: string) => {
 	);
 };
 
-mittBus.on("baseMapCreated", initCoods);
+mittBus.on(BusEnum.BaseMapCreated, initCoods);
 </script>

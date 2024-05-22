@@ -39,7 +39,11 @@
 								<td></td>
 								<td>
 									<div class="cesium-navigation-help-zoom">缩放视图</div>
-									<div class="cesium-navigation-help-details">中键按下 + 拖拽, 或</div>
+									<div class="cesium-navigation-help-details">
+										{{ state.useCesiumDefaultEvent ?
+											"右键按下 + 拖拽, 或" :
+											"中键按下 + 拖拽, 或" }}
+									</div>
 									<div class="cesium-navigation-help-details">中键滚动</div>
 								</td>
 							</tr>
@@ -47,7 +51,11 @@
 								<td></td>
 								<td>
 									<div class="cesium-navigation-help-rotate">旋转视图(不支持2D视图)</div>
-									<div class="cesium-navigation-help-details">右键按下 + 拖拽, 或</div>
+									<div class="cesium-navigation-help-details">
+										{{ state.useCesiumDefaultEvent ?
+											"中键按下 + 拖拽, 或" :
+											"右键按下 + 拖拽, 或" }}
+									</div>
 									<div class="cesium-navigation-help-details">按下CTRL键 + 左键按下 + 拖拽</div>
 								</td>
 							</tr>
@@ -96,11 +104,13 @@
 
 <script setup lang="ts" name="MapOprationHelp">
 import { ref, nextTick } from "vue";
+import { getState } from "../../../utils/store"
 
 // 鼠标操作
 const navigation = ref("left");
 const popoverVisible = ref(false);
 const popoverRef = ref();
+const state = getState();
 
 function visibleChange() {
 	popoverVisible.value = !popoverVisible.value;

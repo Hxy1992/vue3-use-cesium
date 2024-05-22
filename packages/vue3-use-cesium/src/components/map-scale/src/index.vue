@@ -11,6 +11,7 @@
 import { ref } from "vue";
 import { mapFactory } from "../../../modules/basemap";
 import { mittBus } from "../../../utils/mitt-bus";
+import { BusEnum } from "../../../enums/bus-enum";
 
 const distanceLabel = ref<string | undefined>();
 const barWidth = ref<number | undefined>();
@@ -78,5 +79,5 @@ const cesiumScale = (mapId: string) => {
 	}
 };
 
-mittBus.on("baseMapCreated", initScale);
+mittBus.on(BusEnum.BaseMapCreated, initScale);
 </script>

@@ -9,9 +9,10 @@
 <script setup lang="ts" name="BaseMap">
 import { ref, onBeforeUnmount } from "vue";
 import { mapFactory } from "../../../modules/basemap";
-import { getState, setMapId } from "../../../utils/store";
+import { getState, setMapId, setTdtToken } from "../../../utils/store";
 import { mittBus } from "../../../utils/mitt-bus";
 import type { MapOptionTypes } from "../../../interfaces/map";
+import { BusEnum } from "../../../enums/bus-enum";
 
 let mapId: string;
 const mapRef = ref();
@@ -20,12 +21,13 @@ const baseMapStore = getState();
 let isCreated = false; // 标识只能创建一次
 const createBaseMap = async (options?: MapOptionTypes) => {
 	if (isCreated) return; // 只能创建一个
-	mapId = await mapFactory.addStatic(mapRef.value, options);
+	mapId = await mapFactory.addStatic(mapRef.value as HTMLElement, options);
 	setMapId(mapId);
+	setTdtToken(options?.tdtToken);
 	isCreated = true;
-	mittBus.emit("baseMapCreated", mapId);
+	mittBus.emit(BusEnum.BaseMapCreated, mapId);
 };
-mittBus.on("createBasemap", createBaseMap);
+mittBus.on(BusEnum.StartCreateBaseMap, createBaseMap);
 
 // 组件销毁
 onBeforeUnmount(() => {
