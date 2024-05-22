@@ -11,7 +11,8 @@ const state = reactive<BaseMapType>({
 	viewType: "3d",
 	flyHomeDuration: 0,
 	currentImagery: "osm-normal",
-	useCesiumDefaultEvent: false
+	useCesiumDefaultEvent: false,
+	tdtToken: ""
 });
 
 /**
@@ -61,4 +62,12 @@ export function setCurrentImagery(type: ImageryTypes) {
  */
 export function setUseCesiumDefaultEvent(val: boolean) {
 	state.useCesiumDefaultEvent = val;
+}
+
+/**
+ * 设置天地图token
+ * @param val token
+ */
+export function setTdtToken(val?: string) {
+	state.tdtToken = val;
 }

@@ -1,6 +1,7 @@
 // 底图图层管理
 import type { ImageryTypes } from "../../interfaces/map";
 import { AmapImageryProvider, BaiduImageryProvider, TencentImageryProvider } from "./provide/index.js";
+import { getState } from "../../utils/store";
 /**
  * 设置图层
  * @param viewer 地图实例
@@ -169,7 +170,8 @@ export function createTDT(lyr: "img_w" | "vec_w", layer: "img" | "vec", layernam
 			lyr +
 			"/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=" +
 			layer +
-			"&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=231e5d4a9a917e53a383d3d591a1ed12",
+			"&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=" +
+			getState().tdtToken,
 		layer: layername,
 		style: "default",
 		subdomains: ["0", "1", "2", "3", "4", "5", "6", "7"],
@@ -185,7 +187,8 @@ export function createTDTAnnotation(lyr: "eia_w" | "eva_w" | "cia_w" | "cva_w", 
 			lyr +
 			"/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=" +
 			layer +
-			"&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg&format=tiles&tk=231e5d4a9a917e53a383d3d591a1ed12",
+			"&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg&format=tiles&tk=" +
+			getState().tdtToken,
 		layer: "tdtAnnoLayer",
 		style: "default",
 		subdomains: ["0", "1", "2", "3", "4", "5", "6", "7"],

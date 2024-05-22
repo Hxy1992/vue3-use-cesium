@@ -1,4 +1,5 @@
 import { mittBus } from "../../../utils/mitt-bus";
+import { BusEnum } from "../../../enums/bus-enum";
 
 /**
  * 材质定义(包含color和speed属性)
@@ -8,7 +9,7 @@ import { mittBus } from "../../../utils/mitt-bus";
  */
 export function defineMaterialProperty(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -71,7 +72,7 @@ export function defineMaterialProperty(typeName: string, property: Function, sha
  */
 export function defineMaterialColor(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -126,7 +127,7 @@ export function defineMaterialColor(typeName: string, property: Function, shader
  */
 export function defineMaterialImage(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -189,7 +190,7 @@ export function defineMaterialImage(typeName: string, property: Function, shader
  */
 export function defineMaterialWave(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -260,7 +261,7 @@ export function defineMaterialWave(typeName: string, property: Function, shader:
  */
 export function defineMaterialPercent(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -331,7 +332,7 @@ export function defineMaterialPercent(typeName: string, property: Function, shad
  */
 export function defineMaterialRepeat(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;
@@ -402,7 +403,7 @@ export function defineMaterialRepeat(typeName: string, property: Function, shade
  */
 export function defineMaterialImageSpeed(typeName: string, property: Function, shader: string) {
 	// 地图场景后定义材质
-	mittBus.on("baseMapCreated", () => {
+	mittBus.on(BusEnum.BaseMapCreated, () => {
 		if (Cesium.Material[typeName + "Type"]) return;
 		// 材质类型
 		Cesium.Material[typeName + "Type"] = typeName;

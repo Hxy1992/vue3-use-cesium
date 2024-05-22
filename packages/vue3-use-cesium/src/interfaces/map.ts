@@ -64,6 +64,10 @@ export interface MapOptionTypes {
 	 */
 	imageryUrl?: string;
 	/**
+	 * 默认底图为天地图时需传入token
+	 */
+	tdtToken?: string;
+	/**
 	 * 地形
 	 */
 	terrain?: TerrainTypes;

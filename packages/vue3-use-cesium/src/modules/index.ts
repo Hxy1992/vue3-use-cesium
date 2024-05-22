@@ -12,6 +12,7 @@ export * from "./layer";
 export * as Material from "./material";
 export * from "./popup";
 export * from "./camera";
+import { BusEnum } from "../enums/bus-enum";
 
 const baseMapStore = getState();
 
@@ -42,7 +43,7 @@ export function initMap(cesiumUrls: string[], options?: MapOptionTypes) {
 	return new Promise<boolean>(async (resolve, reject) => {
 		try {
 			await loaderScript(cesiumUrls);
-			mittBus.emit("createBasemap", options);
+			mittBus.emit(BusEnum.StartCreateBaseMap, options);
 			resolve(true);
 		} catch (err) {
 			console.error(err);

@@ -37,4 +37,8 @@ export interface BaseMapType {
 	 * 是否使用Cesium默认的操作状态记录
 	 */
 	useCesiumDefaultEvent: boolean;
+	/**
+	 * 天地图token
+	 */
+	tdtToken?: string;
 }
