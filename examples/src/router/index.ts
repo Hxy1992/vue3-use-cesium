@@ -103,6 +103,15 @@ const router = createRouter({
 				hasMap: true,
 				title: "图层聚合"
 			}
+		},
+		{
+			path: "/heatmap",
+			name: "HeatmapView",
+			component: () => import("../views/HeatmapView.vue"),
+			meta: {
+				hasMap: true,
+				title: "热力图"
+			}
 		}
 	]
 });

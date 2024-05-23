@@ -39,3 +39,29 @@ export interface ClusterOptionsType {
 	 */
 	fontColor?: () => any;
 }
+
+/**
+ * 热力图图层参数
+ */
+export interface HeatmapLayerType {
+	/**
+	 * 半径
+	 */
+	radius?: number;
+	/**
+	 * 高度
+	 */
+	height?: number;
+	/**
+	 * 渐变色配置
+	 */
+	gradient?: Record<string, string>;
+	/**
+	 * 是否贴地
+	 */
+	useGround?: boolean;
+	/**
+	 * 贴地类型
+	 */
+	classificationType?: number;
+}
