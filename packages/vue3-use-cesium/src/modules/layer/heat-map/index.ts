@@ -12,14 +12,8 @@ const DEF_OPT = {
 let index = 1;
 
 // TODO 逻辑优化
-// 如果是页面刷新就加载热力图，等待一会再加载热力图数据
-let isRefresh = false;
-window.addEventListener("load", () => {
-	isRefresh = true;
-	setTimeout(() => {
-		isRefresh = false;
-	}, 5000);
-});
+// 首次加载等待
+let isFirst = true;
 
 /**
  * 热力图层
@@ -99,7 +93,10 @@ export class HeatmapLayer {
 			value: number;
 		}[]
 	) {
-		if (isRefresh) await this.sleep();
+		if (isFirst) {
+			await this.sleep();
+			isFirst = false;
+		}
 		this.heatLyr?.setPoints(data);
 	}
 	/**
