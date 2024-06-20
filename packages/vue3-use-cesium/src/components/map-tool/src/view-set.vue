@@ -2,11 +2,11 @@
 	<div class="zmap-tool_button view-set" :disabled="isAnimating" @click="viewChange">
 		<div v-if="viewType === '3d'" title="切换至2D视图">
 			<slot v-if="$slots.view3d" name="view3d" />
-			<span v-else class="iconfont icon-zmapdiqiu"></span>
+			<img v-else class="svg-icon" alt="3d" :src="svgUrl2" />
 		</div>
 		<div v-else title="切换至3D视图">
 			<slot v-if="$slots.view2d" name="view2d" />
-			<span v-else class="iconfont icon-zmapditulei_wanggequ"></span>
+			<img v-else class="svg-icon" alt="2d" :src="svgUrl1" />
 		</div>
 	</div>
 </template>
@@ -16,6 +16,8 @@ import { computed, ref } from "vue";
 import { mapFactory } from "../../../modules/basemap";
 import { getState, setViewType } from "../../../utils/store";
 import { morphMap, getCameraHeight } from "../../../modules/util";
+import svgUrl1 from "../../../assets/svg/earth2d.svg";
+import svgUrl2 from "../../../assets/svg/earth3d.svg";
 
 const baseMapStore = getState();
 const isAnimating = ref(false);

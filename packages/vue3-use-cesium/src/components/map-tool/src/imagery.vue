@@ -2,7 +2,7 @@
 	<div class="zmap-tool_button imagery">
 		<div title="底图管理" @click="imageryClick">
 			<slot v-if="$slots.imagery" name="imagery" />
-			<span v-else class="iconfont icon-zmaptuceng-01"></span>
+			<img v-else class="svg-icon" alt="图层" :src="svgUrl" />
 		</div>
 
 		<div v-if="popoverVisible" ref="popoverRef" class="imageryChoose" tabindex="2" @blur="popoverVisible = false">
@@ -24,6 +24,7 @@ import { getState, setCurrentImagery } from "../../../utils/store";
 import type { ImageryItemTypes, ImageryListTypes } from "../../../interfaces/components";
 import { ref, nextTick } from "vue";
 import { setImagery } from "../../../modules/imagery/index";
+import svgUrl from "../../../assets/svg/layer.svg";
 
 defineProps<{
 	imagerys: ImageryListTypes

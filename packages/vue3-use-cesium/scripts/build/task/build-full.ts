@@ -9,6 +9,7 @@ import { compRoot, output } from "../utils/paths";
 import { target, generateExternal } from "../utils/rollup";
 import { PKG_CAMELCASE_NAME } from "../utils/constants";
 import scss from "rollup-plugin-scss";
+import image from "@rollup/plugin-image";
 
 const build = async (minify: boolean) => {
 	const input = [
@@ -25,6 +26,8 @@ const build = async (minify: boolean) => {
 			vue(),
 			// @ts-ignore
 			vueJsx(),
+			// @ts-ignore
+			image(),
 			scss(),
 			nodeResolve(),
 			esbuild({
