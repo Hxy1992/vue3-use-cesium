@@ -103,6 +103,7 @@ export const useBaseMap = (selector: string, mapCreated?: (viewer: any) => void)
 
 ```vue
 <template>
+	<!-- 注意：HTML注释得去掉，可能是Vue传送组件的bug？？ -->
 	<!-- 只有一个顶层div -->
 	<div class="bbox">
 		<!-- 地图容器不能是顶层div -->
