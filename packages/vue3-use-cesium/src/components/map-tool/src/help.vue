@@ -3,7 +3,7 @@
 	<div class="zmap-tool_button help">
 		<div title="操作说明" @click="visibleChange">
 			<slot v-if="$slots.help" name="help" />
-			<span v-else class="iconfont icon-zmapbangzhu"></span>
+			<img v-else class="svg-icon" alt="帮助" :src="svgUrl" />
 		</div>
 
 		<div v-if="popoverVisible" ref="popoverRef" class="box-popover" tabindex="2" @blur="popoverVisible = false">
@@ -104,7 +104,8 @@
 
 <script setup lang="ts" name="MapOprationHelp">
 import { ref, nextTick } from "vue";
-import { getState } from "../../../utils/store"
+import { getState } from "../../../utils/store";
+import svgUrl from "../../../assets/svg/help.svg";
 
 // 鼠标操作
 const navigation = ref("left");

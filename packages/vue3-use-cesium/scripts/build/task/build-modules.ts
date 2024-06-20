@@ -8,6 +8,7 @@ import esbuild from "rollup-plugin-esbuild";
 import { compRoot, outputEsm, outputCjs } from "../utils/paths";
 import { target, generateExternal, generatePaths } from "../utils/rollup";
 import scss from "rollup-plugin-scss";
+import image from "@rollup/plugin-image";
 
 export const buildModules = async () => {
 	const input = [
@@ -24,6 +25,8 @@ export const buildModules = async () => {
 			vue(),
 			// @ts-ignore
 			vueJsx(),
+			// @ts-ignore
+			image(),
 			scss(),
 			nodeResolve(),
 			esbuild({

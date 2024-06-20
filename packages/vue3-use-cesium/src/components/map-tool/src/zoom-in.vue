@@ -1,7 +1,7 @@
 <template>
 	<div class="zmap-tool_button zoom-in" @click="zoomIn" title="放大">
 		<slot v-if="$slots.zoomIn" name="zoomIn" />
-		<span v-else class="iconfont icon-zmapfangda"></span>
+		<img v-else class="svg-icon" alt="放大" :src="svgUrl" />
 	</div>
 </template>
 
@@ -9,6 +9,7 @@
 import { mapFactory } from "../../../modules/basemap";
 import { getState } from "../../../utils/store";
 import { setZoomInOrOut } from "../../../modules/util";
+import svgUrl from "../../../assets/svg/zoomin.svg";
 
 const baseMapStore = getState();
 
