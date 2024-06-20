@@ -60,20 +60,7 @@ watch(
 	<main class="main">
 		<RouterView />
 		<z-map-base>
-			<z-map-tool :imagerys="defaultImagerys">
-				<!-- 插槽-自定义按钮图标 -->
-				<!-- <template #help>?</template>
-				<template #view2d>2D</template>
-				<template #view3d>3D</template>
-				<template #homeView>
-					<img class="btn-icons" :src="homeSvg" alt="">
-				</template>
-				<template #recoverNorth>
-					<img class="btn-icons" :src="recoverNorth" alt="">
-				</template>
-				<template #zoomOut>-</template>
-				<template #zoomIn>+</template> -->
-			</z-map-tool>
+			<z-map-tool :imagerys="defaultImagerys" />
 			<z-map-scale />
 			<z-map-status />
 		</z-map-base>

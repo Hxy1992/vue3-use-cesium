@@ -1,43 +1,12 @@
 <template>
 	<div class="zmap-tool">
-		<viewSet>
-			<template v-if="$slots.view2d" #view2d>
-				<slot name="view2d"></slot>
-			</template>
-			<template v-if="$slots.view3d" #view3d>
-				<slot name="view3d"></slot>
-			</template>
-		</viewSet>
-		<homeView>
-			<template v-if="$slots.homeView" #homeView>
-				<slot name="homeView"></slot>
-			</template>
-		</homeView>
-		<recoverNorth>
-			<template v-if="$slots.recoverNorth" #recoverNorth>
-				<slot name="recoverNorth"></slot>
-			</template>
-		</recoverNorth>
-		<imagery :imagerys="imagerys || defaultImagerys">
-			<template v-if="$slots.imagery" #imagery>
-				<slot name="imagery"></slot>
-			</template>
-		</imagery>
-		<zoomOut>
-			<template v-if="$slots.zoomOut" #zoomOut>
-				<slot name="zoomOut"></slot>
-			</template>
-		</zoomOut>
-		<zoomIn>
-			<template v-if="$slots.zoomIn" #zoomIn>
-				<slot name="zoomIn"></slot>
-			</template>
-		</zoomIn>
-		<help>
-			<template v-if="$slots.help" #help>
-				<slot name="help"></slot>
-			</template>
-		</help>
+		<viewSet />
+		<homeView />
+		<recoverNorth />
+		<imagery :imagerys="imagerys || defaultImagerys" />
+		<zoomOut />
+		<zoomIn />
+		<help />
 	</div>
 </template>
 
@@ -87,36 +56,5 @@ defineProps<{
 		backgroundImage?: string;
 	}[]
 }>()
-
-defineSlots<{
-	/**
-	 * 2D视图按钮
-	 */
-	view2d(): any,
-	/**
-	 * 3D视图按钮
-	 */
-	view3d(): any,
-	/**
-	 * 主视图按钮
-	 */
-	homeView(): any,
-	/**
-	 * 恢复北向按钮
-	 */
-	recoverNorth(): any,
-	/**
-	 * 缩小按钮
-	 */
-	zoomOut(): any,
-	/**
-	 * 放大按钮
-	 */
-	zoomIn(): any,
-	/**
-	 * 帮助按钮
-	 */
-	help(): any
-}>();
 
 </script>
