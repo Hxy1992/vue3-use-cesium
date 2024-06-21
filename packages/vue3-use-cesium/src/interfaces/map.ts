@@ -23,6 +23,7 @@ export type ImageryTypes =
 	| "gd-img"
 	| "gd-vec"
 	| "bd-vec"
+	| "bd-img"
 	| "tencent-vec"
 	| "tencent-img"
 	| "tms-offline"

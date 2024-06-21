@@ -86,21 +86,21 @@
 					display: flex;
 					flex-wrap: wrap;
 					align-content: space-around;
-					justify-content: space-around;
+					justify-content: flex-start;
 					width: 100%;
 					border: 1px solid #cccccc;
 					border-radius: 4px;
 					.item {
-						display: flex;
-						align-items: center;
-						justify-content: center;
 						width: 60px;
 						height: 60px;
 						padding: 5px;
-						margin: 5px 0;
+						margin: 5px;
+						overflow: hidden;
 						font-size: 12px;
 						color: #000000;
+						text-overflow: ellipsis;
 						text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+						white-space: nowrap;
 						background-repeat: no-repeat;
 						background-size: 100% 100%;
 						&:hover {

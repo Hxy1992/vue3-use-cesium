@@ -1,6 +1,6 @@
 import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "../event";
-import { setImagery } from "../imagery";
+import { getImageryProvider } from "../imagery";
 import { morphMap } from "../util";
 import type { MapOptionTypes } from "../../interfaces/map";
 import { setCurrentImagery, setUseCesiumDefaultEvent } from "../../utils/store";
@@ -117,6 +117,7 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
 		url: terrainUrl
 	});
+	const layers = imagery ? getImageryProvider(imagery, "zh") : getImageryProvider("gd-img", "zh");
 	const viewer = new Cesium.Viewer(dom, {
 		terrainProvider,
 		geocoder: false,
@@ -131,10 +132,7 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 		homeButton: false,
 		selectionIndicator: false,
 		showRenderLoopErrors: false, // 发生渲染循环错误时，显示HTML面板
-		imageryProvider: new Cesium.UrlTemplateImageryProvider({
-			url: "https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-			subdomains: ["a", "b", "c"]
-		}),
+		imageryProvider: layers[0],
 		...extra
 	});
 	viewer.container.querySelector(".cesium-viewer-bottom").style.display = "none"; // 隐藏log
@@ -154,13 +152,14 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 
 	// 解决锯齿和页面模糊问题
 	scene.postProcessStages.fxaa.enabled = true;
-	// viewer.scene.globe.showWaterEffect = false;
-	// viewer.scene.globe.showGroundAtmosphere = false;
+	// 降低性能消耗
+	viewer.scene.globe.showWaterEffect = false;
+	viewer.scene.globe.showGroundAtmosphere = false;
 	// 视图3D/2D
 	morphMap(viewer, viewType);
 	// 默认地图
 	if (imagery) {
-		setImagery(viewer, imagery, "zh");
+		if (layers.length > 1) viewer.imageryLayers.addImageryProvider(layers[1]);
 		setCurrentImagery(imagery);
 	}
 	errorHandle(viewer);

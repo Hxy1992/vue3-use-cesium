@@ -8,7 +8,7 @@
 		<div v-if="popoverVisible" ref="popoverRef" class="imageryChoose" tabindex="2" @blur="popoverVisible = false">
 			<div class="label">底图：</div>
 			<div class="list">
-				<div v-for="item in imagerys" class="item" :style="{
+				<div v-for="item in imagerys" class="item" :title="item.label" :style="{
 					backgroundImage: `url(${item.backgroundImage || ''})`
 				}" @click="chooseImagery(item)">
 					{{ item.label }}
