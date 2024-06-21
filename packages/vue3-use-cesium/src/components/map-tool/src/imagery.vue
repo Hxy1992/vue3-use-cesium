@@ -1,6 +1,6 @@
 <template>
 	<div class="zmap-tool_button imagery">
-		<div title="底图管理" @click="imageryClick">
+		<div title="底图管理" style="height: 16px;" @click="imageryClick">
 			<slot v-if="$slots.imagery" name="imagery" />
 			<img v-else class="svg-icon" alt="图层" :src="svgUrl" />
 		</div>
