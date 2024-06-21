@@ -4,10 +4,17 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import router from './router'
 import { ZMapBase, ZMapTool, ZMapScale, ZMapStatus } from "vue3-use-cesium";
 import loading from "./components/loading.vue"
-import recoverNorth from "./assets/recoverNorth.svg"
-import homeSvg from "./assets/home.svg"
-import elecImg from "./assets/elec.jpg"
+// import recoverNorth from "./assets/recoverNorth.svg"
+// import homeSvg from "./assets/home.svg"
 import satelliteImg from "./assets/satellite.jpg"
+import gdEle from "./assets/tileLogo/高德电子.png";
+import osmEle from "./assets/tileLogo/OSM.png";
+import arcgisColor from "./assets/tileLogo/ArcGIS彩色.png";
+import arcgisGray from "./assets/tileLogo/ArcGIS灰色.png";
+import arcgisMidnightblue from "./assets/tileLogo/ArcGIS午夜蓝.png";
+import cartoDarkall from "./assets/tileLogo/OSM黑.png";
+import cartoLightall from "./assets/tileLogo/OSM白.png";
+import tencentVec from "./assets/tileLogo/腾讯电子.png";
 
 const route = useRoute();
 const menuList = ref<Record<string, any>[]>([]);
@@ -28,12 +35,57 @@ const defaultImagerys = [
 	{
 		label: "高德电子(无偏移)",
 		type: "gd-vec",
-		backgroundImage: elecImg
+		backgroundImage: gdEle
 	},
 	{
-		label: "OSM",
+		label: "OSM(无偏移)",
 		type: "osm-normal",
-		backgroundImage: elecImg
+		backgroundImage: osmEle
+	},
+	{
+		label: "arcgis彩色",
+		type: "geoq-colour",
+		backgroundImage: arcgisColor
+	},
+	{
+		label: "arcgis灰色",
+		type: "geoq-gray",
+		backgroundImage: arcgisGray
+	},
+	{
+		label: "arcgis午夜蓝",
+		type: "geoq-midnightblue",
+		backgroundImage: arcgisMidnightblue
+	},
+	{
+		label: "OMS黑(无偏移)",
+		type: "carto-darkall",
+		backgroundImage: cartoDarkall
+	},
+	{
+		label: "OSM白(无偏移)",
+		type: "carto-lightall",
+		backgroundImage: cartoLightall
+	},
+	{
+		label: "百度电子",
+		type: "bd-vec",
+		backgroundImage: gdEle
+	},
+	{
+		label: "百度卫星",
+		type: "bd-img",
+		backgroundImage: satelliteImg
+	},
+	{
+		label: "腾讯地图",
+		type: "tencent-vec",
+		backgroundImage: tencentVec
+	},
+	{
+		label: "腾讯卫星",
+		type: "tencent-img",
+		backgroundImage: satelliteImg
 	}
 ]
 

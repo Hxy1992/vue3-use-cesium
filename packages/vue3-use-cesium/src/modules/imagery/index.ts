@@ -47,6 +47,13 @@ export function getImageryProvider(layer: ImageryTypes, language: "zh" | "en", u
 					crs: "WGS84" // 使用84坐标系，默认为：GCJ02
 				})
 			);
+			layers.push(
+				new GetClass({
+					lang: language,
+					style: "cva", // style: img、elec、cva
+					crs: "WGS84" // 使用84坐标系，默认为：GCJ02
+				})
+			);
 			break;
 		}
 		// 高德地图-- 电子在线
@@ -121,6 +128,17 @@ export function getImageryProvider(layer: ImageryTypes, language: "zh" | "en", u
 			const GetClass = BaiduImageryProvider();
 			layers.push(
 				new GetClass({
+					crs: "WGS84"
+				})
+			);
+			break;
+		}
+		// 百度地图-- 卫星在线
+		case "bd-img": {
+			const GetClass = BaiduImageryProvider();
+			layers.push(
+				new GetClass({
+					style: "img",
 					crs: "WGS84"
 				})
 			);
