@@ -1,6 +1,6 @@
 import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "../event";
-import { getImageryProvider } from "../imagery";
+import { setImagery } from "../imagery";
 import { morphMap } from "../util";
 import type { MapOptionTypes } from "../../interfaces/map";
 import { setCurrentImagery, setUseCesiumDefaultEvent } from "../../utils/store";
@@ -106,7 +106,8 @@ export const mapFactory = new MapFactory();
 async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	const {
 		viewType = "3d",
-		imagery,
+		imagery = "gd-img",
+		imageryUrl = "",
 		extra = {},
 		terrain = "none",
 		terrainUrl = "",
@@ -117,7 +118,6 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
 		url: terrainUrl
 	});
-	const layers = imagery ? getImageryProvider(imagery, "zh") : getImageryProvider("gd-img", "zh");
 	const viewer = new Cesium.Viewer(dom, {
 		terrainProvider,
 		geocoder: false,
@@ -132,7 +132,6 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 		homeButton: false,
 		selectionIndicator: false,
 		showRenderLoopErrors: false, // 发生渲染循环错误时，显示HTML面板
-		imageryProvider: layers[0],
 		...extra
 	});
 	viewer.container.querySelector(".cesium-viewer-bottom").style.display = "none"; // 隐藏log
@@ -158,10 +157,9 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	// 视图3D/2D
 	morphMap(viewer, viewType);
 	// 默认地图
-	if (imagery) {
-		if (layers.length > 1) viewer.imageryLayers.addImageryProvider(layers[1]);
-		setCurrentImagery(imagery);
-	}
+	setImagery(viewer, imagery, "zh", imageryUrl);
+	setCurrentImagery(imagery);
+
 	errorHandle(viewer);
 	return viewer;
 }
