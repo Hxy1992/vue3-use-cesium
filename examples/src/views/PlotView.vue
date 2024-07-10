@@ -59,12 +59,10 @@ const terrainType = ref("none");
 const clampToGround = ref(false)
 
 // 地图初始化
-useBaseMap("#my-map", v => {
+useBaseMap("#my-map", async (v) => {
 	viewer = v;
 	plot = new Plot();
-
-	tileset = new Cesium.Cesium3DTileset({
-		url: "http://resource.dvgis.cn/data/3dtiles/dayanta/tileset.json",
+	tileset = await Cesium.Cesium3DTileset.fromUrl("http://resource.dvgis.cn/data/3dtiles/dayanta/tileset.json", {
 		projectTo2D: true
 	});
 	viewer.scene.primitives.add(tileset);
