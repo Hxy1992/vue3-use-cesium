@@ -68,39 +68,53 @@ export function getImageryProvider(layer: ImageryTypes, language: "zh" | "en", u
 			);
 			break;
 		}
+		// google-- 影像在线
+		case "google-img": {
+			layers.push(
+				new Cesium.UrlTemplateImageryProvider({
+					url: url ?? "https://gac-geo.googlecnapps.club/maps/vt?lyrs=s&x={x}&y={y}&z={z}"
+				})
+			);
+			layers.push(
+				new Cesium.UrlTemplateImageryProvider({
+					url: url ?? "https://gac-geo.googlecnapps.club/maps/vt?lyrs=s,m&gl=CN&x={x}&y={y}&z={z}"
+				})
+			);
+			break;
+		}
+		// google-- 电子在线
+		case "google-vec": {
+			layers.push(
+				new Cesium.UrlTemplateImageryProvider({
+					url: url ?? "https://gac-geo.googlecnapps.club/maps/vt?lyrs=m&x={x}&y={y}&z={z}"
+				})
+			);
+			break;
+		}
 		// osm标准地图
 		case "osm-normal": {
 			layers.push(
 				new Cesium.UrlTemplateImageryProvider({
-					url: "https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+					url: url ?? "https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png",
 					subdomains: ["a", "b", "c"]
 				})
 			);
 			break;
 		}
 		// arcgis在线-colour(存在偏移)
-		case "geoq-colour": {
+		case "geoq-img": {
 			layers.push(
 				new Cesium.UrlTemplateImageryProvider({
-					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}"
+					url: url ?? "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
 				})
 			);
 			break;
 		}
 		// arcgis在线-gray(存在偏移)
-		case "geoq-gray": {
+		case "geoq-vec": {
 			layers.push(
 				new Cesium.UrlTemplateImageryProvider({
-					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}"
-				})
-			);
-			break;
-		}
-		// arcgis在线-Midnightblue(存在偏移)
-		case "geoq-midnightblue": {
-			layers.push(
-				new Cesium.UrlTemplateImageryProvider({
-					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}"
+					url: url ?? "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
 				})
 			);
 			break;
@@ -109,7 +123,7 @@ export function getImageryProvider(layer: ImageryTypes, language: "zh" | "en", u
 		case "carto-darkall": {
 			layers.push(
 				new Cesium.UrlTemplateImageryProvider({
-					url: "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+					url: url ?? "https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
 				})
 			);
 			break;
@@ -118,7 +132,7 @@ export function getImageryProvider(layer: ImageryTypes, language: "zh" | "en", u
 		case "carto-lightall": {
 			layers.push(
 				new Cesium.UrlTemplateImageryProvider({
-					url: "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+					url: url ?? "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
 				})
 			);
 			break;

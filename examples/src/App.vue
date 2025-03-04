@@ -43,19 +43,14 @@ const defaultImagerys = [
 		backgroundImage: osmEle
 	},
 	{
-		label: "arcgis彩色",
-		type: "geoq-colour",
+		label: "arcgis影像",
+		type: "geoq-img",
 		backgroundImage: arcgisColor
 	},
 	{
-		label: "arcgis灰色",
-		type: "geoq-gray",
+		label: "arcgis街景",
+		type: "geoq-vec",
 		backgroundImage: arcgisGray
-	},
-	{
-		label: "arcgis午夜蓝",
-		type: "geoq-midnightblue",
-		backgroundImage: arcgisMidnightblue
 	},
 	{
 		label: "OMS黑(无偏移)",
