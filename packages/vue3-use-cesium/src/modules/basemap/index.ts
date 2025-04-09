@@ -1,6 +1,6 @@
 import { generateUUID } from "../../utils/index";
 import { createFactory, EventFactory } from "../event";
-import { setImagery } from "../imagery";
+import { setImagery, getImageryProvider } from "../imagery";
 import { morphMap } from "../util";
 import type { MapOptionTypes } from "../../interfaces/map";
 import { setCurrentImagery, setUseCesiumDefaultEvent } from "../../utils/store";
@@ -132,6 +132,7 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 		homeButton: false,
 		selectionIndicator: false,
 		showRenderLoopErrors: false, // 发生渲染循环错误时，显示HTML面板
+		imageryProvider: getImageryProvider("gd-img", "zh"),
 		...extra
 	});
 	viewer.container.querySelector(".cesium-viewer-bottom").style.display = "none"; // 隐藏log
@@ -171,22 +172,24 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 function errorHandle(viewer: any) {
 	const helper = viewer._eventHelper;
 	renderErrorHandle(viewer, helper);
-	lowFrameHandle(viewer);
+	// lowFrameHandle(viewer);
 }
 // 渲染错误提示
 function renderErrorHandle(viewer: any, helper: any) {
 	helper.add(viewer.scene.renderError, (...params: any) => {
 		console.error(params);
-		alert("地图渲染错误，请刷新后重试！");
+		alert(
+			"地图渲染被终止，请开启硬件加速并配置使用高性能显卡，或者升级电脑配置、使用更高性能的电脑，问题仍然存在请联系系统管理员！"
+		);
 		window.location.reload();
 	});
 }
 // 低帧率提示
-function lowFrameHandle(viewer: any) {
-	viewer.extend(Cesium.viewerPerformanceWatchdogMixin, {
-		lowFrameRateMessage: "此应用程序在您的系统上表现不佳。请尝试使用其他web浏览器或更新视频驱动程序。"
-	});
-}
+// function lowFrameHandle(viewer: any) {
+// 	viewer.extend(Cesium.viewerPerformanceWatchdogMixin, {
+// 		lowFrameRateMessage: "此应用程序在您的系统上表现不佳。请尝试使用其他web浏览器或更新视频驱动程序。"
+// 	});
+// }
 // 设置地图的事件
 function mapEventsSet(viewer: any) {
 	const scene = viewer.scene;
