@@ -28,7 +28,7 @@ const viewType = computed(() => {
 
 const viewChange = () => {
 	const viewer = mapFactory.get(baseMapStore.mapId || "");
-	if (!viewer || isAnimating.value) return;
+	if (!viewer || isAnimating.value || baseMapStore.viewTypeDisabled) return;
 	isAnimating.value = true;
 	const type = baseMapStore.viewType === "3d" ? "2d" : "3d";
 	if (type === "3d") morphMap(viewer, type);

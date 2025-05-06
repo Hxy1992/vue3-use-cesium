@@ -12,6 +12,7 @@ export * from "./layer";
 export * as Material from "./material";
 export * from "./popup";
 export * from "./camera";
+export { morphMap } from "./util";
 import { BusEnum } from "../enums/bus-enum";
 
 const baseMapStore = getState();
