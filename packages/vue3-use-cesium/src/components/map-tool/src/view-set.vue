@@ -30,7 +30,10 @@ const viewChange = () => {
 	const viewer = mapFactory.get(baseMapStore.mapId || "");
 	if (!viewer || baseMapStore.viewTypeDisabled) return;
 	const type = baseMapStore.viewType === "3d" ? "2d" : "3d";
+	const copyTrack = viewer.trackedEntity;
+	viewer.trackedEntity = undefined;
 	morphMap(viewer, type);
+	viewer.trackedEntity = copyTrack;
 };
 
 // //传入viewer和要切换的维数
