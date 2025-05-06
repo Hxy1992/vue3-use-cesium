@@ -3,7 +3,7 @@ import { getState } from "../utils/store";
 import { loaderScript } from "../utils/loader-script";
 import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interfaces/map";
-export { setToTarget, setViewType, setVisible } from "../utils/store";
+export { setToTarget, setViewType, setVisible, setViewTypeDisabled, getState } from "../utils/store";
 export * from "./plot";
 export { toGeoJson, cartesianToLngLat } from "./transform";
 export * from "./terrain";
