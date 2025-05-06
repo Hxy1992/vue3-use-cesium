@@ -1,7 +1,7 @@
 {
 	"name": "vue3-use-cesium",
 	"author": "Hxy1992",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"description": "在 Vue3 中简洁、快速的使用 Cesium",
 	"main": "lib/index.js",
 	"module": "es/index.mjs",
