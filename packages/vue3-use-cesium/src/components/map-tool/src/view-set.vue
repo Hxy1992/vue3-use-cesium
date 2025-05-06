@@ -1,5 +1,5 @@
 <template>
-	<div class="zmap-tool_button view-set" :disabled="isAnimating" @click="viewChange">
+	<div class="zmap-tool_button view-set" :disabled="isAnimating || baseMapStore.viewTypeDisabled" @click="viewChange">
 		<div v-if="viewType === '3d'" title="切换至2D视图">
 			<slot v-if="$slots.view3d" name="view3d" />
 			<img v-else class="svg-icon" alt="3d" :src="svgUrl2" />

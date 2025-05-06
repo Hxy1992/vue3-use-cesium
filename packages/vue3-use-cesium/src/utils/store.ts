@@ -12,7 +12,8 @@ const state = reactive<BaseMapType>({
 	flyHomeDuration: 0,
 	currentImagery: "osm-normal",
 	useCesiumDefaultEvent: false,
-	tdtToken: ""
+	tdtToken: "",
+	viewTypeDisabled: false
 });
 
 /**
@@ -47,6 +48,12 @@ export function setToTarget(val: string) {
  */
 export function setViewType(type: "2d" | "3d") {
 	state.viewType = type;
+}
+/**
+ * 设置地图视图禁用
+ */
+export function setViewTypeDisabled(disable: boolean) {
+	state.viewTypeDisabled = disable;
 }
 /**
  * 设置底图

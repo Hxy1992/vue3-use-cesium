@@ -1,4 +1,5 @@
 // 地图工具函数
+import { setViewType, setViewTypeDisabled } from "../utils/store";
 
 /**
  * 设置地图2d/3d模式
@@ -15,6 +16,14 @@ export function morphMap(viewer: any, type: "2d" | "3d") {
 		viewer.scene.morphTo2D(0);
 		scene.screenSpaceCameraController.enableRotate = false;
 	}
+	setViewType(type);
+}
+/**
+ * 二三维切换按钮启用禁用
+ * @param disable 是否禁用
+ */
+export function disableViewType(disable: boolean) {
+	setViewTypeDisabled(disable);
 }
 
 /**
