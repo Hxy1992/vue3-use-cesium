@@ -25,6 +25,10 @@ export interface BaseMapType {
 	 */
 	viewType: "2d" | "3d";
 	/**
+	 * 当前的视图类型禁用状态
+	 */
+	viewTypeDisabled: boolean;
+	/**
 	 * 点击默认视图按钮飞行时间(默认0)
 	 * 参见：https://cesium.com/learn/cesiumjs/ref-doc/Camera.html#flyHome
 	 */
