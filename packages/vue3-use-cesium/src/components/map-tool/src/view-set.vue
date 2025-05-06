@@ -74,6 +74,15 @@ const rotateCamera = (viewer: any, centerResult: any, degrees: number, callback:
 
 	const stopTime = Cesium.JulianDate.addSeconds(startTime, flytime, new Cesium.JulianDate());
 
+	// 备份clock参数
+	const copyClock = {
+		startTime: viewer.clock.startTime.clone(),
+		stopTime: viewer.clock.stopTime.clone(),
+		currentTime: viewer.clock.currentTime.clone(),
+		clockRange: viewer.clock.clockRange,
+		clockStep: viewer.clock.clockStep
+	};
+
 	viewer.clock.startTime = startTime.clone(); // 开始时间
 	viewer.clock.stopTime = stopTime.clone(); // 结速时间
 	viewer.clock.currentTime = startTime.clone(); // 当前时间
@@ -95,6 +104,12 @@ const rotateCamera = (viewer: any, centerResult: any, degrees: number, callback:
 		viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 		if (Cesium.JulianDate.compare(viewer.clock.currentTime, viewer.clock.stopTime) >= 0) {
 			viewer.clock.onTick.removeEventListener(Exection);
+			// 恢复clock参数
+			viewer.clock.startTime = copyClock.startTime;
+			viewer.clock.stopTime = copyClock.stopTime;
+			viewer.clock.currentTime = copyClock.currentTime;
+			viewer.clock.clockRange = copyClock.clockRange;
+			viewer.clock.clockStep = copyClock.clockStep;
 			callback();
 		}
 	};
