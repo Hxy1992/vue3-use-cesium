@@ -13,6 +13,7 @@ export const MapOperation = withInstall<
 					| "gd-img"
 					| "gd-vec"
 					| "bd-vec"
+					| "bd-img"
 					| "tencent-vec"
 					| "tencent-img"
 					| "tms-offline"
@@ -24,7 +25,36 @@ export const MapOperation = withInstall<
 					| "carto-lightall"
 					| "empty";
 				url?: string;
+				backgroundImage?: string;
 			}[];
+			/**
+			 * 是否显示视图设置
+			 */
+			showViewSet: boolean;
+			/**
+			 * 是否显示默认视图
+			 */
+			showHomeView: boolean;
+			/**
+			 * 是否显示恢复正北
+			 */
+			showRecoverNorth: boolean;
+			/**
+			 * 是否显示底图切换
+			 */
+			showImagery: boolean;
+			/**
+			 * 是否显示放大
+			 */
+			showZoomIn: boolean;
+			/**
+			 * 是否显示缩小
+			 */
+			showZoomOut: boolean;
+			/**
+			 * 是否显示帮助
+			 */
+			showHelp: boolean;
 		},
 		{},
 		any
