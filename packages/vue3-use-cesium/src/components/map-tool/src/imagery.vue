@@ -26,9 +26,13 @@ import { ref, nextTick } from "vue";
 import { setImagery } from "../../../modules/imagery/index";
 import svgUrl from "../../../assets/svg/layer.svg";
 
-defineProps<{
-	imagerys: ImageryListTypes
-}>();
+withDefaults(defineProps<{
+	imagerys: any
+}>(), {
+	imagerys: () => {
+		return []
+	}
+});
 
 const baseMapStore = getState();
 const popoverVisible = ref(false);
