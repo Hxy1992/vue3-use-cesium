@@ -9,3 +9,5 @@ import "./style/index.scss";
 
 // 方法
 export * from "./modules";
+
+export { loaderScript } from "./utils/loader-script";
