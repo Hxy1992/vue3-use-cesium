@@ -118,6 +118,7 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 	const terrainProvider = await TerrainFactory.createTerrain(terrain, {
 		url: terrainUrl
 	});
+	const imageryProvider = getImageryProvider(imagery, "zh", imageryUrl);
 	const viewer = new Cesium.Viewer(dom, {
 		terrainProvider,
 		geocoder: false,
@@ -132,7 +133,7 @@ async function createMap(dom: HTMLElement, options?: MapOptionTypes) {
 		homeButton: false,
 		selectionIndicator: false,
 		showRenderLoopErrors: false, // 发生渲染循环错误时，显示HTML面板
-		imageryProvider: getImageryProvider("gd-img", "zh"),
+		imageryProvider,
 		...extra
 	});
 	viewer.container.querySelector(".cesium-viewer-bottom").style.display = "none"; // 隐藏log

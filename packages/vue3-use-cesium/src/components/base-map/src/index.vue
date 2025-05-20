@@ -21,9 +21,9 @@ const baseMapStore = getState();
 let isCreated = false; // 标识只能创建一次
 const createBaseMap = async (options?: MapOptionTypes) => {
 	if (isCreated) return; // 只能创建一个
+	setTdtToken(options?.tdtToken);
 	mapId = await mapFactory.addStatic(mapRef.value as HTMLElement, options);
 	setMapId(mapId);
-	setTdtToken(options?.tdtToken);
 	isCreated = true;
 	mittBus.emit(BusEnum.BaseMapCreated, mapId);
 };
