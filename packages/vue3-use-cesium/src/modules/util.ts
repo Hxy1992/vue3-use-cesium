@@ -62,26 +62,44 @@ export function setZoomInOrOut(viewer: any, type: "zoomIn" | "zoomOut") {
  */
 export function recoverNorth(viewer: any) {
 	if (viewer.scene.mode !== Cesium.SceneMode.SCENE2D) {
+		const intersection = getCameraEarthIntersection(viewer);
 		const rect = viewer.camera.computeViewRectangle(viewer.scene.globe.ellipsoid);
-		if (rect) {
-			viewer.camera.flyTo({
-				destination: rect,
-				orientation: {
-					heading: Cesium.Math.toRadians(0)
-				},
-				duration: 2
-			});
-		} else {
-			viewer.camera.flyTo({
-				destination: viewer.camera.position,
-				orientation: {
-					heading: Cesium.Math.toRadians(0)
-				},
-				duration: 2
-			});
-		}
+		viewer.camera.flyTo({
+			destination: intersection ?? rect ?? viewer.camera.position,
+			orientation: {
+				heading: Cesium.Math.toRadians(0)
+			},
+			duration: 2
+		});
 	}
 }
+/**
+ * 获取当前相机视线方向与地球表面的交点
+ * @param {Cesium.Viewer} viewer Cesium Viewer 实例
+ * @returns {Cesium.Cartesian3 | undefined} 交点坐标（未找到时返回 undefined）
+ */
+function getCameraEarthIntersection(viewer: any) {
+	const scene = viewer.scene;
+	const camera = viewer.camera;
+	const cameraCartographic = Cesium.Cartographic.fromCartesian(camera.position);
+	const targetHeight = cameraCartographic.height;
+	const ray = new Cesium.Ray(
+		camera.position,
+		camera.direction // 相机正前方方向向量
+	);
+	const intersection = scene.globe.pick(ray, scene);
+	if (!intersection) return undefined;
+	const intersectionCartographic = Cesium.Cartographic.fromCartesian(intersection);
+	intersectionCartographic.height = targetHeight; // 修改高度
+
+	// 4. 转换回笛卡尔坐标
+	return Cesium.Cartesian3.fromRadians(
+		intersectionCartographic.longitude,
+		intersectionCartographic.latitude,
+		intersectionCartographic.height
+	);
+}
+
 /**
  * 获取zoom层级
  * @param viewer 视图
