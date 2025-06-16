@@ -312,17 +312,33 @@ function createCylinders() {
 	if (!layer) return;
 	// 渐变圆柱
 	layer.add({
-		position: Cesium.Cartesian3.fromDegrees(-90.0, 30.0, 200000.0),
+		position: Cesium.Cartesian3.fromDegrees(-90.0, 30.0, 100000),
 		cylinder: {
 			material: new Material.CylinderFadeProperty({
 				color: new Cesium.Color(1.0, 0.0, 0.0, 0.7),
 			})
 		},
 	});
+	// 雷达脉冲圆锥
+	layer.add({
+		position: Cesium.Cartesian3.fromDegrees(-90.0, 32.0, 100000),
+		cylinder: {
+			length: 200000,
+			topRadius: 0,
+			bottomRadius: 80000,
+			topSurface: true, //新增参数，控制顶部是否渲染
+			bottomSurface: true, //新增参数，控制底部是否渲染
+			material: new Material.CylinderRadarProperty({
+				color: Cesium.Color.CYAN,
+				thickness: 0.3,
+				repeat: 40,
+			})
+		},
+	});
 }
 // 创建Radar
 function createRadars() {
-	const layer = layerFactory?.addLayer("Cylinders", {
+	const layer = layerFactory?.addLayer("ellipse", {
 		ellipse: {
 			semiMinorAxis: 100000.0,
 			semiMajorAxis: 100000.0,

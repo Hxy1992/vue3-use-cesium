@@ -12,6 +12,7 @@ export * from "./circle/wave";
 // 圆柱
 export * from "./cylinder/fade";
 export * from "./cylinder/particles";
+export * from "./cylinder/radar";
 // 球体
 export * from "./ellipsoid/electric";
 export * from "./ellipsoid/trail";

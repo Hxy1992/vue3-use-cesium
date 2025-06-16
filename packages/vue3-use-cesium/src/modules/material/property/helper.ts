@@ -463,6 +463,76 @@ export function defineMaterialImageSpeed(typeName: string, property: Function, s
 }
 
 /**
+ * 材质定义(包含color, repeat, offset, thickness, duration属性)
+ * @param typeName 材质类型
+ * @param property 材质类
+ * @param shader shader
+ */
+export function defineMaterialRadar(typeName: string, property: Function, shader: string) {
+	// 地图场景后定义材质
+	mittBus.on(BusEnum.BaseMapCreated, () => {
+		if (Cesium.Material[typeName + "Type"]) return;
+		// 材质类型
+		Cesium.Material[typeName + "Type"] = typeName;
+		// 材质缓存
+		Cesium.Material._materialCache.addMaterial(typeName, {
+			fabric: {
+				type: typeName,
+				uniforms: {
+					color: Cesium.Color.CYAN,
+					repeat: 80,
+					offset: 0,
+					time: 0,
+					thickness: 0.15
+				},
+				source: shader
+			},
+			translucent: function (material: any) {
+				return true;
+			}
+		});
+		// 材质定义
+		Object.defineProperties(property.prototype, {
+			isConstant: {
+				get: function () {
+					return false;
+				}
+			},
+			definitionChanged: {
+				get: function () {
+					return this._definitionChanged;
+				}
+			},
+			color: Cesium.createPropertyDescriptor("color")
+		});
+		property.prototype.getType = function (time: any) {
+			return typeName;
+		};
+		property.prototype.getValue = function (time: any, result: any) {
+			if (!Cesium.defined(result)) {
+				result = {};
+			}
+			result.color = Cesium.Property.getValueOrClonedDefault(this._color, time, Cesium.Color.CYAN, result.color);
+			result.time = ((Date.now() - this._time) % this.duration) / this.duration / 10;
+			result.repeat = this.opts.repeat;
+			result.offset = this.opts.offset;
+			result.thickness = this.opts.thickness;
+			return result;
+		};
+		property.prototype.equals = function (other: any) {
+			return (
+				this === other ||
+				(other instanceof property &&
+					Cesium.Property.equals(this._color, (other as any)._color) &&
+					Cesium.Property.equals(this._repeat, (other as any)._repeat) &&
+					Cesium.Property.equals(this._offset, (other as any)._offset) &&
+					Cesium.Property.equals(this._thickness, (other as any)._thickness))
+			);
+		};
+	});
+}
+
+/**
  * 构造函数类型
  */
 export type Constructable<T> = {
