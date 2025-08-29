@@ -65,6 +65,74 @@ export function defineMaterialProperty(typeName: string, property: Function, sha
 }
 
 /**
+ * 材质定义(包含speed, iResolution属性)
+ * @param typeName 材质类型
+ * @param property 材质类
+ * @param shader shader
+ */
+export function defineMaterialSpeed(typeName: string, property: Function, shader: string) {
+	// 地图场景后定义材质
+	mittBus.on(BusEnum.BaseMapCreated, () => {
+		if (Cesium.Material[typeName + "Type"]) return;
+		// 材质类型
+		Cesium.Material[typeName + "Type"] = typeName;
+		// 材质缓存
+		Cesium.Material._materialCache.addMaterial(typeName, {
+			fabric: {
+				type: typeName,
+				uniforms: {
+					speed: 1.0,
+					iResolution: new Cesium.Cartesian2(1024, 1024)
+				},
+				source: shader
+			},
+			translucent: function (material: any) {
+				return true;
+			}
+		});
+		// 材质定义
+		Object.defineProperties(property.prototype, {
+			isConstant: {
+				get: function () {
+					return true;
+				}
+			},
+			definitionChanged: {
+				get: function () {
+					return this._definitionChanged;
+				}
+			},
+			speed: Cesium.createPropertyDescriptor("speed"),
+			iResolution: Cesium.createPropertyDescriptor("iResolution")
+		});
+		property.prototype.getType = function (time: any) {
+			return typeName;
+		};
+		property.prototype.getValue = function (time: any, result: any) {
+			if (!Cesium.defined(result)) {
+				result = {};
+			}
+			result.speed = Cesium.Property.getValueOrClonedDefault(this._speed, time, 1, result.speed);
+			result.iResolution = Cesium.Property.getValueOrClonedDefault(
+				this._iResolution,
+				time,
+				new Cesium.Cartesian2(1024, 1024),
+				result.iResolution
+			);
+			return result;
+		};
+		property.prototype.equals = function (other: any) {
+			return (
+				this === other ||
+				(other instanceof property &&
+					Cesium.Property.equals(this._speed, (other as any)._speed) &&
+					Cesium.Property.equals(this._iResolution, (other as any)._iResolution))
+			);
+		};
+	});
+}
+
+/**
  * 材质定义(包含color属性)
  * @param typeName 材质类型
  * @param property 材质类

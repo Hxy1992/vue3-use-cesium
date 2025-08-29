@@ -32,3 +32,5 @@ export * from "./wall/diffuse";
 export * from "./wall/image-trail";
 export * from "./wall/line-trail";
 export * from "./wall/trail";
+// box
+export * from "./box/zaps";

@@ -123,3 +123,18 @@ useBaseMap("#my-map", viewer => {
 });
 </script>
 ```
+
+### 截图
+
+1. 材质
+   <img src="/images/材质.png" alt="材质" width="100%" height="auto" />
+   | 材质名称 | 效果图 |
+   | :-: | :-: |
+   | 闪电立方体 | <img src="/images/闪电立方体.png" alt="材质" width="240px" height="auto" /> |
+   | 雷达波束 | <img src="/images/雷达波速.png" alt="材质" width="240px" height="auto" /> |
+   | 光电球弧 | <img src="/images/光电球弧.png" alt="材质" width="240px" height="auto" /> |
+   | 渐变墙 | <img src="/images/渐变墙.png" alt="材质" width="240px" height="auto" /> |
+   | 雷达扫描圆 | <img src="/images/雷达扫描圆.png" alt="材质" width="240px" height="auto" /> |
+
+2. 测量
+   <img src="/images/测量.png" alt="测量" width="100%" height="auto" />

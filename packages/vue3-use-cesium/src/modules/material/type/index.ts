@@ -6,3 +6,4 @@ export * from "./polyline";
 export * from "./radar";
 // export * from "./type/thirdpart";
 export * from "./wall";
+export * from "./box";

@@ -34,6 +34,7 @@ function addElements() {
 	createEllipsoids();
 	createCylinders();
 	createRadars();
+	createZapsBox();
 }
 
 // 创建墙体
@@ -373,6 +374,20 @@ function createRadars() {
 			material: new Material.RadarLineProperty({
 				color: Cesium.Color.AQUA,
 				speed: 8
+			})
+		},
+	});
+}
+// 创建Zaps立方体
+function createZapsBox() {
+	const layer = layerFactory?.addLayer("zaps-box");
+	if (!layer) return;
+	layer.add({
+		position: Cesium.Cartesian3.fromDegrees(-95.0, 38.0, 150000.0),
+		box: {
+			dimensions: new Cesium.Cartesian3(100000.0, 100000.0, 100000.0),
+			material: new Material.BoxZapsProperty({
+				speed: 1
 			})
 		},
 	});
