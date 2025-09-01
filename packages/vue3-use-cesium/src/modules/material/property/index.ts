@@ -9,6 +9,7 @@ export * from "./circle/scan";
 export * from "./circle/spiral";
 export * from "./circle/vary";
 export * from "./circle/wave";
+export * from "./circle/glow";
 // 圆柱
 export * from "./cylinder/fade";
 export * from "./cylinder/particles";

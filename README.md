@@ -132,6 +132,7 @@ useBaseMap("#my-map", viewer => {
    | :-: | :-: |
    | 闪电立方体 | <img src="/images/闪电立方体.png" alt="材质" width="240px" height="auto" /> |
    | 雷达波束 | <img src="/images/雷达波速.png" alt="材质" width="240px" height="auto" /> |
+   | 发光圆 | <img src="/images/发光圆.png" alt="材质" width="240px" height="auto" /> |
    | 光电球弧 | <img src="/images/光电球弧.png" alt="材质" width="240px" height="auto" /> |
    | 渐变墙 | <img src="/images/渐变墙.png" alt="材质" width="240px" height="auto" /> |
    | 雷达扫描圆 | <img src="/images/雷达扫描圆.png" alt="材质" width="240px" height="auto" /> |

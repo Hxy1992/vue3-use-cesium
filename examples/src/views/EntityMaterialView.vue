@@ -271,6 +271,17 @@ function createCircles() {
 			})
 		},
 	});
+	// 创建圆-发光圆
+	layer.add({
+		position: Cesium.Cartesian3.fromDegrees(-111.0, 42.0, 150000.0),
+		ellipse: {
+			material: new Material.GlowCircleProperty({
+				speed: 1.0,
+				iResolution: new Cesium.Cartesian2(1024, 1024),
+				backgroundColor: { x: 0.0, y: 0.0, z: 0.0, w: 0.0 }
+			})
+		},
+	});
 }
 // 创建球材质
 function createEllipsoids() {

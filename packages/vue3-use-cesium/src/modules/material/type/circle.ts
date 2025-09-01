@@ -8,6 +8,7 @@ import CircleScanMaterial from "../shader/circle/scan-material";
 import CircleSpiralMaterial from "../shader/circle/spiral";
 import CircleVaryMaterial from "../shader/circle/vary";
 import CircleWaveMaterial from "../shader/circle/wave";
+import GlowCircleMaterial from "../shader/shadertoy/glow-circle";
 
 /**
  * Primitive材质 - CircleBlur
@@ -203,6 +204,27 @@ export function createCircleWave(options: { color?: any; speed?: number; count?:
 				gradient: gradient ?? 0.1
 			},
 			source: CircleWaveMaterial
+		},
+		translucent: function () {
+			return true;
+		}
+	});
+}
+
+/**
+ * Primitive材质 - GlowCircle
+ */
+export function createGlowCircle(options: { speed?: number; iResolution?: any; backgroundColor?: any } = {}) {
+	const { speed, iResolution, backgroundColor } = options;
+	return new Cesium.Material({
+		fabric: {
+			type: "GlowCircle",
+			uniforms: {
+				speed: speed ?? 1.0,
+				iResolution: iResolution ?? new Cesium.Cartesian2(1024, 1024),
+				backgroundColor: backgroundColor ?? { x: 0.0, y: 0.0, z: 0.0, w: 0.0 }
+			},
+			source: GlowCircleMaterial
 		},
 		translucent: function () {
 			return true;
