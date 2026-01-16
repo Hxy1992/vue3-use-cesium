@@ -16,6 +16,7 @@
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"build": "pnpm --filter=vue3-use-cesium build",
+		"dev": "pnpm --filter=examples dev",
 		"examples:dev": "pnpm --filter=examples dev",
 		"examples:build": "pnpm --filter=examples build",
 		"examples:preview": "pnpm --filter=examples preview",

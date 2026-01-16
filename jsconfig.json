@@ -2,8 +2,29 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
-			"@/*": ["examples/**/.js"]
+			"@/*": ["examples/*"]
 		}
 	},
-	"exclude": ["node_modules", "dist"]
+	"include": ["packages/**/*", "examples/**/*"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build",
+		"coverage",
+		"**/__tests__/**",
+		"**/__demos__/**",
+		"**/*.md",
+		"**/*.mdx",
+		"**/*.test.*",
+		"**/*.spec.*",
+		"examples/public/**",
+		"docs",
+		".git",
+		".vscode",
+		".github",
+		"*.log",
+		"*.min.*",
+		"package-lock.json",
+		"yarn.lock"
+	]
 }

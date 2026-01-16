@@ -25,6 +25,7 @@
 
         ```bash
         # 启动示例
+        pnpm run dev
         pnpm run examples:dev
         # 启动接口文档
         pnpm run docs:dev
