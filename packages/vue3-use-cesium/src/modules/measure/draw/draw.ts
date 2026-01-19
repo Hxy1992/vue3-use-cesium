@@ -1,7 +1,6 @@
 import { mapFactory } from "../../basemap";
-import type { MeasureTypes } from "../../../interfaces/measure";
+import type { MeasureCesiumStyle, MeasureTypes } from "../../../interfaces/measure";
 import { LayerFactory, Layer } from "../../layer";
-import { LabelStyle, PointStyle } from "../config";
 
 /**
  * 基类
@@ -22,27 +21,30 @@ export abstract class Draw {
 	 * 临时绘制图层
 	 */
 	protected drawLayer: Layer;
-	constructor(mapUid: string, type: MeasureTypes) {
+
+	protected style: MeasureCesiumStyle;
+	constructor(mapUid: string, type: MeasureTypes, clampToGround: boolean = false, style: MeasureCesiumStyle) {
 		this.isEditing = false;
 		this.viewer = mapFactory.get(mapUid);
 		this.mapUid = mapUid;
 		this.type = type;
 		this.coods = [];
-		this.clampToGround = false;
+		this.clampToGround = clampToGround;
+		this.style = style;
 		// 图层管理
 		this.layerFactory = new LayerFactory();
 		// 临时标注图层
 		this.labelLayer = this.layerFactory.addLayer("draw-temp-label", {
 			point: {
-				pixelSize: 6,
-				outlineWidth: 2,
-				color: PointStyle.color(),
-				outlineColor: PointStyle.outlineColor()
+				pixelSize: this.style.point.pixelSize,
+				outlineWidth: this.style.point.outlineWidth,
+				color: this.style.point.color,
+				outlineColor: this.style.point.outlineColor
 			},
 			label: {
 				show: true,
 				showBackground: true,
-				font: LabelStyle.font,
+				font: this.style.label.font,
 				horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
 				verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
 				pixelOffset: new Cesium.Cartesian2(0, -10)
@@ -135,12 +137,5 @@ export abstract class Draw {
 			case "ModelSurfaceTriangle":
 				return "ModelSurface";
 		}
-	}
-	/**
-	 * 设置图形贴地
-	 * @param clampToGround 是否贴地
-	 */
-	public setClampToGround(clampToGround: boolean) {
-		this.clampToGround = clampToGround;
 	}
 }

@@ -1,21 +1,12 @@
 import { Draw } from "./draw";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle } from "../config";
-import type { MeasureHeightTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 /**
  * 绘制高度差
  */
 export class DrawHeight extends Draw {
 	private movePosition: any;
-	/**
-	 * 绘制线
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: MeasureHeightTypes) {
-		super(mapUid, type);
-	}
+
 	protected addEvents() {
 		const viewer = this.viewer;
 		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
@@ -47,8 +38,8 @@ export class DrawHeight extends Draw {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: false
 			}
 		});

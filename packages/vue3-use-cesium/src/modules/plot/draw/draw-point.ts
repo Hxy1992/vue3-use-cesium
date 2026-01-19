@@ -2,8 +2,6 @@ import { Draw } from "./draw";
 import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PointStyle } from "../config";
-import type { PlotTypes, PlotCallBackType } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 
 /**
@@ -11,15 +9,6 @@ import { pickPosition } from "../../pick-position";
  */
 export class DrawPoint extends Draw {
 	private pointCollection: any;
-	/**
-	 * 绘制点
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 * @param callback 成功回调
-	 */
-	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
-		super(mapUid, type, callback);
-	}
 	/**
 	 * 开始绘制
 	 */
@@ -97,10 +86,10 @@ export class DrawPoint extends Draw {
 	private addPoint(cood: any) {
 		return this.pointCollection.add({
 			position: cood,
-			pixelSize: 4,
-			outlineWidth: 2,
-			color: PointStyle.color().withAlpha(0.8),
-			outlineColor: PointStyle.outlineColor().withAlpha(0.8)
+			pixelSize: this.style.point.pixelSize,
+			outlineWidth: this.style.point.outlineWidth,
+			color: this.style.point.color.withAlpha(0.8),
+			outlineColor: this.style.point.outlineColor.withAlpha(0.8)
 		});
 	}
 	private addLayers() {

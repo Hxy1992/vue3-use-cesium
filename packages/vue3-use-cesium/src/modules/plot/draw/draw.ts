@@ -1,5 +1,5 @@
 import { mapFactory } from "../../basemap";
-import type { PlotTypes, PlotCallBackType } from "../../../interfaces/plot";
+import type { PlotTypes, PlotCallBackType, PlotCesiumStyle } from "../../../interfaces/plot";
 
 /**
  * 基类
@@ -14,7 +14,14 @@ export abstract class Draw {
 	protected events: any[];
 	protected type: PlotTypes;
 	protected clampToGround: boolean;
-	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
+	protected style: PlotCesiumStyle;
+	constructor(
+		mapUid: string,
+		type: PlotTypes,
+		callback: PlotCallBackType,
+		clampToGround: boolean = false,
+		style: PlotCesiumStyle
+	) {
 		this.isEditing = false;
 		this.viewer = mapFactory.get(mapUid);
 		this.mapUid = mapUid;
@@ -22,7 +29,8 @@ export abstract class Draw {
 		this.coods = [];
 		this.events = [];
 		this.callback = callback;
-		this.clampToGround = false;
+		this.clampToGround = clampToGround;
+		this.style = style;
 	}
 	/**
 	 * 开始编辑
@@ -77,13 +85,6 @@ export abstract class Draw {
 			case "ModelSurfacePolygon":
 				return "ModelSurface";
 		}
-	}
-	/**
-	 * 设置图形贴地
-	 * @param clampToGround 是否贴地
-	 */
-	public setClampToGround(clampToGround: boolean) {
-		this.clampToGround = clampToGround;
 	}
 	abstract dispose(): void;
 }

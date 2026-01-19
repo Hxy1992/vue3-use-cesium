@@ -6,7 +6,7 @@
  * +++ 高度差：两点间的地形海拔落差，地形 + 模型 共2种；
  * +++ 三角测量：两点间的地形海拔落差和距离，地形 + 模型 共2种；
  */
-
+import merge from "lodash-es/merge";
 import { DrawPolygon, DrawPolyline, DrawPoint, DrawHeight, DrawTriangle } from "./draw";
 import { getState } from "../../utils/store";
 import type {
@@ -14,8 +14,11 @@ import type {
 	MeasureDistanceTypes,
 	MeasureAreaTypes,
 	MeasureHeightTypes,
-	MeasureTriangleTypes
+	MeasureTriangleTypes,
+	MeasureStyle,
+	MeasureCesiumStyle
 } from "../../interfaces/measure";
+import { PointStyle, PolylineStyle, PolygonStyle, LabelStyle } from "./config";
 
 /**
  * 测量
@@ -24,10 +27,33 @@ export class Measure {
 	private mapId: string | null;
 	private instence: DrawPoint | DrawPolygon | DrawPolyline | DrawHeight | DrawTriangle | null;
 	private clampToGround: boolean;
+	private style: MeasureCesiumStyle;
 	constructor() {
 		this.mapId = getState().mapId;
 		this.instence = null;
 		this.clampToGround = false;
+		this.style = this.createStyle();
+	}
+	/**
+	 * 设置样式
+	 * @param style 样式
+	 */
+	public setStyle(style: MeasureStyle) {
+		this.style = this.createStyle(style);
+	}
+	private createStyle(style?: MeasureStyle): MeasureCesiumStyle {
+		const defaultStyle = {
+			point: PointStyle,
+			polyline: PolylineStyle,
+			polygon: PolygonStyle,
+			label: LabelStyle
+		};
+		const mergeStyle = merge({}, defaultStyle, style) as MeasureCesiumStyle;
+		mergeStyle.point.color = Cesium.Color.fromCssColorString(mergeStyle.point.color);
+		mergeStyle.point.outlineColor = Cesium.Color.fromCssColorString(mergeStyle.point.outlineColor);
+		mergeStyle.polyline.color = Cesium.Color.fromCssColorString(mergeStyle.polyline.color);
+		mergeStyle.polygon.color = Cesium.Color.fromCssColorString(mergeStyle.polygon.color);
+		return mergeStyle;
 	}
 	/**
 	 * 位置测量
@@ -37,8 +63,7 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = true;
 		this.stop();
-		this.instence = new DrawPoint(this.mapId, type);
-		this.instence.setClampToGround(this.clampToGround);
+		this.instence = new DrawPoint(this.mapId, type, this.clampToGround, this.style);
 		this.instence.start();
 	}
 	/**
@@ -51,8 +76,7 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = clampToGround;
 		this.stop();
-		this.instence = new DrawPolyline(this.mapId, type);
-		this.instence.setClampToGround(this.clampToGround);
+		this.instence = new DrawPolyline(this.mapId, type, this.clampToGround, this.style);
 		this.instence.start();
 	}
 	/**
@@ -64,8 +88,7 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = clampToGround;
 		this.stop();
-		this.instence = new DrawPolygon(this.mapId, type);
-		this.instence.setClampToGround(this.clampToGround);
+		this.instence = new DrawPolygon(this.mapId, type, this.clampToGround, this.style);
 		this.instence.start();
 	}
 	/**
@@ -75,7 +98,7 @@ export class Measure {
 	public height(type: MeasureHeightTypes) {
 		if (!this.mapId) return;
 		this.stop();
-		this.instence = new DrawHeight(this.mapId, type);
+		this.instence = new DrawHeight(this.mapId, type, this.clampToGround, this.style);
 		this.instence.start();
 	}
 	/**
@@ -85,7 +108,7 @@ export class Measure {
 	public triangle(type: MeasureTriangleTypes) {
 		if (!this.mapId) return;
 		this.stop();
-		this.instence = new DrawTriangle(this.mapId, type);
+		this.instence = new DrawTriangle(this.mapId, type, this.clampToGround, this.style);
 		this.instence.start();
 	}
 	/**

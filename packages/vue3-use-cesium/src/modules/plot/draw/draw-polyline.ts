@@ -2,23 +2,12 @@ import { Draw } from "./draw";
 import { cartesianListToLngLat } from "../../transform";
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle } from "../config";
-import type { PlotCallBackType, PlotTypes } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 /**
  * 绘制线
  */
 export class DrawPolyline extends Draw {
 	private movePosition: any;
-	/**
-	 * 绘制线
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 * @param callback 成功回调
-	 */
-	constructor(mapUid: string, type: PlotTypes, callback: PlotCallBackType) {
-		super(mapUid, type, callback);
-	}
 	/**
 	 * 开始绘制
 	 */
@@ -102,8 +91,8 @@ export class DrawPolyline extends Draw {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: this.clampToGround
 			}
 		});

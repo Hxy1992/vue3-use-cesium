@@ -1,8 +1,6 @@
 import { Draw } from "./draw";
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle, LabelStyle, PointStyle } from "../config";
-import type { MeasureDistanceTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 import { lerp, getSampledHeight } from "../helper";
 /**
@@ -13,16 +11,8 @@ export class DrawPolyline extends Draw {
 	/**
 	 * 总长度
 	 */
-	private distanceSum: number;
-	/**
-	 * 绘制线
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: MeasureDistanceTypes) {
-		super(mapUid, type);
-		this.distanceSum = 0;
-	}
+	private distanceSum: number = 0;
+
 	protected addEvents() {
 		const viewer = this.viewer;
 		const eventFactory = mapFactory.getEvent(this.mapUid);
@@ -66,8 +56,8 @@ export class DrawPolyline extends Draw {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: this.clampToGround
 			}
 		});

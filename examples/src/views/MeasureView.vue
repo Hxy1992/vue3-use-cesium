@@ -71,6 +71,24 @@ useBaseMap("#my-map", async (v) => {
 	viewer.scene.primitives.add(tileset);
 	viewer.zoomTo(tileset)
 	measure = new Measure();
+	measure.setStyle({
+		point: {
+			color: "red",
+			outlineColor: "yellow",
+			outlineWidth: 2,
+			pixelSize: 8,
+		},
+		polyline: {
+			color: "green",
+			width: 4
+		},
+		polygon: {
+			color: "blue",
+		},
+		// label: {
+		// 	font: "16px sans-serif",
+		// }
+	});
 	terrainClick("xyz")
 });
 

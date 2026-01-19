@@ -2,26 +2,17 @@ import { Edit } from "./edit";
 import { cartesianListToLngLat, LngLatListTocartesian } from "../../transform";
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle, EditPointStyle } from "../config";
-import type { CoodinateType, PlotTypes } from "../../../interfaces/plot";
+import { EditPointConfig } from "../config";
+import type { CoodinateType } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 
 /**
  * 编辑线
  */
 export class EditPolyline extends Edit {
-	pointEntities: any[];
-	tempMiddleEntities: any[];
-	/**
-	 * 编辑多边形
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: PlotTypes) {
-		super(mapUid, type);
-		this.pointEntities = [];
-		this.tempMiddleEntities = [];
-	}
+	pointEntities: any[] = [];
+	tempMiddleEntities: any[] = [];
+
 	/**
 	 * 开始编辑
 	 * @param coods 坐标数组
@@ -60,11 +51,11 @@ export class EditPolyline extends Edit {
 				const pick = viewer.scene.pick(event.position);
 				if (Cesium.defined(pick)) {
 					// 正式点编辑
-					if (pick.id.name === EditPointStyle.LayerName) {
+					if (pick.id.name === EditPointConfig.LayerName) {
 						isMouseDown = true;
 						pickIndex = pick.id.index;
 						this.viewer.scene.screenSpaceCameraController.enableInputs = false; // 禁止相机移动
-					} else if (pick.id.name === EditPointStyle.TempLayerName) {
+					} else if (pick.id.name === EditPointConfig.TempLayerName) {
 						// 临时中点编辑
 						const rindex = this.replaceAndInsert(pick.id);
 						isMouseDown = true;
@@ -80,7 +71,7 @@ export class EditPolyline extends Edit {
 				const pick = viewer.scene.pick(event.endPosition);
 				if (
 					Cesium.defined(pick) &&
-					(pick.id.name === EditPointStyle.LayerName || pick.id.name === EditPointStyle.TempLayerName)
+					(pick.id.name === EditPointConfig.LayerName || pick.id.name === EditPointConfig.TempLayerName)
 				) {
 					this.cursorStyle("move");
 				} else {
@@ -113,8 +104,8 @@ export class EditPolyline extends Edit {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.coods;
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: this.clampToGround
 			}
 		});
@@ -125,16 +116,16 @@ export class EditPolyline extends Edit {
 	}
 	private addEditPoint(index: number) {
 		const p = this.viewer.entities.add({
-			name: EditPointStyle.LayerName,
+			name: EditPointConfig.LayerName,
 			index,
 			position: new Cesium.CallbackProperty(() => {
 				return this.coods[index];
 			}, false),
 			point: {
-				pixelSize: 6,
-				outlineWidth: 2,
-				color: EditPointStyle.color(),
-				outlineColor: EditPointStyle.outlineColor()
+				pixelSize: this.style.point.pixelSize,
+				outlineWidth: this.style.point.outlineWidth,
+				color: this.style.point.color,
+				outlineColor: this.style.point.outlineColor
 			}
 		});
 		this.pointEntities.push(p);
@@ -157,15 +148,15 @@ export class EditPolyline extends Edit {
 	// 添加临时编辑中点
 	private addTempMiddle(startIndex: number, endIndex: number, position: any) {
 		const p = this.viewer.entities.add({
-			name: EditPointStyle.TempLayerName,
+			name: EditPointConfig.TempLayerName,
 			startIndex,
 			endIndex,
 			position,
 			point: {
-				pixelSize: 4,
-				outlineWidth: 2,
-				color: EditPointStyle.color().withAlpha(0.8),
-				outlineColor: EditPointStyle.outlineColor().withAlpha(0.8)
+				pixelSize: this.style.point.tempMiddlePixelSize,
+				outlineWidth: this.style.point.outlineWidth,
+				color: this.style.point.color.withAlpha(0.8),
+				outlineColor: this.style.point.outlineColor.withAlpha(0.8)
 			}
 		});
 		this.tempMiddleEntities.push(p);

@@ -1,22 +1,11 @@
 import { Draw } from "./draw";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import type { MeasurePositionTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
-import { LabelStyle, PointStyle } from "../config";
 
 /**
  * 绘制点
  */
 export class DrawPoint extends Draw {
-	/**
-	 * 绘制点
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 * @param callback 成功回调
-	 */
-	constructor(mapUid: string, type: MeasurePositionTypes) {
-		super(mapUid, type);
-	}
 	protected addEvents() {
 		const viewer = this.viewer;
 		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
@@ -41,16 +30,16 @@ export class DrawPoint extends Draw {
 		this.drawLayer.add({
 			position,
 			point: {
-				pixelSize: 6,
-				outlineWidth: 2,
-				color: PointStyle.color(),
-				outlineColor: PointStyle.outlineColor(),
+				pixelSize: this.style.point.pixelSize,
+				outlineWidth: this.style.point.outlineWidth,
+				color: this.style.point.color,
+				outlineColor: this.style.point.outlineColor,
 				clampToGround: this.clampToGround
 			},
 			label: {
 				show: true,
 				showBackground: true,
-				font: LabelStyle.font,
+				font: this.style.label.font,
 				horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
 				verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
 				pixelOffset: new Cesium.Cartesian2(0, -10),

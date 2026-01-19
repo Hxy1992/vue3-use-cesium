@@ -1,7 +1,9 @@
 import { DrawPolygon, DrawPolyline, DrawPoint } from "./draw";
 import { EditPolygon, EditPolyline, EditPoint } from "./edit";
 import { getState } from "../../utils/store";
-import type { PlotTypes, CoodinateType, PlotCallBackType } from "../../interfaces/plot";
+import type { PlotTypes, CoodinateType, PlotCallBackType, PlotStyle, PlotCesiumStyle } from "../../interfaces/plot";
+import { PointStyle, PolylineStyle, PolygonStyle } from "./config";
+import merge from "lodash-es/merge";
 
 /**
  * 标绘
@@ -10,16 +12,38 @@ export class Plot {
 	private mapId: string | null;
 	private instence: DrawPoint | DrawPolygon | DrawPolyline | EditPoint | EditPolygon | EditPolyline | null;
 	private clampToGround: boolean;
+	private style: PlotCesiumStyle;
 	constructor() {
 		this.mapId = getState().mapId;
 		this.instence = null;
 		this.clampToGround = false;
+		this.style = this.createStyle();
+	}
+	private createStyle(style?: PlotStyle): PlotCesiumStyle {
+		const defaultStyle = {
+			point: PointStyle,
+			polyline: PolylineStyle,
+			polygon: PolygonStyle
+		};
+		const mergeStyle = merge({}, defaultStyle, style) as PlotCesiumStyle;
+		mergeStyle.point.color = Cesium.Color.fromCssColorString(mergeStyle.point.color);
+		mergeStyle.point.outlineColor = Cesium.Color.fromCssColorString(mergeStyle.point.outlineColor);
+		mergeStyle.polyline.color = Cesium.Color.fromCssColorString(mergeStyle.polyline.color);
+		mergeStyle.polygon.color = Cesium.Color.fromCssColorString(mergeStyle.polygon.color);
+		return mergeStyle;
 	}
 	private stopPrevious() {
 		if (this.instence) {
 			this.instence.dispose();
 			this.instence = null;
 		}
+	}
+	/**
+	 * 设置样式
+	 * @param style 样式
+	 */
+	public setStyle(style: PlotStyle) {
+		this.style = this.createStyle(style);
 	}
 	/**
 	 * 设置图形贴地
@@ -41,22 +65,19 @@ export class Plot {
 			case "EllipsoidPoint":
 			case "TerrainSurfacePoint":
 			case "ModelSurfacePoint":
-				this.instence = new DrawPoint(this.mapId, type, callback);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new DrawPoint(this.mapId, type, callback, this.clampToGround, this.style);
 				this.instence.start();
 				break;
 			case "EllipsoidPolyline":
 			case "TerrainSurfacePolyline":
 			case "ModelSurfacePolyline":
-				this.instence = new DrawPolyline(this.mapId, type, callback);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new DrawPolyline(this.mapId, type, callback, this.clampToGround, this.style);
 				this.instence.start();
 				break;
 			case "EllipsoidPolygon":
 			case "TerrainSurfacePolygon":
 			case "ModelSurfacePolygon":
-				this.instence = new DrawPolygon(this.mapId, type, callback);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new DrawPolygon(this.mapId, type, callback, this.clampToGround, this.style);
 				this.instence.start();
 				break;
 			default:
@@ -78,22 +99,19 @@ export class Plot {
 			case "EllipsoidPoint":
 			case "TerrainSurfacePoint":
 			case "ModelSurfacePoint":
-				this.instence = new EditPoint(this.mapId, type);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new EditPoint(this.mapId, type, this.clampToGround, this.style);
 				this.instence.start(coods);
 				break;
 			case "EllipsoidPolyline":
 			case "TerrainSurfacePolyline":
 			case "ModelSurfacePolyline":
-				this.instence = new EditPolyline(this.mapId, type);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new EditPolyline(this.mapId, type, this.clampToGround, this.style);
 				this.instence.start(coods);
 				break;
 			case "EllipsoidPolygon":
 			case "TerrainSurfacePolygon":
 			case "ModelSurfacePolygon":
-				this.instence = new EditPolygon(this.mapId, type);
-				this.instence.setClampToGround(this.clampToGround);
+				this.instence = new EditPolygon(this.mapId, type, this.clampToGround, this.style);
 				this.instence.start(coods);
 				break;
 			default:

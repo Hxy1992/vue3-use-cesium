@@ -2,24 +2,16 @@ import { Edit } from "./edit";
 import { cartesianListToLngLat, LngLatListTocartesian } from "../../transform";
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PointStyle } from "../config";
-import type { CoodinateType, PlotTypes } from "../../../interfaces/plot";
+import { PointLayerName } from "../config";
+import type { CoodinateType } from "../../../interfaces/plot";
 import { pickPosition } from "../../pick-position";
 
 /**
  * 编辑点
  */
 export class EditPoint extends Edit {
-	private entities: any[];
-	/**
-	 * 编辑点
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: PlotTypes) {
-		super(mapUid, type);
-		this.entities = [];
-	}
+	private entities: any[] = [];
+
 	/**
 	 * 开始绘制
 	 * @param coods 坐标数组
@@ -56,7 +48,7 @@ export class EditPoint extends Edit {
 				const pick = viewer.scene.pick(event.position);
 				if (Cesium.defined(pick)) {
 					// 正式点编辑
-					if (pick.id.name === PointStyle.LayerName) {
+					if (pick.id.name === PointLayerName) {
 						isMouseDown = true;
 						pickIndex = pick.id.index;
 						this.viewer.scene.screenSpaceCameraController.enableInputs = false; // 禁止相机移动
@@ -68,7 +60,7 @@ export class EditPoint extends Edit {
 			eventFactory.push(EventTypeEnum.MOUSE_MOVE, (event: any) => {
 				// 鼠标样式
 				const pick = viewer.scene.pick(event.endPosition);
-				if (Cesium.defined(pick) && pick.id.name === PointStyle.LayerName) {
+				if (Cesium.defined(pick) && pick.id.name === PointLayerName) {
 					this.cursorStyle("move");
 				} else {
 					this.cursorStyle("default");
@@ -95,7 +87,7 @@ export class EditPoint extends Edit {
 	private addLayers() {
 		for (let index = 0; index < this.coods.length; index++) {
 			const p = this.viewer.entities.add({
-				name: PointStyle.LayerName,
+				name: PointLayerName,
 				index: index,
 				position: new Cesium.CallbackProperty(() => {
 					return this.coods[index];
@@ -103,8 +95,8 @@ export class EditPoint extends Edit {
 				point: {
 					pixelSize: 6,
 					outlineWidth: 2,
-					color: PointStyle.color(),
-					outlineColor: PointStyle.outlineColor()
+					color: this.style.point.color,
+					outlineColor: this.style.point.outlineColor
 				}
 			});
 			this.entities.push(p);

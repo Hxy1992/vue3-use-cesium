@@ -62,6 +62,22 @@ const clampToGround = ref(false)
 useBaseMap("#my-map", async (v) => {
 	viewer = v;
 	plot = new Plot();
+	plot.setStyle({
+		point: {
+			color: "red",
+			outlineColor: "yellow",
+			outlineWidth: 2,
+			pixelSize: 8,
+			tempMiddlePixelSize: 6
+		},
+		// polyline: {
+		// 	color: "green",
+		// 	width: 4
+		// },
+		// polygon: {
+		// 	color: "blue",
+		// }
+	});
 	tileset = await Cesium.Cesium3DTileset.fromUrl("http://resource.dvgis.cn/data/3dtiles/dayanta/tileset.json", {
 		projectTo2D: true
 	});

@@ -1,8 +1,5 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolygonStyle, PolylineStyle, LabelStyle, PointStyle } from "../config";
-import type { MeasureAreaTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 import { calcArea } from "../helper";
 /**
@@ -10,14 +7,7 @@ import { calcArea } from "../helper";
  */
 export class DrawPolygon extends Draw {
 	private movePosition: any;
-	/**
-	 * 绘制多边形
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: MeasureAreaTypes) {
-		super(mapUid, type);
-	}
+
 	protected addEvents() {
 		const viewer = this.viewer;
 		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
@@ -67,15 +57,15 @@ export class DrawPolygon extends Draw {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.coods.length < 1 ? null : [...this.coods, this.movePosition];
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: this.clampToGround
 			},
 			polygon: {
 				hierarchy: new Cesium.CallbackProperty(() => {
 					return this.coods.length >= 2 ? new Cesium.PolygonHierarchy([...this.coods, this.movePosition]) : null;
 				}, false),
-				material: PolygonStyle.color(),
+				material: this.style.polygon.color,
 				outlineWidth: 0,
 				perPositionHeight: !this.clampToGround && (this.type === "TerrainSurfaceArea" || this.type === "ModelSurfaceArea")
 			}

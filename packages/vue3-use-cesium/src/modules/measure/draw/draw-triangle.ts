@@ -1,8 +1,5 @@
 import { Draw } from "./draw";
-import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
-import { PolylineStyle, LabelStyle, PointStyle } from "../config";
-import type { MeasureTriangleTypes } from "../../../interfaces/measure";
 import { pickPosition } from "../../pick-position";
 import { cartesianToLngLat } from "../../transform";
 
@@ -11,14 +8,7 @@ import { cartesianToLngLat } from "../../transform";
  */
 export class DrawTriangle extends Draw {
 	private movePosition: any;
-	/**
-	 * 绘制线
-	 * @param mapUid 地图id
-	 * @param type 类型
-	 */
-	constructor(mapUid: string, type: MeasureTriangleTypes) {
-		super(mapUid, type);
-	}
+
 	protected addEvents() {
 		const viewer = this.viewer;
 		this.drawLayer.addEvent(EventTypeEnum.LEFT_CLICK, (event: any) => {
@@ -68,8 +58,8 @@ export class DrawTriangle extends Draw {
 				positions: new Cesium.CallbackProperty(() => {
 					return this.getLinePositions();
 				}, false),
-				width: PolylineStyle.width,
-				material: PolylineStyle.color(),
+				width: this.style.polyline.width,
+				material: this.style.polyline.color,
 				clampToGround: false
 			}
 		});

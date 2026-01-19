@@ -1,5 +1,5 @@
 import { mapFactory } from "../../basemap";
-import type { PlotTypes, CoodinateType } from "../../../interfaces/plot";
+import type { PlotTypes, CoodinateType, PlotCesiumStyle } from "../../../interfaces/plot";
 
 /**
  * 基类
@@ -13,15 +13,18 @@ export abstract class Edit {
 	protected events: any[];
 	protected type: PlotTypes;
 	protected clampToGround: boolean;
-	constructor(mapUid: string, type: PlotTypes) {
+	protected style: PlotCesiumStyle;
+	constructor(mapUid: string, type: PlotTypes, clampToGround: boolean = false, style: PlotCesiumStyle) {
 		this.isEditing = false;
 		this.viewer = mapFactory.get(mapUid);
 		this.mapUid = mapUid;
 		this.type = type;
 		this.coods = [];
 		this.events = [];
-		this.clampToGround = false;
+		this.clampToGround = clampToGround;
+		this.style = style;
 	}
+
 	/**
 	 * 开始编辑
 	 */
@@ -75,13 +78,6 @@ export abstract class Edit {
 			case "ModelSurfacePolygon":
 				return "ModelSurface";
 		}
-	}
-	/**
-	 * 设置图形贴地
-	 * @param clampToGround 是否贴地
-	 */
-	public setClampToGround(clampToGround: boolean) {
-		this.clampToGround = clampToGround;
 	}
 	abstract dispose(): void;
 }
