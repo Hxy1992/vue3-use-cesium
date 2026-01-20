@@ -33,10 +33,8 @@ export type MeasureTypes =
 	| MeasureHeightTypes
 	| MeasureTriangleTypes;
 
-/**
- * 坐标类型
- */
-export type CoodinateType = [number, number, number | undefined];
+import type { CoodinateType } from "./types";
+export type { CoodinateType } from "./types";
 
 /**
  * 标绘样式

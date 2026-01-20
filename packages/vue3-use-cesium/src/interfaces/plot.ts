@@ -11,10 +11,9 @@ export type PlotTypes =
 	| "ModelSurfacePoint"
 	| "ModelSurfacePolyline"
 	| "ModelSurfacePolygon";
-/**
- * 坐标类型
- */
-export type CoodinateType = [number, number, number | undefined];
+import type { CoodinateType } from "./types";
+export type { CoodinateType } from "./types";
+
 /**
  * 回调类型
  */
