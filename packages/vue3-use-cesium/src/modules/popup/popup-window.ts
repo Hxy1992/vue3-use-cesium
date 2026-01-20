@@ -3,7 +3,7 @@ import { mapFactory } from "../basemap";
 import { EventFactory } from "../event";
 import { EventTypeEnum } from "../../enums/map-enum";
 
-export type EventTypes = "LEFT_CLICK" | "MOUSE_MOVE";
+export type PopupEventTypes = "LEFT_CLICK" | "MOUSE_MOVE";
 export type PositionAlowTypes = "Entity" | "Primitive" | "Mouse";
 
 /**
@@ -26,7 +26,7 @@ export interface OptionTypes {
 	/**
 	 * 弹窗方式：鼠标点击/鼠标移动
 	 */
-	activeType?: EventTypes;
+	activeType?: PopupEventTypes;
 	/**
 	 * 获取位置类型："Entity" | "Primitive" | "Mouse", Mouse为直接获取鼠标点击的位置
 	 */
@@ -77,7 +77,7 @@ export class PopupWindow {
 	private viewer: any;
 	private includeFeature: Function;
 	private dom: HTMLElement;
-	private activeType: EventTypes;
+	private activeType: PopupEventTypes;
 	private visibleChange: Function;
 	private offsetX: number;
 	private offsetY: number;
