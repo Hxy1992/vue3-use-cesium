@@ -87,6 +87,7 @@ export abstract class Draw {
 	 * 销毁（停止并清空）
 	 */
 	public dispose() {
+		this.stop();
 		this.drawLayer.dispose();
 		this.labelLayer.dispose();
 		this.coods = [];

@@ -34,7 +34,7 @@ export class Plot {
 	}
 	private stopPrevious() {
 		if (this.instence) {
-			this.instence.dispose();
+			this.instence.end();
 			this.instence = null;
 		}
 	}
