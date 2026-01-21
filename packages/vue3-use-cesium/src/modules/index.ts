@@ -5,7 +5,7 @@ import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interfaces/map";
 export { setToTarget, setViewType, setVisible, setViewTypeDisabled, getState } from "../utils/store";
 export * from "./plot";
-export { toGeoJson, cartesianToLngLat } from "./transform";
+export { toGeoJson, cartesianToLngLat, cartesianListToLngLat, LngLatListTocartesian } from "./transform";
 export * from "./terrain";
 export * from "./measure";
 export * from "./layer";
