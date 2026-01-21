@@ -77,8 +77,6 @@ export class DrawPoint extends Draw {
 					this.coods.pop();
 					const p = this.pointCollection.get(this.pointCollection.length - 1);
 					this.pointCollection.remove(p);
-				} else {
-					this.end();
 				}
 			})
 		);

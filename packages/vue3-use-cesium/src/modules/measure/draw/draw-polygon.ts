@@ -35,8 +35,6 @@ export class DrawPolygon extends Draw {
 		this.drawLayer.addEvent(EventTypeEnum.RIGHT_CLICK, () => {
 			if (this.coods.length > 0) {
 				this.coods.pop();
-			} else {
-				this.stop();
 			}
 		});
 	}

@@ -16,16 +16,16 @@ export class EditPolygon extends Edit {
 	/**
 	 * 开始编辑
 	 * @param coods 坐标数组
-	 * @param locate 视图定位
+	 * @param zoomTo 是否自动缩放
 	 */
-	start(coods: CoodinateType[], locate = true) {
+	start(coods: CoodinateType[], zoomTo?: boolean) {
 		if (this.isEditing) return;
 		if (coods.length < 3) return;
 		// 地图事件、容器等
 		this.coods = LngLatListTocartesian(coods);
 		this.init();
 		this.setStartStates();
-		if (locate) this.viewer.zoomTo(this.entity);
+		if (zoomTo) this.viewer.zoomTo(this.entity);
 	}
 	/**
 	 * 结束编辑
@@ -95,7 +95,10 @@ export class EditPolygon extends Edit {
 		);
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_UP, () => {
-				if (isMouseDown && pickIndex !== null) this.viewer.scene.screenSpaceCameraController.enableInputs = true; // 禁止相机移动
+				if (isMouseDown && pickIndex !== null) {
+					this.callback(this.getCoods());
+					this.viewer.scene.screenSpaceCameraController.enableInputs = true;
+				}
 				isMouseDown = false;
 				pickIndex = null;
 			})

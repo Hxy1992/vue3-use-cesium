@@ -90,29 +90,31 @@ export class Plot {
 	 * 编辑
 	 * @param type 类型
 	 * @param coods 坐标
+	 * @param callback 回调
+	 * @param zoomTo 是否缩放
 	 * @returns
 	 */
-	public edit(type: PlotTypes, coods: CoodinateType[]) {
+	public edit(type: PlotTypes, coods: CoodinateType[], callback: PlotCallBackType = () => {}, zoomTo?: boolean) {
 		if (!this.mapId) return;
 		this.stopPrevious();
 		switch (type) {
 			case "EllipsoidPoint":
 			case "TerrainSurfacePoint":
 			case "ModelSurfacePoint":
-				this.instence = new EditPoint(this.mapId, type, this.clampToGround, this.style);
-				this.instence.start(coods);
+				this.instence = new EditPoint(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instence.start(coods, zoomTo);
 				break;
 			case "EllipsoidPolyline":
 			case "TerrainSurfacePolyline":
 			case "ModelSurfacePolyline":
-				this.instence = new EditPolyline(this.mapId, type, this.clampToGround, this.style);
-				this.instence.start(coods);
+				this.instence = new EditPolyline(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instence.start(coods, zoomTo);
 				break;
 			case "EllipsoidPolygon":
 			case "TerrainSurfacePolygon":
 			case "ModelSurfacePolygon":
-				this.instence = new EditPolygon(this.mapId, type, this.clampToGround, this.style);
-				this.instence.start(coods);
+				this.instence = new EditPolygon(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instence.start(coods, zoomTo);
 				break;
 			default:
 				this.instence = null;

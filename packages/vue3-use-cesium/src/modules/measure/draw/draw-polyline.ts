@@ -41,8 +41,6 @@ export class DrawPolyline extends Draw {
 			if (this.coods.length > 0) {
 				this.coods.pop();
 				this.removeLastIndexOfLabels();
-			} else {
-				this.stop();
 			}
 		});
 	}

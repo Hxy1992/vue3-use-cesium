@@ -1,5 +1,5 @@
 import { mapFactory } from "../../basemap";
-import type { PlotTypes, CoodinateType, PlotCesiumStyle } from "../../../interfaces/plot";
+import type { PlotTypes, CoodinateType, PlotCesiumStyle, PlotCallBackType } from "../../../interfaces/plot";
 
 /**
  * 基类
@@ -14,7 +14,14 @@ export abstract class Edit {
 	protected type: PlotTypes;
 	protected clampToGround: boolean;
 	protected style: PlotCesiumStyle;
-	constructor(mapUid: string, type: PlotTypes, clampToGround: boolean = false, style: PlotCesiumStyle) {
+	protected callback: PlotCallBackType;
+	constructor(
+		mapUid: string,
+		type: PlotTypes,
+		clampToGround: boolean = false,
+		style: PlotCesiumStyle,
+		callback: PlotCallBackType
+	) {
 		this.isEditing = false;
 		this.viewer = mapFactory.get(mapUid);
 		this.mapUid = mapUid;
@@ -23,12 +30,13 @@ export abstract class Edit {
 		this.events = [];
 		this.clampToGround = clampToGround;
 		this.style = style;
+		this.callback = callback;
 	}
 
 	/**
 	 * 开始编辑
 	 */
-	abstract start(coods: CoodinateType[]): void;
+	abstract start(coods: CoodinateType[], zoomTo?: boolean): void;
 	/**
 	 * 结束编辑
 	 */

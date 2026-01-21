@@ -107,7 +107,9 @@ function drawClick(type: any) {
 function drawEditClick(type: any) {
 	if (!plot) return;
 	plot.draw(type, coods => {
-		if (coods) plot.edit(type, coods);
+		if (coods) plot.edit(type, coods, editCoods => {
+			console.log('编辑后坐标', editCoods);
+		}, false);
 	});
 }
 function drawGeojsonClick(type: any) {

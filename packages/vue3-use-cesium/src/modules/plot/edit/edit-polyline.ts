@@ -16,15 +16,16 @@ export class EditPolyline extends Edit {
 	/**
 	 * 开始编辑
 	 * @param coods 坐标数组
+	 * @param zoomTo 是否自动缩放
 	 */
-	start(coods: CoodinateType[]) {
+	start(coods: CoodinateType[], zoomTo?: boolean) {
 		if (this.isEditing) return;
 		if (coods.length < 2) return;
 		// 地图事件、容器等
 		this.coods = LngLatListTocartesian(coods);
 		this.init();
 		this.setStartStates();
-		this.viewer.zoomTo(this.viewer.entities);
+		if (zoomTo) this.viewer.zoomTo(this.viewer.entities);
 	}
 	/**
 	 * 结束编辑
@@ -90,7 +91,10 @@ export class EditPolyline extends Edit {
 		);
 		this.events.push(
 			eventFactory.push(EventTypeEnum.LEFT_UP, () => {
-				if (isMouseDown && pickIndex !== null) this.viewer.scene.screenSpaceCameraController.enableInputs = true; // 禁止相机移动
+				if (isMouseDown && pickIndex !== null) {
+					this.callback(cartesianListToLngLat(this.coods));
+					this.viewer.scene.screenSpaceCameraController.enableInputs = true;
+				}
 				isMouseDown = false;
 				pickIndex = null;
 			})
