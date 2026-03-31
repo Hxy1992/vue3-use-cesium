@@ -270,6 +270,25 @@ export class PopupWindow {
 	hidePopup() {
 		if (this.dom) this.dom.style.display = "none";
 		this.unKeepPosition();
+		this.pickedObject = undefined;
+	}
+	/**
+	 * 主动显示弹窗
+	 * @param {*} target entity/primitive 对象
+	 */
+	showPopup(target: any) {
+		const isEntity = target instanceof Cesium.Entity;
+		const isPrimitive = target instanceof Cesium.Primitive;
+		if (!isEntity && !isPrimitive) return;
+		if (this.dom) this.dom.style.display = "block";
+		this.pickedObject = isEntity ? { id: target } : { primitive: target };
+		this.keepPosition(
+			{
+				position: isEntity ? target.position.getValue(Date.now()) : target.position
+			},
+			this.pickedObject,
+			true
+		);
 	}
 	/**
 	 * 销毁

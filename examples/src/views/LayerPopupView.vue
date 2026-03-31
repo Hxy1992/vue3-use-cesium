@@ -35,6 +35,7 @@
 			1、调用hidePopup方法, 主动隐藏弹窗
 			<pre />
 			<button @click="hidePopup">隐藏弹窗</button>
+			<button @click="showPopup">主动显示弹窗</button>
 			<pre />
 			2、弹窗支持动态高度, 需设置
 			<pre />
@@ -240,6 +241,15 @@ function hidePopup() {
 	popupBillboard?.hidePopup();
 	popupPolygon?.hidePopup();
 	popupModel?.hidePopup();
+}
+// 主动显示弹窗
+function showPopup() {
+	const entity = layerBillboard?.getAllEntities()[0];
+	popupData.value = {
+		name: entity?.attr?.name || "--",
+		phone: Math.floor(Math.random() * 100000000000).toString()
+	};
+	popupBillboard?.showPopup(entity);
 }
 function deleteEntity() {
 	if (!layerFactory || !layerBillboard) return;
