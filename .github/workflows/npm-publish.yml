@@ -9,6 +9,8 @@ on:
 # 按顺序运行作业
 jobs:
   publish-gpr:
+    # 禁用此工作流
+    if: false
     # 指定的运行器环境
     runs-on: ubuntu-latest
     # 设置 node 版本
