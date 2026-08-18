@@ -27,12 +27,12 @@ const createBaseMap = async (options?: MapOptionTypes) => {
 	isCreated = true;
 	mittBus.emit(BusEnum.BaseMapCreated, mapId);
 };
-mittBus.on(BusEnum.StartCreateBaseMap, createBaseMap);
+const unsub = mittBus.on(BusEnum.StartCreateBaseMap, createBaseMap);
 
 // 组件销毁
 onBeforeUnmount(() => {
 	isCreated = false;
-	mittBus.dispose();
+	unsub();
 	mapFactory.remove(mapId, true);
 });
 </script>

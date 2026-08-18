@@ -9,20 +9,17 @@ const urlMap = new Map();
  * @param scriptList js地址列表
  * @returns Promise
  */
-export function loaderScript(scriptList: Array<string>) {
-	return new Promise<boolean>(async (resolve, reject) => {
-		if (!Array.isArray(scriptList) || scriptList.length === 0) {
-			reject(false);
-			return;
-		}
-		const list = removeRepeat(scriptList);
-		for (let index = 0; index < list.length; index++) {
-			const url = list[index];
-			urlMap.set(url, true);
-			await createScript(url);
-		}
-		resolve(true);
-	});
+export async function loaderScript(scriptList: Array<string>): Promise<boolean> {
+	if (!Array.isArray(scriptList) || scriptList.length === 0) {
+		throw false;
+	}
+	const list = removeRepeat(scriptList);
+	for (let index = 0; index < list.length; index++) {
+		const url = list[index];
+		urlMap.set(url, true);
+		await createScript(url);
+	}
+	return true;
 }
 // 防止重复加载
 function removeRepeat(scriptList: Array<string>) {

@@ -13,11 +13,15 @@ class MittBus {
 	 * 开始监听事件
 	 * @param eventId 事件id
 	 * @param func 回调函数
+	 * @returns 取消监听函数
 	 */
-	public on(eventId: string, func: Function) {
-		if (!func) return;
+	public on(eventId: string, func: Function): () => void {
+		if (!func) return () => {};
 		if (!this.events[eventId]) this.events[eventId] = [];
 		this.events[eventId].push(func);
+		return () => {
+			this.off(eventId, func);
+		};
 	}
 	/**
 	 * 触发事件
@@ -33,10 +37,15 @@ class MittBus {
 	/**
 	 * 取消事件监听
 	 * @param eventId 事件id
+	 * @param func 回调函数（可选，传入则只移除该回调，不传则删除整个事件）
 	 */
-	public off(eventId: string) {
+	public off(eventId: string, func?: Function) {
 		if (!this.events[eventId]) return;
-		delete this.events[eventId];
+		if (func) {
+			this.events[eventId] = this.events[eventId].filter(f => f !== func);
+		} else {
+			delete this.events[eventId];
+		}
 	}
 	/**
 	 * 清空所有事件监听

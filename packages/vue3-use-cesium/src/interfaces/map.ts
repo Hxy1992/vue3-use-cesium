@@ -7,7 +7,6 @@ export type EventTypes =
 	| "LEFT_DOWN"
 	| "LEFT_UP"
 	| "LEFT_CLICK"
-	| "LEFT_UP"
 	| "RIGHT_DOWN"
 	| "RIGHT_UP"
 	| "RIGHT_CLICK"

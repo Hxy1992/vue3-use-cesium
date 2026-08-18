@@ -1,4 +1,4 @@
-import type { CoodinateType } from "../../interfaces/plot";
+import type { CoodinateType } from "../../interfaces/types";
 
 /**
  * 笛卡尔坐标转为经纬度
@@ -38,7 +38,7 @@ export function cartesianListToLngLat(data: any | any[]) {
  * @param data 经纬度
  * @returns cartesian数组
  */
-export function LngLatListTocartesian(data: CoodinateType[]) {
+export function LngLatListToCartesian(data: CoodinateType[]) {
 	const res: any[] = [];
 	data.forEach(item => {
 		const cood = Cesium.Cartesian3.fromDegrees(...item);
@@ -48,3 +48,6 @@ export function LngLatListTocartesian(data: CoodinateType[]) {
 	});
 	return res;
 }
+
+/** @deprecated Use LngLatListToCartesian instead. */
+export const LngLatListTocartesian = LngLatListToCartesian;

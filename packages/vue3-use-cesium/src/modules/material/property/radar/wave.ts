@@ -1,4 +1,4 @@
-import RadarWaveMaterial from "../../shader/radar/wava";
+import RadarWaveMaterial from "../../shader/radar/wave";
 import { defineMaterialProperty } from "../helper";
 import type { Constructable } from "../helper";
 

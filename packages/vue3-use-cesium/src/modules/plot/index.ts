@@ -1,7 +1,8 @@
 import { DrawPolygon, DrawPolyline, DrawPoint } from "./draw";
 import { EditPolygon, EditPolyline, EditPoint } from "./edit";
 import { getState } from "../../utils/store";
-import type { PlotTypes, CoodinateType, PlotCallBackType, PlotStyle, PlotCesiumStyle } from "../../interfaces/plot";
+import type { PlotTypes, PlotCallBackType, PlotStyle, PlotCesiumStyle } from "../../interfaces/plot";
+import type { CoodinateType } from "../../interfaces/types";
 import { PointStyle, PolylineStyle, PolygonStyle } from "./config";
 import merge from "lodash-es/merge";
 
@@ -10,12 +11,12 @@ import merge from "lodash-es/merge";
  */
 export class Plot {
 	private mapId: string | null;
-	private instence: DrawPoint | DrawPolygon | DrawPolyline | EditPoint | EditPolygon | EditPolyline | null;
+	private instance: DrawPoint | DrawPolygon | DrawPolyline | EditPoint | EditPolygon | EditPolyline | null;
 	private clampToGround: boolean;
 	private style: PlotCesiumStyle;
 	constructor() {
 		this.mapId = getState().mapId;
-		this.instence = null;
+		this.instance = null;
 		this.clampToGround = false;
 		this.style = this.createStyle();
 	}
@@ -33,9 +34,9 @@ export class Plot {
 		return mergeStyle;
 	}
 	private stopPrevious() {
-		if (this.instence) {
-			this.instence.end();
-			this.instence = null;
+		if (this.instance) {
+			this.instance.end();
+			this.instance = null;
 		}
 	}
 	/**
@@ -65,26 +66,26 @@ export class Plot {
 			case "EllipsoidPoint":
 			case "TerrainSurfacePoint":
 			case "ModelSurfacePoint":
-				this.instence = new DrawPoint(this.mapId, type, callback, this.clampToGround, this.style);
-				this.instence.start();
+				this.instance = new DrawPoint(this.mapId, type, callback, this.clampToGround, this.style);
+				this.instance.start();
 				break;
 			case "EllipsoidPolyline":
 			case "TerrainSurfacePolyline":
 			case "ModelSurfacePolyline":
-				this.instence = new DrawPolyline(this.mapId, type, callback, this.clampToGround, this.style);
-				this.instence.start();
+				this.instance = new DrawPolyline(this.mapId, type, callback, this.clampToGround, this.style);
+				this.instance.start();
 				break;
 			case "EllipsoidPolygon":
 			case "TerrainSurfacePolygon":
 			case "ModelSurfacePolygon":
-				this.instence = new DrawPolygon(this.mapId, type, callback, this.clampToGround, this.style);
-				this.instence.start();
+				this.instance = new DrawPolygon(this.mapId, type, callback, this.clampToGround, this.style);
+				this.instance.start();
 				break;
 			default:
-				this.instence = null;
+				this.instance = null;
 				break;
 		}
-		return this.instence;
+		return this.instance;
 	}
 	/**
 	 * 编辑
@@ -101,26 +102,26 @@ export class Plot {
 			case "EllipsoidPoint":
 			case "TerrainSurfacePoint":
 			case "ModelSurfacePoint":
-				this.instence = new EditPoint(this.mapId, type, this.clampToGround, this.style, callback);
-				this.instence.start(coods, zoomTo);
+				this.instance = new EditPoint(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instance.start(coods, zoomTo);
 				break;
 			case "EllipsoidPolyline":
 			case "TerrainSurfacePolyline":
 			case "ModelSurfacePolyline":
-				this.instence = new EditPolyline(this.mapId, type, this.clampToGround, this.style, callback);
-				this.instence.start(coods, zoomTo);
+				this.instance = new EditPolyline(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instance.start(coods, zoomTo);
 				break;
 			case "EllipsoidPolygon":
 			case "TerrainSurfacePolygon":
 			case "ModelSurfacePolygon":
-				this.instence = new EditPolygon(this.mapId, type, this.clampToGround, this.style, callback);
-				this.instence.start(coods, zoomTo);
+				this.instance = new EditPolygon(this.mapId, type, this.clampToGround, this.style, callback);
+				this.instance.start(coods, zoomTo);
 				break;
 			default:
-				this.instence = null;
+				this.instance = null;
 				break;
 		}
-		return this.instence;
+		return this.instance;
 	}
 	/**
 	 * 停止标绘

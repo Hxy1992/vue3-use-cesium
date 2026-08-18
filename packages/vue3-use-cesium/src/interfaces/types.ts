@@ -5,4 +5,7 @@
 /**
  * 坐标类型
  */
-export type CoodinateType = [number, number, number | undefined];
+export type CoordinateType = [number, number, number | undefined];
+
+/** @deprecated Use CoordinateType instead. */
+export type CoodinateType = CoordinateType;

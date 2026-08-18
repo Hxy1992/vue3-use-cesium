@@ -5,7 +5,9 @@ import { mittBus } from "../utils/mitt-bus";
 import type { MapOptionTypes } from "../interfaces/map";
 export { setToTarget, setViewType, setVisible, setViewTypeDisabled, getState } from "../utils/store";
 export * from "./plot";
-export { toGeoJson, cartesianToLngLat, cartesianListToLngLat, LngLatListTocartesian } from "./transform";
+export { toGeoJson, cartesianToLngLat, cartesianListToLngLat, LngLatListToCartesian } from "./transform";
+/** @deprecated Use LngLatListToCartesian instead. */
+export { LngLatListTocartesian } from "./transform";
 export * from "./terrain";
 export * from "./measure";
 export * from "./layer";
@@ -40,17 +42,10 @@ export function getEventFactory() {
  * @param options 配置参数
  * @returns Promise
  */
-export function initMap(cesiumUrls: string[], options?: MapOptionTypes) {
-	return new Promise<boolean>(async (resolve, reject) => {
-		try {
-			await loaderScript(cesiumUrls);
-			mittBus.emit(BusEnum.StartCreateBaseMap, options);
-			resolve(true);
-		} catch (err) {
-			console.error(err);
-			reject(err);
-		}
-	});
+export async function initMap(cesiumUrls: string[], options?: MapOptionTypes): Promise<boolean> {
+	await loaderScript(cesiumUrls);
+	mittBus.emit(BusEnum.StartCreateBaseMap, options);
+	return true;
 }
 
 /**

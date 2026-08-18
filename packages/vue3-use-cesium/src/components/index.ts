@@ -18,6 +18,8 @@ function install(app: App): void {
 }
 
 export { ZMapBase, ZMapTool, ZMapScale, ZMapStatus };
+/** @deprecated Use ZMapBase instead */
+export { ZMapBase as BaseMap };
 export default {
 	install,
 	components

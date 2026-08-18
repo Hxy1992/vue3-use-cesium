@@ -1,6 +1,6 @@
 import RadarLineMaterial from "../shader/radar/line";
 import RadarSweepMaterial from "../shader/radar/sweep";
-import RadarWaveMaterial from "../shader/radar/wava";
+import RadarWaveMaterial from "../shader/radar/wave";
 
 /**
  * Primitive材质 - RadarLine

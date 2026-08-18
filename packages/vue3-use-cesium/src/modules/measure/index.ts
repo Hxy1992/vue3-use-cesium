@@ -25,12 +25,12 @@ import { PointStyle, PolylineStyle, PolygonStyle, LabelStyle } from "./config";
  */
 export class Measure {
 	private mapId: string | null;
-	private instence: DrawPoint | DrawPolygon | DrawPolyline | DrawHeight | DrawTriangle | null;
+	private instance: DrawPoint | DrawPolygon | DrawPolyline | DrawHeight | DrawTriangle | null;
 	private clampToGround: boolean;
 	private style: MeasureCesiumStyle;
 	constructor() {
 		this.mapId = getState().mapId;
-		this.instence = null;
+		this.instance = null;
 		this.clampToGround = false;
 		this.style = this.createStyle();
 	}
@@ -63,8 +63,8 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = true;
 		this.stop();
-		this.instence = new DrawPoint(this.mapId, type, this.clampToGround, this.style);
-		this.instence.start();
+		this.instance = new DrawPoint(this.mapId, type, this.clampToGround, this.style);
+		this.instance.start();
 	}
 	/**
 	 * 距离测量
@@ -76,8 +76,8 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = clampToGround;
 		this.stop();
-		this.instence = new DrawPolyline(this.mapId, type, this.clampToGround, this.style);
-		this.instence.start();
+		this.instance = new DrawPolyline(this.mapId, type, this.clampToGround, this.style);
+		this.instance.start();
 	}
 	/**
 	 * 面积测量
@@ -88,8 +88,8 @@ export class Measure {
 		if (!this.mapId) return;
 		this.clampToGround = clampToGround;
 		this.stop();
-		this.instence = new DrawPolygon(this.mapId, type, this.clampToGround, this.style);
-		this.instence.start();
+		this.instance = new DrawPolygon(this.mapId, type, this.clampToGround, this.style);
+		this.instance.start();
 	}
 	/**
 	 * 高度差测量
@@ -98,8 +98,8 @@ export class Measure {
 	public height(type: MeasureHeightTypes) {
 		if (!this.mapId) return;
 		this.stop();
-		this.instence = new DrawHeight(this.mapId, type, this.clampToGround, this.style);
-		this.instence.start();
+		this.instance = new DrawHeight(this.mapId, type, this.clampToGround, this.style);
+		this.instance.start();
 	}
 	/**
 	 * 三角测量
@@ -108,34 +108,34 @@ export class Measure {
 	public triangle(type: MeasureTriangleTypes) {
 		if (!this.mapId) return;
 		this.stop();
-		this.instence = new DrawTriangle(this.mapId, type, this.clampToGround, this.style);
-		this.instence.start();
+		this.instance = new DrawTriangle(this.mapId, type, this.clampToGround, this.style);
+		this.instance.start();
 	}
 	/**
 	 * 停止
 	 */
 	public stop() {
-		if (this.instence) {
-			this.instence.dispose();
-			this.instence = null;
+		if (this.instance) {
+			this.instance.dispose();
+			this.instance = null;
 		}
 	}
 	/**
 	 * 清空
 	 */
 	public clear() {
-		if (this.instence) {
-			this.instence.clear();
-			this.instence = null;
+		if (this.instance) {
+			this.instance.clear();
+			this.instance = null;
 		}
 	}
 	/**
 	 * 停止
 	 */
 	public dispose() {
-		if (this.instence) {
-			this.instence.dispose();
-			this.instence = null;
+		if (this.instance) {
+			this.instance.dispose();
+			this.instance = null;
 		}
 	}
 }

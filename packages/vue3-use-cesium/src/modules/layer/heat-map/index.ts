@@ -9,20 +9,16 @@ const DEF_OPT = {
 	radius: 50,
 	classificationType: 2 // Cesium.ClassificationType.BOTH
 };
-let index = 1;
-
-// TODO 逻辑优化
-// 首次加载等待
-let isFirst = true;
-
 /**
  * 热力图层
  */
 export class HeatmapLayer {
+	private static index = 1;
 	protected mapId: string;
 	protected viewer: any;
 	protected name: string;
 	protected id: string;
+	private isFirst = true;
 	private lyrOptions: HeatmapLayerType;
 	private heatLyr: HeatMapLayer | undefined;
 	/**
@@ -36,7 +32,7 @@ export class HeatmapLayer {
 		this.id = "";
 		const id = getState().mapId;
 		if (!id) throw new Error("mapId is not defined");
-		this.name = name || "临时图层" + index++;
+		this.name = name || "临时图层" + HeatmapLayer.index++;
 		this.id = generateUUID();
 		this.mapId = id;
 		this.viewer = mapFactory.get(this.mapId);
@@ -93,9 +89,9 @@ export class HeatmapLayer {
 			value: number;
 		}[]
 	) {
-		if (isFirst) {
+		if (this.isFirst) {
 			await this.sleep();
-			isFirst = false;
+			this.isFirst = false;
 		}
 		this.heatLyr?.setPoints(data);
 	}

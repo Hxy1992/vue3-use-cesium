@@ -3,7 +3,7 @@ import { cartesianListToLngLat, LngLatListTocartesian, cartesianToLngLat } from 
 import { mapFactory } from "../../basemap";
 import { EventTypeEnum } from "../../../enums/map-enum";
 import { PointLayerName } from "../config";
-import type { CoodinateType } from "../../../interfaces/plot";
+import type { CoodinateType } from "../../../interfaces/types";
 import { pickPosition } from "../../pick-position";
 
 /**
